@@ -1,0 +1,61 @@
+/* Glaise preset for Tailwind v4.
+   References tokens.css — NEVER redeclare raw values here.
+   Usage in a project: @import "tokens.css"; @import "theme.css";
+   Spacing note: Glaise uses a 4px base, which matches Tailwind v4's
+   default --spacing scale, so p-4 = 16px etc. already align — no override. */
+@import "./tokens.css";
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-primary: var(--glaise-primary);
+  --color-on-primary: var(--glaise-on-primary);
+  --color-primary-hover: var(--glaise-primary-hover);
+  --color-primary-focus: var(--glaise-primary-focus);
+  --color-brand-secure: var(--glaise-brand-secure);
+  --color-ink: var(--glaise-ink);
+  --color-ink-muted: var(--glaise-ink-muted);
+  --color-ink-subtle: var(--glaise-ink-subtle);
+  --color-ink-tertiary: var(--glaise-ink-tertiary);
+  --color-canvas: var(--glaise-canvas);
+  --color-surface-1: var(--glaise-surface-1);
+  --color-surface-2: var(--glaise-surface-2);
+  --color-surface-3: var(--glaise-surface-3);
+  --color-surface-4: var(--glaise-surface-4);
+  --color-hairline: var(--glaise-hairline);
+  --color-hairline-strong: var(--glaise-hairline-strong);
+  --color-hairline-tertiary: var(--glaise-hairline-tertiary);
+  --color-success: var(--glaise-success);
+
+  /* Radius */
+  --radius-xs: var(--glaise-radius-xs);
+  --radius-sm: var(--glaise-radius-sm);
+  --radius-md: var(--glaise-radius-md);
+  --radius-lg: var(--glaise-radius-lg);
+  --radius-xl: var(--glaise-radius-xl);
+  --radius-xxl: var(--glaise-radius-xxl);
+
+  /* Fonts */
+  --font-sans: var(--glaise-font-sans);
+  --font-mono: var(--glaise-font-mono);
+
+  /* Motion — strong family curves; `ease-out`/`ease-in-out` utilities now carry
+     the punch, plus a `ease-drawer`. Durations: use the --glaise-duration-* vars
+     directly, e.g. duration-[var(--glaise-duration-base)]. */
+  --ease-out: var(--glaise-ease-out);
+  --ease-in-out: var(--glaise-ease-in-out);
+  --ease-drawer: var(--glaise-ease-drawer);
+
+  /* Type scale */
+  --text-display-xl: var(--glaise-text-display-xl);
+  --text-display-lg: var(--glaise-text-display-lg);
+  --text-display-md: var(--glaise-text-display-md);
+  --text-headline: var(--glaise-text-headline);
+  --text-card-title: var(--glaise-text-card-title);
+  --text-subhead: var(--glaise-text-subhead);
+  --text-body-lg: var(--glaise-text-body-lg);
+  --text-body: var(--glaise-text-body);
+  --text-body-sm: var(--glaise-text-body-sm);
+  --text-caption: var(--glaise-text-caption);
+  --text-eyebrow: var(--glaise-text-eyebrow);
+}

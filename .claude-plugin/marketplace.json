@@ -1,0 +1,15 @@
+{
+  "name": "glaise",
+  "owner": { "name": "Mac Silva", "email": "maclevison@gmail.com" },
+  "plugins": [
+    {
+      "name": "glaise",
+      "source": "./",
+      "description": "Glaise design-system skills + a soft review nudge on finish.",
+      "author": { "name": "Mac Silva", "email": "maclevison@gmail.com" },
+      "category": "design",
+      "homepage": "https://github.com/maclevison/glaise",
+      "version": "1.0.0"
+    }
+  ]
+}

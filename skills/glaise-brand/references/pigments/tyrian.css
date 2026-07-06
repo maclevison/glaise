@@ -1,0 +1,31 @@
+/* Glaise pigment — Tyrian
+   Primary theme: dark · Expressive and luxurious — imperial purple on plum-black.
+   Curated pigment pack. Overrides --glaise-* tokens; anything not listed falls
+   through to tokens.css (the default skin).
+   Load LAST: @import "tokens.css"; [theme.css if Tailwind;] @import "brand.css"; */
+:root {
+  /* Brightened tyrian — the deep pigment would sink into the dark canvas */
+  --glaise-primary: #ad3475;
+  --glaise-primary-hover: #bb4584;
+  --glaise-primary-focus: #ad3475;
+
+  --glaise-canvas: #0d0812;
+  --glaise-chrome: #120b18;
+  --glaise-surface-1: #150e1c;
+  --glaise-surface-2: #1a1222;
+  --glaise-hairline: #291d33;
+  --glaise-hairline-strong: #382a44;
+}
+
+:root[data-theme="light"] {
+  /* The true imperial depth lives on light */
+  --glaise-primary: #8b2360;
+  --glaise-primary-hover: #9c2a6d;
+  --glaise-primary-focus: #8b2360;
+  --glaise-canvas: #f7f4f9;
+  --glaise-chrome: #eee8f2;
+  --glaise-surface-1: #ffffff;
+  --glaise-surface-2: #faf7fb;
+  --glaise-hairline: #eae2f0;
+  --glaise-hairline-strong: #d9cde2;
+}

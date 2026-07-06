@@ -1,0 +1,18 @@
+{
+  "description": "Glaise — soft review nudge on finish when UI changed.",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/nudge-review.sh\"",
+            "asyncRewake": true,
+            "rewakeMessage": "Glaise: UI files changed this session. Before finalizing, run the glaise-review skill (craft, family conformance, soul). If this was a trivial change (typo, copy, config), you may finalize without running it. This is a supplementary nudge, not a replacement for your previous response.",
+            "rewakeSummary": "Glaise review nudge — UI changed"
+          }
+        ]
+      }
+    ]
+  }
+}

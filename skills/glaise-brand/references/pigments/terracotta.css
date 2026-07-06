@@ -1,0 +1,35 @@
+/* Glaise pigment — Terracotta
+   Primary theme: light · Warm like fired clay — burnt orange on cream, rounder corners.
+   Curated pigment pack. Overrides --glaise-* tokens; anything not listed falls
+   through to tokens.css (the default skin).
+   Load LAST: @import "tokens.css"; [theme.css if Tailwind;] @import "brand.css"; */
+:root {
+  --glaise-primary: #b0512f;
+  --glaise-primary-hover: #c26340;
+  --glaise-primary-focus: #b0512f;
+
+  /* Rounder character (both themes) */
+  --glaise-radius-md: 10px;
+  --glaise-radius-lg: 16px;
+  --glaise-radius-xl: 20px;
+
+  /* Dark counterpart — warm near-black */
+  --glaise-canvas: #120d09;
+  --glaise-chrome: #171009;
+  --glaise-surface-1: #1b140d;
+  --glaise-surface-2: #201811;
+  --glaise-hairline: #2e2418;
+  --glaise-hairline-strong: #3e3225;
+}
+
+:root[data-theme="light"] {
+  --glaise-primary: #b0512f;
+  --glaise-primary-hover: #9a4527;
+  --glaise-primary-focus: #b0512f;
+  --glaise-canvas: #f8f4ec;
+  --glaise-chrome: #efe8db;
+  --glaise-surface-1: #ffffff;
+  --glaise-surface-2: #faf7f0;
+  --glaise-hairline: #e9e1d3;
+  --glaise-hairline-strong: #d8cdb9;
+}

@@ -1,0 +1,147 @@
+/* Glaise design tokens — canonical technical source.
+   Edit values HERE. design.md is the human/semantic doc kept in sync.
+   Consumed directly (non-Tailwind) or via theme.css (Tailwind v4). */
+:root {
+  /* Brand & accent */
+  --glaise-primary: #5e6ad2;
+  --glaise-on-primary: #ffffff;
+  --glaise-primary-hover: #828fff;
+  --glaise-primary-focus: #5e69d1;
+  --glaise-brand-secure: #7a7fad;
+
+  /* Text */
+  --glaise-ink: #f7f8f8;
+  --glaise-ink-muted: #d0d6e0;
+  --glaise-ink-subtle: #8a8f98;
+  --glaise-ink-tertiary: #62666d;
+
+  /* Surfaces */
+  --glaise-canvas: #010102;
+  --glaise-chrome: #0a0b0d;      /* app sidebar/chrome — distinct from canvas, never the same */
+  --glaise-surface-1: #0f1011;
+  --glaise-surface-2: #141516;
+  --glaise-surface-3: #18191a;
+  --glaise-surface-4: #191a1b;
+
+  /* Hairlines */
+  --glaise-hairline: #23252a;
+  --glaise-hairline-strong: #34343a;
+  --glaise-hairline-tertiary: #3e3e44;
+
+  /* Inverse */
+  --glaise-inverse-canvas: #ffffff;
+  --glaise-inverse-surface-1: #f5f6f6;
+  --glaise-inverse-surface-2: #f6f7f7;
+  --glaise-inverse-ink: #000000;
+
+  /* Semantic */
+  --glaise-success: #27a644;
+  --glaise-overlay: #000000;
+
+  /* Radius */
+  --glaise-radius-xs: 4px;
+  --glaise-radius-sm: 6px;
+  --glaise-radius-md: 8px;
+  --glaise-radius-lg: 12px;
+  --glaise-radius-xl: 16px;
+  --glaise-radius-xxl: 24px;
+  --glaise-radius-pill: 9999px;
+  --glaise-radius-full: 9999px;
+
+  /* Spacing (4px base) */
+  --glaise-space-xxs: 4px;
+  --glaise-space-xs: 8px;
+  --glaise-space-sm: 12px;
+  --glaise-space-md: 16px;
+  --glaise-space-lg: 24px;
+  --glaise-space-xl: 32px;
+  --glaise-space-xxl: 48px;
+  --glaise-space-section: 96px;
+
+  /* Type families */
+  --glaise-font-sans: "Inter", -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+  --glaise-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Type scale (font-size) */
+  --glaise-text-display-xl: 80px;
+  --glaise-text-display-lg: 56px;
+  --glaise-text-display-md: 40px;
+  --glaise-text-headline: 28px;
+  --glaise-text-card-title: 22px;
+  --glaise-text-subhead: 20px;
+  --glaise-text-body-lg: 18px;
+  --glaise-text-body: 16px;
+  --glaise-text-body-sm: 14px;
+  --glaise-text-caption: 12px;
+  --glaise-text-eyebrow: 13px;
+  --glaise-text-mono: 13px;
+
+  /* Motion — strong custom curves (built-in CSS easings are too weak) +
+     a duration ladder. UI motion stays under 300ms; --duration-drawer is the
+     deliberate exception for drawers/modals. Never use ease-in on UI. */
+  --glaise-ease-out: cubic-bezier(0.23, 1, 0.32, 1);      /* enter/exit — feels responsive */
+  --glaise-ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);  /* on-screen move/morph */
+  --glaise-ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);   /* iOS-like drawer curve (Ionic) */
+  --glaise-duration-fast: 120ms;    /* button press, small tooltips/popovers */
+  --glaise-duration-base: 200ms;    /* dropdowns, selects, default UI */
+  --glaise-duration-slow: 280ms;    /* heavier UI, still under 300 */
+  --glaise-duration-drawer: 400ms;  /* drawers/modals — the physical exception */
+
+  /* Theme control + elevation (dark leans on borders, not shadows) */
+  color-scheme: dark;
+  --glaise-shadow-1: none;
+  --glaise-shadow-2: none;
+
+  /* Interactive state fills — hover / selected / pressed for nav items, rows,
+     menu options. Neutral overlays (not surface steps) so they read on any
+     surface and in both themes. The selected state is a perceptible fill, never
+     a side-stripe; the lavender accent lives in the item's icon, not a bar. */
+  --glaise-fill-hover: rgba(255, 255, 255, 0.05);
+  --glaise-fill-selected: rgba(255, 255, 255, 0.09);
+  --glaise-fill-pressed: rgba(255, 255, 255, 0.13);
+}
+
+/* ── Light theme ──────────────────────────────────────────────────────────
+   The inverted, in-family counterpart: same Inter, same lavender accent (value
+   nudged darker for AA on light surfaces), same surface-ladder + hairline model,
+   plus shadows for elevation (the ladder alone is too subtle on light).
+   Applied via <html data-theme="light">; dark is the default (no attribute). */
+:root[data-theme="light"] {
+  --glaise-ink: #1c1d21;
+  --glaise-ink-muted: #44474f;
+  --glaise-ink-subtle: #6c7079;
+  --glaise-ink-tertiary: #9499a2;
+
+  --glaise-canvas: #f4f5f7;     /* off-white workspace "whitespace", not pure white */
+  --glaise-chrome: #ebedf1;     /* sidebar/chrome — a touch darker than canvas, never equal */
+  --glaise-surface-1: #ffffff;  /* cards lift to white */
+  --glaise-surface-2: #f7f8fa;
+  --glaise-surface-3: #eef0f3;
+  --glaise-surface-4: #e8eaee;
+
+  --glaise-hairline: #e6e8ec;
+  --glaise-hairline-strong: #d5d8de;
+  --glaise-hairline-tertiary: #c2c6ce;
+
+  /* Lavender darkened for AA on light (>=4.5:1 as text on surface-1 and as
+     fill under white text). Hue preserved; value carries the function. */
+  --glaise-primary: #4850c0;
+  --glaise-primary-hover: #5a62d6;
+  --glaise-primary-focus: #4850c0;
+
+  /* Success darkened for AA on light (>=4.5:1 against surface-1, surface-2, AND
+     canvas — the dark value #27a644 only clears ~3:1 there). Hue preserved;
+     value carries the function. */
+  --glaise-success: #1d7c33;
+
+  /* Elevation by shadow on light */
+  --glaise-shadow-1: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --glaise-shadow-2: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 4px 8px -2px rgba(0, 0, 0, 0.08), 0 8px 16px -4px rgba(0, 0, 0, 0.06);
+
+  /* Interactive state fills — darker overlays for light surfaces */
+  --glaise-fill-hover: rgba(17, 20, 28, 0.045);
+  --glaise-fill-selected: rgba(17, 20, 28, 0.075);
+  --glaise-fill-pressed: rgba(17, 20, 28, 0.10);
+
+  color-scheme: light;
+}

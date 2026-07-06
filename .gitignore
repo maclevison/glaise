@@ -1,0 +1,27 @@
+# The Glaise skills are versioned at skills/ in the repo root.
+# Agent skill directories are install targets, not sources — ignore them
+# (e.g. created locally by `./install.sh --link --project .` for dogfooding).
+/.claude/
+/.opencode/
+/.agents/
+
+# macOS
+.DS_Store
+
+# Internal design docs — not published
+docs/
+
+# Build output (./install.sh --zip)
+/GlaiseSkills/
+
+# Temporary deps for the browser-audit integration test (never committed)
+node_modules/
+package.json
+package-lock.json
+
+# Gallery capture intermediates (scripts/capture-gallery.mjs; only the .webp files are committed)
+assets/gallery/.capture-*.html
+assets/gallery/*.png
+
+# Brainstorm visual-companion sessions (superpowers)
+.superpowers/

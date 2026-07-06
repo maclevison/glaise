@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>GLAISE — the hub (flow diagram source)</title>
+<!--
+  Source for assets/flow.webp — the hero flow diagram.
+  Zero-dep, self-contained: system serif + monospace stacks, no external requests.
+  Hardcoded hex is deliberate: this is an asset source, not product UI.
+
+  Re-capture (Playwright chromium, deviceScaleFactor 1 — a retina capture would yield 3200×3200):
+    node -e 'import("playwright").then(async ({ chromium }) => { const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1600, height: 1600 } }); await p.goto("file://" + process.cwd() + "/assets/flow-source.html"); await p.screenshot({ path: "assets/flow.png" }); await b.close(); });'
+    cwebp -lossless assets/flow.png -o assets/flow.webp && rm assets/flow.png
+-->
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --canvas: #0a0a0d;
+    --frame: rgba(255, 255, 255, 0.07);
+    --box-top: #17181d;
+    --box-bottom: #101114;
+    --box-border: rgba(255, 255, 255, 0.09);
+    --ink: #f4f5f8;
+    --ink-soft: #b6bac2;
+    --mono-dim: #8a8f98;
+    --lavender: #828fff;
+    --lavender-soft: #aeb0f5;
+    --lavender-ink: #c7c9ff;
+    --arrow: rgba(160, 163, 230, 0.6);
+    --arrow-dim: rgba(150, 153, 180, 0.45);
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --mono: "SF Mono", Menlo, Consolas, monospace;
+  }
+  body {
+    width: 1600px;
+    height: 1600px;
+    background: var(--canvas);
+    position: relative;
+    overflow: hidden;
+    font-family: var(--serif);
+  }
+  .frame {
+    position: absolute;
+    inset: 64px;
+    border: 1px solid var(--frame);
+    border-radius: 24px;
+  }
+  svg.arrows { position: absolute; inset: 0; width: 1600px; height: 1600px; }
+
+  .wordmark {
+    position: absolute;
+    top: 100px; left: 0; width: 100%;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.5em;
+    text-indent: 0.5em; /* compensate trailing tracking so it centers optically */
+    color: var(--mono-dim);
+  }
+  .hub {
+    position: absolute;
+    top: 136px; left: 0; width: 100%;
+    text-align: center;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 42px;
+    color: var(--lavender-soft);
+  }
+
+  .box {
+    position: absolute;
+    background: linear-gradient(180deg, var(--box-top), var(--box-bottom));
+    border: 1px solid var(--box-border);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+  }
+  .box .title { font-family: var(--serif); font-size: 36px; color: var(--ink); }
+  .box .title .num { color: var(--lavender); }
+  .box .title .dot { color: var(--mono-dim); font-size: 26px; vertical-align: 4px; padding: 0 6px; }
+  .box .skill { font-family: var(--mono); font-size: 17px; color: var(--mono-dim); letter-spacing: 0.04em; }
+
+  #discover { left: 577px; top: 234px; width: 440px; height: 131px; }
+
+  .optional {
+    position: absolute;
+    left: 928px; top: 398px;
+    padding: 8px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    background: #131417;
+    font-family: var(--mono);
+    font-size: 15px;
+    color: var(--mono-dim);
+    letter-spacing: 0.06em;
+  }
+
+  #brief {
+    left: 300px; top: 485px; width: 435px; height: 152px;
+    background: linear-gradient(180deg, rgba(94, 106, 210, 0.18), rgba(94, 106, 210, 0.04)), #111118;
+    border-color: rgba(130, 143, 255, 0.45);
+    box-shadow: 0 12px 40px rgba(94, 106, 210, 0.10);
+  }
+  #brief .file { font-family: var(--mono); font-size: 21px; color: var(--lavender-ink); }
+  #brief .soul { font-family: var(--serif); font-style: italic; font-size: 26px; color: var(--lavender-soft); }
+
+  #direction {
+    left: 865px; top: 480px; width: 465px; height: 178px;
+    border: 1px dashed rgba(255, 255, 255, 0.20);
+    background: linear-gradient(180deg, #131418, #0e0f12);
+  }
+  #direction .why {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    max-width: 300px;
+  }
+
+  #build   { left: 578px; top: 767px; width: 438px; height: 134px; }
+  #skin    { left: 606px; top: 988px; width: 382px; height: 108px; }
+  #skin .title { font-size: 30px; }
+  #review  { left: 522px; top: 1191px; width: 548px; height: 148px; }
+
+  #verdict {
+    position: absolute;
+    left: 675px; top: 1392px; width: 247px; height: 72px;
+    border: 1px solid rgba(130, 143, 255, 0.5);
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(94, 106, 210, 0.16), rgba(94, 106, 210, 0.05)), #101016;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 28px;
+    color: var(--lavender-ink);
+  }
+</style>
+</head>
+<body>
+  <div class="frame"></div>
+
+  <!-- Arrow endpoints are hand-derived from the box edges/centers above; if you move or resize a box, update the matching paths. -->
+  <svg class="arrows" viewBox="0 0 1600 1600" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="head" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+        <path d="M1,1 L8,5 L1,9" stroke="context-stroke" stroke-width="1.5" fill="none"/>
+      </marker>
+    </defs>
+    <!-- discover -> brief (solid, curved left) -->
+    <path d="M 690 365 C 640 415, 560 430, 520 476" stroke="var(--arrow)" stroke-width="1.6" marker-end="url(#head)"/>
+    <!-- discover -> direction (dashed, through the optional pill) -->
+    <path d="M 905 365 C 960 385, 985 380, 990 396" stroke="var(--arrow-dim)" stroke-width="1.5" stroke-dasharray="5 6"/>
+    <path d="M 995 430 C 1010 445, 1075 440, 1097 471" stroke="var(--arrow-dim)" stroke-width="1.5" stroke-dasharray="5 6" marker-end="url(#head)"/>
+    <!-- brief -> build (solid, curved right) -->
+    <path d="M 517 637 C 520 700, 680 690, 720 758" stroke="var(--arrow)" stroke-width="1.6" marker-end="url(#head)"/>
+    <!-- direction -> build (dashed, curved left) -->
+    <path d="M 1097 658 C 1090 715, 910 700, 875 758" stroke="var(--arrow-dim)" stroke-width="1.5" stroke-dasharray="5 6" marker-end="url(#head)"/>
+    <!-- build -> UI on the skin -->
+    <path d="M 797 901 L 797 979" stroke="var(--arrow)" stroke-width="1.6" marker-end="url(#head)"/>
+    <!-- UI on the skin -> review + audit -->
+    <path d="M 797 1096 L 797 1182" stroke="var(--arrow)" stroke-width="1.6" marker-end="url(#head)"/>
+    <!-- review + audit -> verdict -->
+    <path d="M 797 1339 L 797 1383" stroke="var(--arrow)" stroke-width="1.6" marker-end="url(#head)"/>
+  </svg>
+
+  <div class="wordmark">GLAISE</div>
+  <div class="hub">the hub</div>
+
+  <div class="box" id="discover">
+    <div class="title"><span class="num">1</span><span class="dot">·</span>discover</div>
+    <div class="skill">glaise-discovery</div>
+  </div>
+
+  <div class="optional">optional</div>
+
+  <div class="box" id="brief">
+    <div class="file">glaise-brief.md</div>
+    <div class="soul">the soul</div>
+  </div>
+
+  <div class="box" id="direction">
+    <div class="title"><span class="num">2</span><span class="dot">·</span>direction</div>
+    <div class="why">when the product<br>needs character</div>
+  </div>
+
+  <div class="box" id="build">
+    <div class="title"><span class="num">3</span><span class="dot">·</span>build</div>
+    <div class="skill">glaise-build</div>
+  </div>
+
+  <div class="box" id="skin">
+    <div class="title">UI on the skin</div>
+  </div>
+
+  <div class="box" id="review">
+    <div class="title"><span class="num">4</span><span class="dot">·</span>review + audit</div>
+    <div class="skill">glaise-review&nbsp;&nbsp;·&nbsp;&nbsp;glaise-audit</div>
+  </div>
+
+  <div id="verdict">verdict</div>
+</body>
+</html>
