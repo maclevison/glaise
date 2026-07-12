@@ -1,10 +1,9 @@
 {
   "name": "glaise",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Glaise design-system skills + a soft review nudge on finish.",
   "author": { "name": "Mac Silva", "email": "maclevison@gmail.com" },
   "homepage": "https://github.com/maclevison/glaise",
   "repository": "https://github.com/maclevison/glaise",
-  "license": "MIT",
-  "hooks": "./hooks/hooks.json"
+  "license": "MIT"
 }
