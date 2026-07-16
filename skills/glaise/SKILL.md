@@ -1,6 +1,6 @@
 ---
 name: glaise
-description: Use when building product UI, dashboards, panels, admin tools, or app screens, so the result belongs to the shared Glaise design family. Loads the fixed visual skin (dark canvas, Inter by default, a lavender accent by default, surface ladder, Lucide icons, headless primitives) from references/, and guides the discover-build-review flow. Creativity goes into the product's domain, layout, hierarchy, and signature — never the skin.
+description: Use when building product UI, dashboards, panels, admin tools, or app screens, so the result belongs to the shared Glaise design family. Loads the fixed visual skin (off-white canvas with floating panels, Inter by default, a monochrome washed-ink primary by default, surface ladder, Lucide icons, headless primitives) from references/, and guides the discover-build-review flow. Creativity goes into the product's domain, layout, hierarchy, and signature — never the skin.
 ---
 
 # Glaise
@@ -18,7 +18,7 @@ Read these files, relative to this skill, before designing anything:
 - `references/shells.md` — the app-shell archetypes (Console / Focused / Workbench / Reader / Canvas). Load when deciding or building the navigation structure. This is structure, not skin — it never overrides the soul.
 - `references/contrast.mjs` — the WCAG contrast checker over the skin's tokens (both themes), used by `glaise-audit`. Run `node references/contrast.mjs` to audit the skin pairs, or pass `<fg> <bg>` for an ad-hoc product pair.
 
-Non-negotiable skin (never reinvent): the effective tokens — the palette/colors, the type family (**Inter** by default), and the accent (`--glaise-primary`, lavender by default) used sparingly — the surface ladder, the radius and spacing scales, **Lucide** icons, the **motion defaults** (strong custom curves, sub-300ms, the decision-before-how discipline in `motion.md`), and the use of **headless primitives** for controls (Base UI for React, Reka UI for Vue) — never a styled UI kit (Material, Vuetify, Chakra, Ant).
+Non-negotiable skin (never reinvent): the effective tokens — the palette/colors, the type family (**Inter** by default), and the primary (`--glaise-primary`, monochrome washed ink by default — a pigment/brand may bring chroma) used sparingly — the surface ladder, the radius and spacing scales, **Lucide** icons, the **motion defaults** (strong custom curves, sub-300ms, the decision-before-how discipline in `motion.md`), and the use of **headless primitives** for controls (Base UI for React, Reka UI for Vue) — never a styled UI kit (Material, Vuetify, Chakra, Ant).
 
 ## The soul is the product's (this is where creativity goes)
 
@@ -26,7 +26,7 @@ Free per product: layout, composition, hierarchy/focus, density within range, wh
 
 ## Flow
 
-1. **Discover the product** — for greenfield (if the repo isn't initialized yet, offer `git init` first), invoke the `glaise-discovery` skill: it interviews the developer and writes `docs/glaise/glaise-brief.md` capturing the user, task, domain, feel, and the one signature. The brief also records the theme (dark / light / both). For an existing project, read `docs/glaise/glaise-brief.md` if present, else infer from the code.
+1. **Discover the product** — for greenfield (if the repo isn't initialized yet, offer `git init` first), invoke the `glaise-discovery` skill: it interviews the developer and writes `docs/glaise/glaise-brief.md` capturing the user, task, domain, feel, and the one signature. The brief also records the theme (light / dark / both) and the dark-card-edge choice. For an existing project, read `docs/glaise/glaise-brief.md`; **if it's missing, still run `glaise-discovery`** — the taste questions (theme, dark card edges, pigment, the signature) are never inferable from code; only the Stack answers may be pre-filled from the repo. The interview is the gate: no brief, no build.
 2. **Load the family** — read `references/design.md` + `references/tokens.css` (and `theme.css` if Tailwind); read `references/motion.md` when the screen has any movement.
 3. **Skin (optional)** — check for `docs/glaise/brand.css`. If present, the build
    inherits it automatically (no action). If absent and the brief didn't already decide

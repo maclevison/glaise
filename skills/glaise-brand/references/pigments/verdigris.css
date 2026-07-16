@@ -4,11 +4,11 @@
    through to tokens.css (the default skin).
    Load LAST: @import "tokens.css"; [theme.css if Tailwind;] @import "brand.css"; */
 :root {
-  /* Patina reads best with dark label text on the fill */
-  --glaise-primary: #3aa393;
-  --glaise-on-primary: #04120f;
-  --glaise-primary-hover: #4db8a7;
-  --glaise-primary-focus: #3aa393;
+  /* Patina deepened for AA on light; white label on the fill */
+  --glaise-primary: #1d7268;
+  --glaise-on-primary: #ffffff;
+  --glaise-primary-hover: #218176;
+  --glaise-primary-focus: #1d7268;
 
   /* Sharp character (both themes) */
   --glaise-radius-xs: 2px;
@@ -17,25 +17,27 @@
   --glaise-radius-lg: 6px;
   --glaise-radius-xl: 8px;
 
-  /* Green-cast near-black neutrals — patina shares the same cast (deliberate) */
-  --glaise-canvas: #050807;
-  --glaise-chrome: #090d0b;
-  --glaise-surface-1: #0c1210;
-  --glaise-surface-2: #101614;
-  --glaise-hairline: #1d2622;
-  --glaise-hairline-strong: #2c3833;
-}
-
-:root[data-theme="light"] {
-  /* Patina deepened for AA on light; label back to white */
-  --glaise-primary: #1d7268;
-  --glaise-on-primary: #ffffff;
-  --glaise-primary-hover: #218176;
-  --glaise-primary-focus: #1d7268;
+  /* Green-cast off-white neutrals — patina shares the same cast (deliberate) */
   --glaise-canvas: #f2f6f4;
   --glaise-chrome: #e7eeea;
   --glaise-surface-1: #ffffff;
   --glaise-surface-2: #f6faf8;
   --glaise-hairline: #e0e8e4;
   --glaise-hairline-strong: #ccd8d2;
+}
+
+:root[data-theme="dark"] {
+  /* Patina reads best with dark label text on the fill */
+  --glaise-primary: #3aa393;
+  --glaise-on-primary: #04120f;
+  --glaise-primary-hover: #4db8a7;
+  --glaise-primary-focus: #3aa393;
+
+  /* Green-cast near-black neutrals */
+  --glaise-canvas: #050807;
+  --glaise-chrome: #090d0b;
+  --glaise-surface-1: #0c1210;
+  --glaise-surface-2: #101614;
+  --glaise-hairline: #1d2622;
+  --glaise-hairline-strong: #2c3833;
 }

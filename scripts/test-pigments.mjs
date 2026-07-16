@@ -28,12 +28,12 @@ for (const f of files) {
   ok(`${f}: header identifies a pigment or brand pack`,
     /^\/\*\s*Glaise (pigment|brand pack)/.test(css));
 
-  // Both theme blocks present. Convention: :root is the dark block (as in tokens.css),
-  // so the opposite block must be the LIGHT one — contrast.mjs --brand only overlays
-  // :root + the light block, so a data-theme="dark" block would silently escape AA.
+  // Both theme blocks present. Convention: :root is the light block (as in tokens.css),
+  // so the opposite block must be the DARK one — contrast.mjs --brand only overlays
+  // :root + the dark block, so a data-theme="light" block would silently escape AA.
   ok(`${f}: has :root block`, /:root\s*\{/.test(noComments));
-  ok(`${f}: has light-theme block`,
-    /:root\[\s*data-theme\s*=\s*['"]?light['"]?\s*\]\s*\{/.test(noComments));
+  ok(`${f}: has dark-theme block`,
+    /:root\[\s*data-theme\s*=\s*['"]?dark['"]?\s*\]\s*\{/.test(noComments));
 
   // Only --glaise-* custom properties, none on the engine denylist.
   const props = [...noComments.matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1]);
@@ -43,7 +43,8 @@ for (const f of files) {
   ok(`${f}: no engine token overridden${engine.length ? ` (found ${engine.join(", ")})` : ""}`,
     engine.length === 0);
 
-  // AA on both themes over the effective tokens (contrast.mjs exits 1 on any failing pair).
+  // AA + semantic separation on both themes over the effective tokens
+  // (contrast.mjs exits 1 on any failing check).
   let aa = true, out = "";
   try { out = execFileSync("node", [CONTRAST, "--brand", p], { encoding: "utf8" }); }
   catch (e) { aa = false; out = (e.stdout || "") + (e.stderr || ""); }

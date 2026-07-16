@@ -9,78 +9,310 @@
 <link rel="stylesheet" href="../../skills/glaise-brand/references/pigments/celadon.css">
 <style>
   * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
   body {
     font-family: var(--glaise-font-sans);
     background: var(--glaise-canvas);
     color: var(--glaise-ink);
-    display: flex; height: 100vh; overflow: hidden;
+    display: flex; gap: var(--glaise-space-sm); overflow: hidden;
+    padding: var(--glaise-space-sm);
+    font-size: var(--glaise-text-body-sm);
   }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; }
+  .icon { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1.75; fill: none;
+          stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+  :focus-visible { outline: 2px solid var(--glaise-primary-focus); outline-offset: 2px; }
+  .nav-item, .btn, .search input, tbody tr, .pager span, .card-foot a {
+    transition: background-color var(--glaise-duration-fast) var(--glaise-ease-out),
+                color var(--glaise-duration-fast) var(--glaise-ease-out);
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ── Floating sidebar (Console floating mode): shadow token only, no border ── */
   .sidebar {
-    width: 240px; background: var(--glaise-chrome);
-    border-right: 1px solid var(--glaise-hairline);
-    padding: var(--glaise-space-md); flex-shrink: 0;
-  }
-  .wordmark { font-weight: 600; font-size: var(--glaise-text-body); margin-bottom: var(--glaise-space-lg); }
-  .nav-item {
-    display: flex; align-items: center; gap: var(--glaise-space-xs);
-    padding: 7px 10px; border-radius: var(--glaise-radius-md);
-    font-size: var(--glaise-text-body-sm); color: var(--glaise-ink-muted);
-    margin-bottom: 2px;
-  }
-  .nav-item.selected { background: var(--glaise-fill-selected); color: var(--glaise-ink); font-weight: 500; }
-  .nav-item.selected .dot { background: var(--glaise-primary); }
-  .dot { width: 14px; height: 14px; border-radius: var(--glaise-radius-xs); background: var(--glaise-ink-subtle); flex-shrink: 0; }
-  main { flex: 1; padding: var(--glaise-space-xl); overflow: auto; }
-  h1 { font-size: var(--glaise-text-headline); font-weight: 600; letter-spacing: -0.6px; margin-bottom: 4px; }
-  .sub { color: var(--glaise-ink-subtle); font-size: var(--glaise-text-body-sm); margin-bottom: var(--glaise-space-lg); }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--glaise-space-md); margin-bottom: var(--glaise-space-lg); }
-  .card {
-    background: var(--glaise-surface-1); border: 1px solid var(--glaise-hairline);
-    border-radius: var(--glaise-radius-lg); padding: var(--glaise-space-lg);
+    width: 248px; background: var(--glaise-surface-1);
+    border-radius: var(--glaise-radius-xl);
     box-shadow: var(--glaise-shadow-1);
+    padding: var(--glaise-space-md);
+    display: flex; flex-direction: column; flex-shrink: 0;
   }
-  .card .label { font-size: var(--glaise-text-caption); color: var(--glaise-ink-subtle); margin-bottom: 6px; }
-  .card .value { font-size: var(--glaise-text-card-title); font-weight: 600; letter-spacing: -0.4px; font-variant-numeric: tabular-nums; }
-  .pill {
-    display: inline-block; background: var(--glaise-surface-2); color: var(--glaise-ink-muted);
-    font-size: var(--glaise-text-caption); padding: 2px var(--glaise-space-xs);
-    border-radius: var(--glaise-radius-pill); margin-top: var(--glaise-space-xs);
+  .wordmark { display: flex; align-items: center; gap: 10px; font-weight: 600;
+              font-size: var(--glaise-text-body); padding: 4px 10px; margin-bottom: var(--glaise-space-lg); }
+  .wordmark .mark { width: 22px; height: 22px; border-radius: 6px; background: var(--glaise-primary);
+                    color: var(--glaise-on-primary); display: grid; place-items: center;
+                    font-size: 11px; font-weight: 700; }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border-radius: var(--glaise-radius-md);
+    color: var(--glaise-ink-muted); margin-bottom: 2px; font-weight: 450;
   }
-  .pill.up { color: var(--glaise-success); }
-  .row { display: flex; gap: var(--glaise-space-sm); align-items: center; }
-  .btn {
-    background: var(--glaise-primary); color: var(--glaise-on-primary);
-    font: 500 var(--glaise-text-body-sm) var(--glaise-font-sans);
-    border: 0; border-radius: var(--glaise-radius-md); padding: var(--glaise-space-xs) 14px;
-  }
-  .input {
-    background: var(--glaise-surface-1); color: var(--glaise-ink);
-    border: 1px solid var(--glaise-hairline-strong); border-radius: var(--glaise-radius-md);
-    padding: var(--glaise-space-xs) var(--glaise-space-sm);
-    font: 400 var(--glaise-text-body-sm) var(--glaise-font-sans); width: 260px;
-  }
+  .nav-item .icon { color: var(--glaise-ink-subtle); }
+  .nav-item:hover { background: var(--glaise-fill-hover); color: var(--glaise-ink); }
+  .nav-item:active { background: var(--glaise-fill-pressed); }
+  .nav-item.selected { background: var(--glaise-fill-selected); color: var(--glaise-ink); font-weight: 550; }
+  .nav-item.selected .icon { color: var(--glaise-primary); }
+  .sidebar-footer { margin-top: auto; display: flex; align-items: center; gap: 10px;
+                    padding: 10px 10px 2px; border-top: 1px solid var(--glaise-hairline); }
+  .avatar { width: 28px; height: 28px; border-radius: var(--glaise-radius-full);
+            background: var(--glaise-surface-3); color: var(--glaise-ink-muted);
+            display: grid; place-items: center; font-size: 11px; font-weight: 600; }
+  .who { line-height: 1.25; }
+  .who .name { font-weight: 550; font-size: 13px; }
+  .plan { margin-left: auto; font-size: 11px; color: var(--glaise-ink-subtle);
+          background: var(--glaise-surface-2); padding: 2px 8px; border-radius: var(--glaise-radius-pill); }
+
+  /* ── Main column: panels float on the canvas ── */
+  main { flex: 1; display: flex; flex-direction: column; gap: var(--glaise-space-sm); min-width: 0; }
+  header { display: flex; align-items: center; padding: 6px 4px 2px; }
+  h1 { font-size: var(--glaise-text-headline); font-weight: 600; letter-spacing: -0.6px; }
+  .sub { color: var(--glaise-ink-subtle); margin-top: 2px; }
+  .actions { margin-left: auto; display: flex; gap: var(--glaise-space-xs); }
+  .btn { display: inline-flex; align-items: center; gap: 8px;
+         font-weight: 500; font-size: 13px;
+         border: 0; border-radius: var(--glaise-radius-md); padding: 8px 14px; }
+  .btn-primary { background: var(--glaise-primary); color: var(--glaise-on-primary); }
+  .btn-primary:hover { background: var(--glaise-primary-hover); }
+  .btn-primary:active { background: var(--glaise-primary-focus); }
+  .btn-secondary { background: var(--glaise-surface-1); color: var(--glaise-ink);
+                   border: 1px solid var(--glaise-hairline); }
+  .btn-secondary:hover { background: var(--glaise-surface-2); }
+  .btn-secondary:active { background: var(--glaise-surface-3); }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--glaise-space-sm); }
+  .card { background: var(--glaise-surface-1); border-radius: var(--glaise-radius-lg);
+          box-shadow: var(--glaise-shadow-1); padding: var(--glaise-space-md); }
+  .stat { position: relative; overflow: hidden; }
+  .microlabel { font-size: var(--glaise-text-microlabel); font-weight: 600; letter-spacing: 0.06em;
+                text-transform: uppercase; color: var(--glaise-ink-subtle); }
+  .stat .value { font-size: var(--glaise-text-metric); font-weight: 600; letter-spacing: -0.5px;
+                 font-variant-numeric: tabular-nums; margin: 6px 0 4px; color: var(--glaise-ink); }
+  .trend { font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+  .trend.good { color: var(--glaise-success); }
+  .trend.bad { color: var(--glaise-danger); }
+  .trend.flat { color: var(--glaise-ink-subtle); }
+  .spark { position: absolute; right: 10px; bottom: 10px; width: 96px; height: 30px;
+           color: var(--glaise-primary); opacity: 0.9; }
+  .spark polyline { stroke: currentColor; stroke-width: 1.5; fill: none;
+                    stroke-linecap: round; stroke-linejoin: round; }
+  .spark .fill { fill: currentColor; opacity: 0.08; stroke: none; }
+
+  .mid { display: grid; grid-template-columns: 2fr 1fr; gap: var(--glaise-space-sm); flex: 1; min-height: 0; }
+  .mid > .card { display: flex; flex-direction: column; }
+  .card-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between;
+               padding-top: 10px; border-top: 1px solid var(--glaise-hairline);
+               color: var(--glaise-ink-subtle); font-size: 12px; }
+  .card-foot .pager { display: flex; gap: 4px; }
+  .card-foot .pager span { padding: 3px 10px; border-radius: var(--glaise-radius-sm); font-weight: 500; }
+  .card-foot .pager span:hover { background: var(--glaise-fill-hover); color: var(--glaise-ink); }
+  .card-foot a { color: var(--glaise-ink-muted); font-weight: 500; }
+  .card-foot a:hover { color: var(--glaise-ink); }
+  .card-title { display: flex; align-items: center; gap: 8px; font-size: var(--glaise-text-body);
+                font-weight: 600; letter-spacing: -0.2px; color: var(--glaise-ink); }
+  .card-title .icon { color: var(--glaise-ink-subtle); }
+  .table-tools { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+  .search { display: flex; align-items: center; gap: 8px; background: var(--glaise-surface-1);
+            border: 1px solid var(--glaise-hairline); border-radius: var(--glaise-radius-md);
+            padding: 0 10px; color: var(--glaise-ink-subtle); width: 220px; }
+  .search input { border: 0; outline: 0; background: transparent; width: 100%;
+                  padding: 7px 0; font: inherit; font-size: 13px; color: var(--glaise-ink); }
+  .search input::placeholder { color: var(--glaise-ink-subtle); }
+  .search:focus-within { border-color: var(--glaise-hairline-strong); }
+  .filter { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500;
+            color: var(--glaise-ink-muted); background: var(--glaise-surface-2);
+            border-radius: var(--glaise-radius-md); padding: 6px 10px; }
+  table { width: 100%; border-collapse: collapse; margin-top: var(--glaise-space-sm);
+          font-variant-numeric: tabular-nums; }
+  th { font-size: var(--glaise-text-microlabel); font-weight: 600; letter-spacing: 0.06em;
+       text-transform: uppercase; color: var(--glaise-ink-subtle); text-align: left; padding: 8px 10px;
+       border-bottom: 1px solid var(--glaise-hairline); }
+  td { padding: 11px 10px; border-bottom: 1px solid var(--glaise-hairline); color: var(--glaise-ink-muted); }
+  th:first-child, td:first-child { padding-left: 0; }
+  th:last-child, td:last-child { padding-right: 0; }
+  tr:last-child td { border-bottom: 0; }
+  tbody tr:hover { background: var(--glaise-fill-hover); }
+  td.svc { color: var(--glaise-ink); font-weight: 500; font-family: var(--glaise-font-mono);
+           font-size: var(--glaise-text-mono); }
+  .num { text-align: right; }
+  th.num { text-align: right; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500;
+           padding: 2px 9px; border-radius: var(--glaise-radius-pill); }
+  .badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .badge.healthy { color: var(--glaise-success); background: color-mix(in srgb, var(--glaise-success) 10%, transparent); }
+  .badge.degraded { color: var(--glaise-ink-muted); background: var(--glaise-surface-3); }
+  .badge.down { color: var(--glaise-danger); background: color-mix(in srgb, var(--glaise-danger) 10%, transparent); }
+
+  .timeline { list-style: none; padding: 0; margin: var(--glaise-space-sm) 0 0; }
+  .timeline li { display: flex; gap: 10px; padding: 11px 0; }
+  .timeline li + li { border-top: 1px solid var(--glaise-hairline); }
+  .event-icon { width: 26px; height: 26px; border-radius: var(--glaise-radius-md);
+                background: var(--glaise-surface-2); color: var(--glaise-ink-muted);
+                display: grid; place-items: center; flex-shrink: 0; }
+  .event-icon .icon { width: 14px; height: 14px; }
+  .event-icon.ok { color: var(--glaise-success); }
+  .event-icon.warn { color: var(--glaise-danger); }
+  .event-icon.deploy { color: var(--glaise-primary); }
+  .event { line-height: 1.35; color: var(--glaise-ink-muted); }
+  .event b { font-weight: 600; color: var(--glaise-ink); }
+  .when { margin-left: auto; color: var(--glaise-ink-subtle); font-size: 12px; white-space: nowrap; }
+
+  .chart-card { display: flex; flex-direction: column; }
+  .chart { width: 100%; height: 128px; margin-top: var(--glaise-space-xs); color: var(--glaise-primary); }
+  .chart .area { fill: currentColor; opacity: 0.08; }
+  .chart .line { stroke: currentColor; stroke-width: 1.5; fill: none; }
+  .chart .grid { stroke: var(--glaise-hairline); stroke-width: 1; }
+  /* Zero-length round-capped path + non-scaling stroke = a dot that survives
+     the preserveAspectRatio="none" stretch without flattening */
+  .chart .end { stroke: currentColor; stroke-width: 7; stroke-linecap: round; fill: none; }
+  .chart-legend { margin-left: auto; display: flex; gap: 14px; font-size: 12px; color: var(--glaise-ink-subtle); }
+  .dot-key { display: inline-flex; align-items: center; gap: 6px; }
+  .dot-key::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--glaise-primary); }
 </style>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></symbol>
+      <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline vector-effect="non-scaling-stroke" points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></symbol>
+      <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+      <symbol id="i-server" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
+      <symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline vector-effect="non-scaling-stroke" points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline vector-effect="non-scaling-stroke" points="22 4 12 14.01 9 11.01"/></symbol>
+      <symbol id="i-trend" viewBox="0 0 24 24"><polyline vector-effect="non-scaling-stroke" points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline vector-effect="non-scaling-stroke" points="16 7 22 7 22 13"/></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+      <symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></symbol>
+    </defs>
+  </svg>
+
   <aside class="sidebar">
-    <div class="wordmark">Acme Ops</div>
-    <div class="nav-item selected"><span class="dot"></span>Overview</div>
-    <div class="nav-item"><span class="dot"></span>Deployments</div>
-    <div class="nav-item"><span class="dot"></span>Incidents</div>
-    <div class="nav-item"><span class="dot"></span>Settings</div>
+    <div class="wordmark"><span class="mark">A</span>Acme Ops</div>
+    <nav aria-label="Main">
+      <a class="nav-item selected" href="#" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-dashboard"/></svg>Overview</a>
+      <a class="nav-item" href="#"><svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg>Deployments</a>
+      <a class="nav-item" href="#"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>Incidents</a>
+      <a class="nav-item" href="#"><svg class="icon" aria-hidden="true"><use href="#i-server"/></svg>Services</a>
+      <a class="nav-item" href="#"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg>Analytics</a>
+      <a class="nav-item" href="#"><svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg>Settings</a>
+    </nav>
+    <div class="sidebar-footer">
+      <span class="avatar">AC</span>
+      <span class="who"><span class="name">Alex Carter</span><br><span class="microlabel" style="letter-spacing:.3px">admin</span></span>
+      <span class="plan">Pro</span>
+    </div>
   </aside>
+
   <main>
-    <h1>Overview</h1>
-    <p class="sub">Your fleet at a glance — last updated 2 min ago.</p>
-    <div class="grid">
-      <div class="card"><div class="label">Active services</div><div class="value">128</div><span class="pill up">▲ 4 this week</span></div>
-      <div class="card"><div class="label">Error rate</div><div class="value">0.42%</div><span class="pill">last 24 h</span></div>
-      <div class="card"><div class="label">P95 latency</div><div class="value">312 ms</div><span class="pill">last 24 h</span></div>
-    </div>
-    <div class="row">
-      <input class="input" placeholder="Filter services…">
-      <button class="btn">New deployment</button>
-    </div>
+    <header>
+      <div>
+        <h1>Overview</h1>
+        <p class="sub">Your fleet at a glance · last updated 2 min ago</p>
+      </div>
+      <div class="actions">
+        <button class="btn btn-secondary"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Export</button>
+        <button class="btn btn-primary"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>New deployment</button>
+      </div>
+    </header>
+
+    <section class="stats">
+      <div class="card stat">
+        <div class="microlabel">Active services</div>
+        <div class="value">128</div>
+        <div class="trend good">▲ 4 this week</div>
+        <svg class="spark" viewBox="0 0 96 30" preserveAspectRatio="none" aria-hidden="true">
+          <polygon class="fill" points="0,24 12,20 24,22 36,16 48,18 60,12 72,14 84,8 96,10 96,30 0,30"/>
+          <polyline vector-effect="non-scaling-stroke" points="0,24 12,20 24,22 36,16 48,18 60,12 72,14 84,8 96,10"/>
+        </svg>
+      </div>
+      <div class="card stat">
+        <div class="microlabel">Error rate</div>
+        <div class="value">0.42%</div>
+        <div class="trend good">▼ 0.1% (24 h)</div>
+        <svg class="spark" viewBox="0 0 96 30" preserveAspectRatio="none" aria-hidden="true">
+          <polygon class="fill" points="0,10 12,14 24,12 36,18 48,15 60,20 72,18 84,23 96,22 96,30 0,30"/>
+          <polyline vector-effect="non-scaling-stroke" points="0,10 12,14 24,12 36,18 48,15 60,20 72,18 84,23 96,22"/>
+        </svg>
+      </div>
+      <div class="card stat">
+        <div class="microlabel">P95 latency</div>
+        <div class="value">312 ms</div>
+        <div class="trend bad">▲ 12 ms (24 h)</div>
+        <svg class="spark" viewBox="0 0 96 30" preserveAspectRatio="none" aria-hidden="true">
+          <polygon class="fill" points="0,20 12,22 24,18 36,20 48,16 60,18 72,12 84,14 96,9 96,30 0,30"/>
+          <polyline vector-effect="non-scaling-stroke" points="0,20 12,22 24,18 36,20 48,16 60,18 72,12 84,14 96,9"/>
+        </svg>
+      </div>
+      <div class="card stat">
+        <div class="microlabel">Uptime</div>
+        <div class="value">99.98%</div>
+        <div class="trend flat">stable 30 d</div>
+        <svg class="spark" viewBox="0 0 96 30" preserveAspectRatio="none" aria-hidden="true">
+          <polygon class="fill" points="0,14 12,13 24,14 36,12 48,14 60,13 72,14 84,12 96,13 96,30 0,30"/>
+          <polyline vector-effect="non-scaling-stroke" points="0,14 12,13 24,14 36,12 48,14 60,13 72,14 84,12 96,13"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="mid">
+      <div class="card">
+        <div style="display:flex;align-items:center">
+          <span class="card-title"><svg class="icon" aria-hidden="true"><use href="#i-server"/></svg>Services</span>
+          <span class="table-tools">
+            <label class="search"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><input type="search" placeholder="Filter services…" aria-label="Filter services"></label>
+            <span class="filter">Status<svg class="icon" style="width:13px;height:13px" aria-hidden="true"><use href="#i-chevron"/></svg></span>
+          </span>
+        </div>
+        <table>
+          <thead><tr><th>Service</th><th>Status</th><th>Region</th><th class="num">Requests (24h)</th><th class="num">P95</th><th>Owner</th></tr></thead>
+          <tbody>
+            <tr><td class="svc">auth-api</td><td><span class="badge healthy">Healthy</span></td><td>us-east-1</td><td class="num">4.2 M</td><td class="num">128 ms</td><td>Platform</td></tr>
+            <tr><td class="svc">billing-worker</td><td><span class="badge healthy">Healthy</span></td><td>us-east-1</td><td class="num">812 K</td><td class="num">96 ms</td><td>Payments</td></tr>
+            <tr><td class="svc">checkout-gateway</td><td><span class="badge degraded">Degraded</span></td><td>eu-west-1</td><td class="num">2.9 M</td><td class="num">640 ms</td><td>Payments</td></tr>
+            <tr><td class="svc">notifications</td><td><span class="badge healthy">Healthy</span></td><td>us-west-2</td><td class="num">1.4 M</td><td class="num">88 ms</td><td>Growth</td></tr>
+            <tr><td class="svc">search-index</td><td><span class="badge healthy">Healthy</span></td><td>eu-west-1</td><td class="num">3.1 M</td><td class="num">212 ms</td><td>Discovery</td></tr>
+            <tr><td class="svc">image-resizer</td><td><span class="badge down">Down</span></td><td>us-east-1</td><td class="num">96 K</td><td class="num">—</td><td>Media</td></tr>
+            <tr><td class="svc">webhook-dispatcher</td><td><span class="badge healthy">Healthy</span></td><td>us-west-2</td><td class="num">640 K</td><td class="num">154 ms</td><td>Platform</td></tr>
+            <tr><td class="svc">analytics-ingest</td><td><span class="badge degraded">Degraded</span></td><td>eu-central-1</td><td class="num">5.8 M</td><td class="num">402 ms</td><td>Data</td></tr>
+          </tbody>
+        </table>
+        <div class="card-foot">
+          <span>Showing 8 of 128 services</span>
+          <span class="pager"><span>Prev</span><span>Next</span></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-title"><svg class="icon" aria-hidden="true"><use href="#i-activity"/></svg>Recent activity</span>
+        <ul class="timeline">
+          <li><span class="event-icon deploy"><svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg></span><span class="event"><b>Deploy started</b> · checkout-gateway v2.14.0 to eu-west-1</span><span class="when">3 min ago</span></li>
+          <li><span class="event-icon ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="event"><b>Incident resolved</b> · INC-482 elevated 5xx on auth-api</span><span class="when">26 min ago</span></li>
+          <li><span class="event-icon"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg></span><span class="event"><b>Service scaled</b> · analytics-ingest 6 → 10 replicas</span><span class="when">1 h ago</span></li>
+          <li><span class="event-icon warn"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg></span><span class="event"><b>Alert fired</b> · image-resizer health check failing</span><span class="when">2 h ago</span></li>
+          <li><span class="event-icon deploy"><svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg></span><span class="event"><b>Deploy finished</b> · notifications v1.9.2 rolled out</span><span class="when">4 h ago</span></li>
+          <li><span class="event-icon ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="event"><b>Backup completed</b> · primary Postgres cluster snapshot</span><span class="when">6 h ago</span></li>
+        </ul>
+        <div class="card-foot"><a href="#">View all activity →</a></div>
+      </div>
+    </section>
+
+    <section class="card chart-card">
+      <div style="display:flex;align-items:center">
+        <span class="card-title"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg>Deployments over time</span>
+        <span class="chart-legend"><span class="dot-key">Deploys per day</span><span>last 14 days</span></span>
+      </div>
+      <svg class="chart" viewBox="0 0 900 96" preserveAspectRatio="none" aria-hidden="true">
+        <line class="grid" x1="0" y1="24" x2="900" y2="24"/>
+        <line class="grid" x1="0" y1="48" x2="900" y2="48"/>
+        <line class="grid" x1="0" y1="72" x2="900" y2="72"/>
+        <polygon class="area" points="0,62 69,55 138,58 207,44 276,50 345,36 414,42 483,30 552,38 621,26 690,34 759,20 828,28 894,16 894,96 0,96"/>
+        <polyline class="line" vector-effect="non-scaling-stroke" points="0,62 69,55 138,58 207,44 276,50 345,36 414,42 483,30 552,38 621,26 690,34 759,20 828,28 894,16"/>
+        <path class="end" vector-effect="non-scaling-stroke" d="M894 16h0.01"/>
+      </svg>
+    </section>
   </main>
 </body>
 </html>

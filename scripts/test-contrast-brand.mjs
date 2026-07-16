@@ -48,9 +48,10 @@ const readBack = (p) => readFileSync(p, "utf8");
 
 // Test 3: the suggestion PRESERVES HUE (the brand identity survives).
 {
-  // A saturated lavender accent as a link on canvas (primary/canvas, min 3.0). If it fails,
-  // the suggested primary must stay blue-dominant, not greyed out.
-  const { dir, p } = tmpBrand(`:root { --glaise-primary: #3a2fb0; --glaise-canvas: #0a0a14; }`);
+  // A saturated lavender accent as a link on the dark canvas (primary/canvas, min 3.0).
+  // If it fails, the suggested primary must stay blue-dominant, not greyed out.
+  // Scoped to the dark block so the light theme's ink pairs don't fail first.
+  const { dir, p } = tmpBrand(`:root[data-theme="dark"] { --glaise-primary: #3a2fb0; --glaise-canvas: #0a0a14; }`);
   const r = run(["--brand", p]);
   // pull the first suggested hex from the output and check blue stays dominant
   const m = r.out.match(/suggest[^#]*(#[0-9a-fA-F]{6})/i);
@@ -65,8 +66,10 @@ const readBack = (p) => readFileSync(p, "utf8");
 
 // Test 4: a clean brand passes untouched (exit 0).
 {
-  // Accent with strong contrast both ways; neutrals left to default.
-  const { dir, p } = tmpBrand(`:root { --glaise-primary: #5e6ad2; }`);
+  // Accent with strong contrast both ways; neutrals left to default. A chromatic
+  // brand must re-declare on-primary in the dark block — the default dark skin's
+  // label is near-black (for its washed-white fill) and fails on brand colors.
+  const { dir, p } = tmpBrand(`:root { --glaise-primary: #5e6ad2; }\n:root[data-theme="dark"] { --glaise-on-primary: #ffffff; }`);
   const r = run(["--brand", p]);
   ok("clean brand audit exits 0", r.code === 0);
   rmSync(dir, { recursive: true, force: true });
@@ -80,11 +83,11 @@ const readBack = (p) => readFileSync(p, "utf8");
   rmSync(dir, { recursive: true, force: true });
 }
 
-// Test 6: a light block with single quotes still overlays the light theme.
+// Test 6: a dark block with single quotes still overlays the dark theme.
 {
-  const { dir, p } = tmpBrand(`:root { --glaise-primary: #2f6df0; }\n:root[data-theme='light'] { --glaise-primary: #112233; }`);
-  const r = run(["--brand", p, "primary", "canvas", "--theme", "light"]);
-  ok("single-quote light block overlays", r.out.includes("#112233"));
+  const { dir, p } = tmpBrand(`:root { --glaise-primary: #2f6df0; }\n:root[data-theme='dark'] { --glaise-primary: #112233; }`);
+  const r = run(["--brand", p, "primary", "canvas", "--theme", "dark"]);
+  ok("single-quote dark block overlays", r.out.includes("#112233"));
   rmSync(dir, { recursive: true, force: true });
 }
 
@@ -104,8 +107,8 @@ const readBack = (p) => readFileSync(p, "utf8");
 {
   const css = `/* note: a token set only in :root {} applies to both themes */\n:root { --glaise-primary: #2f6df0; }`;
   const { dir, p } = tmpBrand(css);
-  const r = run(["--brand", p, "primary", "canvas", "--theme", "dark"]);
-  ok("comment with :root {} does not hijack the dark block", r.out.includes("#2f6df0"));
+  const r = run(["--brand", p, "primary", "canvas", "--theme", "light"]);
+  ok("comment with :root {} does not hijack the base block", r.out.includes("#2f6df0"));
   rmSync(dir, { recursive: true, force: true });
 }
 

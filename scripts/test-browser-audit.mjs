@@ -9,12 +9,12 @@ const eq = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 // parseBrandTokens: per-theme --glaise-* extraction, comment-safe.
 {
   const css = `/* note: a token in :root {} applies to both themes */
-:root { --glaise-primary: #2f6df0; --glaise-canvas: #07090d; }
-:root[data-theme='light'] { --glaise-primary: #2257c8; }`;
+:root { --glaise-primary: #2257c8; --glaise-canvas: #f3f5f9; }
+:root[data-theme='dark'] { --glaise-primary: #2f6df0; }`;
   const t = parseBrandTokens(css);
-  ok("dark block parsed", t.dark["primary"] === "#2f6df0" && t.dark["canvas"] === "#07090d");
-  ok("light block parsed (single quotes)", t.light["primary"] === "#2257c8");
-  ok("comment :root {} did not hijack dark block", t.dark["primary"] === "#2f6df0");
+  ok("light (base) block parsed", t.light["primary"] === "#2257c8" && t.light["canvas"] === "#f3f5f9");
+  ok("dark block parsed (single quotes) and inherits the base", t.dark["primary"] === "#2f6df0" && t.dark["canvas"] === "#f3f5f9");
+  ok("comment :root {} did not hijack the base block", t.light["primary"] === "#2257c8");
 }
 
 // parseArgs: url positional + flags with defaults.

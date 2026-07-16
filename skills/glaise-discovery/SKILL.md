@@ -12,9 +12,13 @@ The skin is fixed (Glaise). This skill captures the **soul** — what makes *thi
 - Greenfield: before building any UI, when there is no `glaise-brief.md` yet.
 - The `glaise` hub invokes this at step 1. It can also be run directly.
 
+**HARD GATE:** do not build, scaffold, or invoke `glaise-build` until the brief is written and confirmed. This applies to EVERY product regardless of perceived simplicity — *"this product is too simple to need an interview"* is the classic way the interview gets skipped, and simple products are where unexamined taste assumptions (theme, edges, signature) waste the most work. The brief can be short; it cannot be absent.
+
 ## How to interview
 
-Keep it **short and respectful of the developer's time**. Don't ask twenty questions. Work one area at a time, and for each: propose a sensible default or 2–4 options inferred from the product name and context, then let them confirm or correct. Stop as soon as you can write a confident brief — the `Feel` and `Signature` are the parts worth pushing on; the rest can often be inferred. Always confirm the draft before writing (see *Before writing*).
+Keep it **short and respectful of the developer's time**. Don't ask twenty questions. Work one area at a time — **one question per message**: propose a sensible default or 2–4 options inferred from the product name and context (multiple choice is easier to answer than open-ended), then wait for the answer before the next question. A wall of ten questions is how half of them go unanswered. Stop as soon as you can write a confident brief — the `Feel` and `Signature` are the parts worth pushing on; the rest can often be inferred. Always confirm the draft before writing (see *Before writing*).
+
+**Show, don't describe (just-in-time):** for questions of *visual taste* — the dark-card-edge choice, picking a pigment — offer to render a quick throwaway sample (a small HTML file with the tokens loaded, screenshotted or opened in the browser) instead of describing the options in words. Offer it only when the question is genuinely visual, never upfront; if the developer declines, continue in text.
 
 Cover these dimensions (they are the brief's sections):
 
@@ -26,7 +30,7 @@ Cover these dimensions (they are the brief's sections):
 6. **Signature** — the one element (visual, structural, or interaction) that could only exist for THIS product. If you can't name one, keep probing.
 7. **Density** — tight / balanced / airy, within the family range.
 8. **Key surfaces** — the main screens/areas that exist.
-9. **Shell & navigation** — the app frame around those surfaces. Offer a **shell archetype** as the starting point (full catalog in the hub's `references/shells.md`): **Console** (sidebar + top bar — dashboards/admin), **Focused** (top bar only, contained — wizards/forms), **Workbench** (split list + detail — inbox/CRM/editors), **Reader** (centered, minimal chrome — docs/content), or **Canvas** (full-bleed + floating panels — visual editors). Suggest one from the product type, then confirm the details (sidebar sections/collapsible, what the top bar holds, page shape) — or go custom. The archetype is the frame only; the soul still comes from the rest of the brief.
+9. **Shell & navigation** — the app frame around those surfaces. Offer a **shell archetype** as the starting point (full catalog in the hub's `references/shells.md`): **Console** (sidebar + top bar — dashboards/admin; **floating panels by default** — sidebar and content as detached cards with a canvas gutter; docked full-bleed only on request), **Focused** (top bar only, contained — wizards/forms), **Workbench** (split list + detail — inbox/CRM/editors), **Reader** (centered, minimal chrome — docs/content), or **Canvas** (full-bleed + floating panels — visual editors). Suggest one from the product type, then confirm the details (sidebar sections/collapsible, what the top bar holds, page shape) — or go custom. The archetype is the frame only; the soul still comes from the rest of the brief.
 10. **Stack** — framework (React or Vue), Tailwind (yes/no), then **Skin** and **Theme**:
     - **Skin** — three doors, asked before Theme:
       1. **Default** (recommended) — the Glaise skin, the family's face. No `brand.css`.
@@ -45,8 +49,13 @@ Cover these dimensions (they are the brief's sections):
       **Broken install:** if the chosen pigment file is missing (a broken or partial
       install), report the install problem and point at `glaise-update` — never
       fabricate the file.
-    - **Theme** — Dark (the family default) / Light / Both (a toggle). If a pigment was
+    - **Theme** — Light (the family default) / Dark / Both (a toggle). If a pigment was
       chosen, propose its primary theme as the default answer.
+    - **Dark card edges** (only if the theme includes dark — pure taste, so ask):
+      **value-only (the family default)** — cards separate from the canvas by tone alone,
+      edge-free like light — or **hairline ring** — outlined cards, for people who like a
+      drawn edge. Ring re-values `--glaise-shadow-1` to `0 0 0 1px var(--glaise-hairline)`
+      in the project's dark block; the single `box-shadow` declaration model is unchanged.
     Primitives follow the framework (Base UI for React, Reka UI for Vue); icons are
     always Lucide.
 
@@ -97,6 +106,7 @@ Write exactly this structure (fill every section; keep it concise — it's an an
 
 ## Shell & navigation
 - Archetype: <Console | Focused | Workbench | Reader | Canvas | custom>
+- Mode: <floating (default — detached panels on the canvas) | docked (full-bleed)>
 - Sidebar: <none | collapsible left nav with sections: …>
 - Top bar: <none | what it holds: wordmark, search, primary actions, profile, theme toggle>
 - Page shape: <full-width app shell | centered/contained | split (list + detail)>
@@ -106,9 +116,20 @@ Write exactly this structure (fill every section; keep it concise — it's an an
 - Tailwind: <yes | no>
 - Primitives: <Base UI (React) | Reka UI (Vue)>
 - Icons: Lucide
-- Theme: <dark | light | both>
+- Theme: <light | dark | both>
+- Dark card edges: <value-only (default) | hairline ring> (omit if light-only)
 - Skin: <default Glaise | pigment: <name> | custom brand.css via glaise-brand>
 ```
+
+## Brief self-review
+
+After writing the file, look at it with fresh eyes and fix inline (no re-confirmation needed):
+
+1. **Placeholder scan** — any `<...>` left unfilled, "TBD", or empty section? Fill or ask.
+2. **Generic-feel check** — if `Feel` could describe any product ("clean", "modern", "simple"), it failed; push once more for words that mean something.
+3. **Signature check** — if `Signature` could exist in another product unchanged, it isn't one yet.
+4. **Consistency** — do sections contradict (a "dense trading floor" feel with an "airy" density; a Reader archetype with five key surfaces)? Resolve.
+5. **Ambiguity** — could any line be read two ways by `glaise-build`? Pick one and make it explicit.
 
 ## Handoff
 

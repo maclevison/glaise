@@ -16,6 +16,9 @@
  *
  * No dependencies. Reads tokens.css next to this file. color-mix()/non-hex
  * token values are skipped (resolve them by hand and pass hex to ad-hoc mode).
+ *
+ * Convention: `:root` is the LIGHT (default) theme; `:root[data-theme="dark"]`
+ * overrides it. A token only in `:root` applies to both themes.
  */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -107,9 +110,9 @@ function parseTheme(css, selector) {
   css = css.replace(/\/\*[\s\S]*?\*\//g, "")
   // Tolerant: accept `:root {` or `:root{`, and single/double quotes + whitespace
   // in the data-theme attribute. Keeps default tokens.css parsing working.
-  const isLight = /data-theme/.test(selector)
-  const re = isLight
-    ? /:root\[\s*data-theme\s*=\s*['"]?\s*light\s*['"]?\s*\]\s*\{/
+  const isDark = /data-theme/.test(selector)
+  const re = isDark
+    ? /:root\[\s*data-theme\s*=\s*['"]?\s*dark\s*['"]?\s*\]\s*\{/
     : /:root\s*\{/
   const m = re.exec(css)
   if (!m) return {}
@@ -125,8 +128,8 @@ function parseTheme(css, selector) {
 }
 
 const css = fs.readFileSync(TOKENS, 'utf8')
-const DARK = parseTheme(css, ':root {')
-const LIGHT = { ...DARK, ...parseTheme(css, ':root[data-theme="light"]') }
+const LIGHT = parseTheme(css, ':root {')
+const DARK = { ...LIGHT, ...parseTheme(css, ':root[data-theme="dark"]') }
 
 // Curated pairs that carry real text. `min` is the AA floor for that role:
 //   4.5 = body text · 3.0 = large/non-body (≥18px or bold ≥14px, dots, icons)
@@ -139,7 +142,7 @@ const PAIRS = [
   ['ink-subtle', 'surface-1', 4.5, 'tertiary text (the usual offender)'],
   ['ink-subtle', 'surface-2', 4.5, 'muted text on lifted surface'],
   ['ink-tertiary', 'surface-1', 0, 'disabled/footnote — never real text (light dips <3:1)'],
-  ['on-primary', 'primary', 4.5, 'button label on lavender fill'],
+  ['on-primary', 'primary', 4.5, 'button label on the primary fill'],
   ['primary', 'canvas', 3.0, 'accent/link on canvas (≥18px or non-text)'],
   ['primary', 'surface-1', 3.0, 'accent on card (≥18px or non-text)'],
   ['success', 'surface-1', 3.0, 'status dot/text (non-body)'],
@@ -157,7 +160,8 @@ const PAIRS = [
 //
 // Hue is only meaningful on a chromatic color — a near-gray reports hue 0° and
 // would false-fail against a red, so anything below MIN_CHROMA is skipped: it is
-// already told apart by chroma, not hue.
+// already told apart by chroma, not hue. The default skin's monochrome primary
+// takes exactly this path — the rule only bites when a pigment brings chroma.
 const MIN_HUE_SEPARATION = 30
 const MIN_CHROMA = 0.15
 const SEPARATION = [['danger', 'primary', 'an error must not read as a CTA']]
@@ -245,13 +249,13 @@ if (brandFlag) {
   let bcss;
   try { bcss = fs.readFileSync(brandFlag, "utf8"); }
   catch { console.error(`brand.css not found: ${brandFlag}`); process.exit(2); }
-  const bDark = parseTheme(bcss, ":root {");
-  const bLight = parseTheme(bcss, ':root[data-theme="light"]');
+  const bLight = parseTheme(bcss, ":root {");
+  const bDark = parseTheme(bcss, ':root[data-theme="dark"]');
   if (Object.keys(bDark).length === 0 && Object.keys(bLight).length === 0) {
     console.error("warning: --brand parsed 0 tokens from " + brandFlag);
   }
-  DARK_EFF = { ...DARK, ...bDark };
-  LIGHT_EFF = { ...LIGHT, ...bDark, ...bLight };
+  LIGHT_EFF = { ...LIGHT, ...bLight };
+  DARK_EFF = { ...DARK, ...bLight, ...bDark };
 }
 const THEMES_EFF = { dark: DARK_EFF, light: LIGHT_EFF };
 const resolveEff = (token, theme) => {
@@ -279,7 +283,7 @@ if (positional.length >= 2) {
 }
 
 console.log('\n  Glaise skin — WCAG contrast + semantic separation audit')
-const failures = auditTheme('dark') + auditTheme('light')
+const failures = auditTheme('light') + auditTheme('dark')
 console.log('')
 if (failures > 0) {
   console.log(`  ${failures} required check(s) failed. Fix the token, not the symptom.\n`)

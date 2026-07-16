@@ -5,19 +5,34 @@
    Load LAST: @import "tokens.css"; [theme.css if Tailwind;] @import "brand.css"; */
 :root {
   --glaise-primary: #b0512f;
-  --glaise-primary-hover: #c26340;
+  --glaise-on-primary: #ffffff;
+  --glaise-primary-hover: #9a4527;
   --glaise-primary-focus: #b0512f;
 
-  /* Danger — the ONLY pigment that must override it. The default red sits 15.8°
+  /* Danger — the ONLY pigment that must override it. The default red sits ~16°
      from this pigment's burnt-orange accent, so an error would read as a CTA
      (and collapses onto it under protanopia). Shifted to crimson, >=30° clear of
      the accent, AA held on the warm surfaces below. */
-  --glaise-danger: #e05073;
+  --glaise-danger: #a4133c;
 
-  /* Rounder character (both themes) */
+  /* Rounder character than the default (both themes) */
   --glaise-radius-md: 10px;
-  --glaise-radius-lg: 16px;
-  --glaise-radius-xl: 20px;
+
+  /* Cream neutrals */
+  --glaise-canvas: #f8f4ec;
+  --glaise-chrome: #efe8db;
+  --glaise-surface-1: #ffffff;
+  --glaise-surface-2: #faf7f0;
+  --glaise-hairline: #e9e1d3;
+  --glaise-hairline-strong: #d8cdb9;
+}
+
+:root[data-theme="dark"] {
+  --glaise-primary: #b0512f;
+  --glaise-on-primary: #ffffff;   /* the default dark near-black label fails on this fill */
+  --glaise-primary-hover: #c26340;
+  --glaise-primary-focus: #b0512f;
+  --glaise-danger: #e05073;   /* crimson, hue-matched to the light value; clear of the accent */
 
   /* Dark counterpart — warm near-black */
   --glaise-canvas: #120d09;
@@ -26,17 +41,4 @@
   --glaise-surface-2: #201811;
   --glaise-hairline: #2e2418;
   --glaise-hairline-strong: #3e3225;
-}
-
-:root[data-theme="light"] {
-  --glaise-primary: #b0512f;
-  --glaise-primary-hover: #9a4527;
-  --glaise-primary-focus: #b0512f;
-  --glaise-danger: #a4133c;   /* crimson, hue-matched to the dark value; clear of the accent */
-  --glaise-canvas: #f8f4ec;
-  --glaise-chrome: #efe8db;
-  --glaise-surface-1: #ffffff;
-  --glaise-surface-2: #faf7f0;
-  --glaise-hairline: #e9e1d3;
-  --glaise-hairline-strong: #d8cdb9;
 }
