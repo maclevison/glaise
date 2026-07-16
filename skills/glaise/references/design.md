@@ -51,10 +51,13 @@ The page rhythm is **dense product screenshots** — Glaise leads with high-fide
 - **Inverse Surface 2** (`--glaise-inverse-surface-2`): Two steps above inverse canvas.
 
 ### Text
-- **Ink** (`--glaise-ink`): All headlines and emphasized body type — near-black on light, light gray on dark.
-- **Ink Muted** (`--glaise-ink-muted`): Secondary type — meta info on hero panels.
-- **Ink Subtle** (`--glaise-ink-subtle`): Tertiary type — deselected pricing tabs, footer columns.
-- **Ink Tertiary** (`--glaise-ink-tertiary`): Quaternary — disabled, footnotes.
+
+The ink ramp doubles as the **text-role ramp** — hierarchy is made with weight and tone first, size last (see Typography → Principles).
+
+- **Ink** (`--glaise-ink`): The **primary/anchor role** — what the eye lands on: page and section titles, the metric number, the row's anchor (a service name), the lead of a timeline event. **At most one primary element per row/line** — everything else steps down.
+- **Ink Muted** (`--glaise-ink-muted`): The **secondary role** — supporting data: table cell values, regions, owners, the complement of an event line.
+- **Ink Subtle** (`--glaise-ink-subtle`): The **tertiary/meta role** — micro-labels, table column headers, timestamps, footers, sublines. The lightest tone that still carries real text (AA holds on both themes).
+- **Ink Tertiary** (`--glaise-ink-tertiary`): Disabled and decorative only — **never meta text** (it dips below AA on light; timestamps and labels belong to `ink-subtle`).
 
 ### Semantic
 
@@ -88,6 +91,7 @@ The surface treats display and body sizes as one continuous voice; the size chan
 | Token | Weight | Line Height | Letter Spacing | Use |
 |---|---|---|---|---|
 | `--glaise-text-display-xl` | 600 | 1.05 | -3.0px | Largest hero headline |
+| `--glaise-text-metric` | 600 | 1.10 | -0.5px | Stat-card metric number (ink, tabular-nums) |
 | `--glaise-text-display-lg` | 600 | 1.10 | -1.8px | Section opener headlines |
 | `--glaise-text-display-md` | 600 | 1.15 | -1.0px | Sub-section headlines |
 | `--glaise-text-headline` | 600 | 1.20 | -0.6px | Pricing tier titles, CTA banner heading |
@@ -98,14 +102,17 @@ The surface treats display and body sizes as one continuous voice; the size chan
 | `--glaise-text-body-sm` | 400 | 1.50 | 0 | Card body, footer columns |
 | `--glaise-text-caption` | 400 | 1.40 | 0 | Captions, meta, status |
 | (button label) | 500 | 1.20 | 0 | All button labels |
-| `--glaise-text-eyebrow` | 500 | 1.30 | 0.4px | Section eyebrow (slight positive tracking) |
+| `--glaise-text-eyebrow` | 500 | 1.30 | 0.06em | Section eyebrow (positive tracking) |
 | `--glaise-text-mono` | 400 | 1.50 | 0 | JetBrains Mono for code in product screenshots |
+| `--glaise-text-microlabel` | 600 | 1.30 | 0.06em | UPPERCASE micro-labels: stat-card labels, table column headers (ink-subtle) |
 
 ### Principles
 
+- **Hierarchy is weight and tone first, size last.** The text-role ramp (ink → ink-muted → ink-subtle) carries hierarchy; size variation is reserved for macro structure (page title → section → metric). Tonal flatness — everything in the same dark tone and weight — is the failure mode this ramp exists to prevent.
+- **Inside dense tables and lists, font-size is constant.** Differentiation comes from weight and tone only: the row's anchor (service name) is ink at 500–600, every other cell is ink-muted at 400, headers are microlabel style. **At most one primary element per row.** (Mono cells use `--glaise-text-mono` — its 13px is the optical match for 14px sans, not a size step.)
 - **Aggressive negative tracking on display** (-3.0px at 80px ≈ 4% of size).
 - **Single voice from display to body.** Display-xl at 600 → body at 400 — same family (Inter), narrower weights.
-- **Eyebrow uses positive tracking** (+0.4px) — contrast against the negative-tracked display marks the eyebrow as taxonomy.
+- **Micro-labels and eyebrows use positive tracking** (+0.06em) with UPPERCASE — contrast against the negative-tracked display marks them as taxonomy.
 - **Mono only in code contexts.** JetBrains Mono lives inside product screenshots — not on the chrome.
 
 ### Note on Fonts
@@ -143,7 +150,7 @@ The canvas IS the whitespace. Sections separate by lift onto floating surface-1 
 | 3 (surface-3 lift) | `--glaise-surface-3` background | Sub-nav, dropdown menus |
 | 4 (focus ring) | 2px `--glaise-primary-focus` outline at 50% opacity | Focused input, focused button |
 
-Glaise's depth is carried by the surface ladder plus **one elevation language per card — `box-shadow: var(--glaise-shadow-1)`, with no border stacked on it**: on light (the default) it resolves to **none** — a card separates from the canvas by value alone, white on off-white, edge-free; on dark it resolves to a hairline ring (value alone can't hold an edge there). `--glaise-shadow-2` is for **overlays only** (menus, popovers, modals) — the one real shadow on light. Bare hairline borders remain for inputs, dividers, and seams — not for cards.
+Glaise's depth is carried by the surface ladder plus **one elevation language per card — `box-shadow: var(--glaise-shadow-1)`, with no border stacked on it**. By default it resolves to **none on both themes**: a card separates from the canvas by value alone (white on off-white in light; the dark ladder carries a deliberately wider canvas→surface delta so value holds the edge there too). **Dark card edges are a per-project taste question asked at discovery**: a project that prefers outlined dark cards records it in the brief and re-values `--glaise-shadow-1` to a hairline ring (`0 0 0 1px var(--glaise-hairline)`) in its dark block — the single-declaration model is unchanged. `--glaise-shadow-2` is for **overlays only** (menus, popovers, modals) — a real shadow on light, a ring on dark (a floating surface needs an edge value can't give). Bare hairline borders remain for inputs, dividers, and seams — not for cards.
 
 ### Decorative Depth
 
@@ -323,7 +330,7 @@ Glaise ships light by default and a dark counterpart as the *same skin inverted*
 - **Activation:** `<html data-theme="dark">`. No attribute = light. Tokens are redefined under `:root[data-theme="dark"]` in `tokens.css`; `theme.css` (Tailwind) inherits via the vars, no rebuild.
 - **Surfaces invert:** `--glaise-canvas` becomes a soft dark gray (deep, never near-black); cards lift toward lighter grays; `--glaise-ink` is light in four levels; hairlines darken.
 - **Primary stays monochrome, value flipped:** a washed near-black is invisible on a dark canvas, so the dark theme re-values `--glaise-primary` as a washed white and `--glaise-on-primary` as a near-black label. The identity is the monochrome role; the value carries the function — the same way the system re-values the semantic colors per theme.
-- **Depth inverts inside the same token:** on light a card is edge-free (`--glaise-shadow-1` resolves to `none` — value alone separates it) and only overlays cast a real shadow (`--glaise-shadow-2`); on dark both resolve to hairline rings (value alone can't hold an edge, diffuse shadows don't read). Cards keep the single `box-shadow` declaration in both themes. The white edge-highlight on lifted panels is a dark-only trick.
+- **Depth stays edge-free by default:** `--glaise-shadow-1` resolves to `none` on both themes — value alone separates a card (the dark ladder's canvas→surface delta is wider than light's for exactly this). Overlays use `--glaise-shadow-2` (soft shadow on light, hairline ring on dark). A project may opt into outlined dark cards at discovery (see Elevation & Depth). The white edge-highlight on lifted panels is a dark-only trick.
 
 Dark is a *state* of the fixed skin, chosen per project (light / dark / both) — never a per-product re-paint.
 

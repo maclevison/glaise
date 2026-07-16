@@ -33,9 +33,9 @@
   --glaise-hairline-tertiary: #c2c6ce;
 
   /* Inverse — the other side of the skin, for inverse CTAs/section openers */
-  --glaise-inverse-canvas: #161618;
-  --glaise-inverse-surface-1: #1e1e20;
-  --glaise-inverse-surface-2: #232326;
+  --glaise-inverse-canvas: #131316;
+  --glaise-inverse-surface-1: #202024;
+  --glaise-inverse-surface-2: #26262a;
   --glaise-inverse-ink: #ffffff;
 
   /* Semantic — earned by meaning, never decorative (they are not accents).
@@ -74,6 +74,7 @@
   --glaise-text-display-xl: 80px;
   --glaise-text-display-lg: 56px;
   --glaise-text-display-md: 40px;
+  --glaise-text-metric: 30px;      /* stat-card metric number — weight 600, ink */
   --glaise-text-headline: 28px;
   --glaise-text-card-title: 22px;
   --glaise-text-subhead: 20px;
@@ -83,6 +84,7 @@
   --glaise-text-caption: 12px;
   --glaise-text-eyebrow: 13px;
   --glaise-text-mono: 13px;
+  --glaise-text-microlabel: 11px;  /* UPPERCASE micro-labels/column headers — 600, ink-subtle, 0.06em */
 
   /* Motion — strong custom curves (built-in CSS easings are too weak) +
      a duration ladder. UI motion stays under 300ms; --duration-drawer is the
@@ -130,12 +132,15 @@
   --glaise-ink-subtle: #8a8f98;
   --glaise-ink-tertiary: #62666d;
 
-  --glaise-canvas: #161618;     /* soft dark gray — deep, but not near-black */
-  --glaise-chrome: #1b1b1e;     /* sidebar/chrome — a subtle lift, never equal to canvas */
-  --glaise-surface-1: #1e1e20;
-  --glaise-surface-2: #232326;
-  --glaise-surface-3: #28282c;
-  --glaise-surface-4: #2a2a2e;
+  /* The dark ladder carries a wider canvas→surface delta than light needs:
+     cards are edge-free by default (shadow-1: none), so value alone must
+     hold the card edge. */
+  --glaise-canvas: #131316;     /* soft dark gray — deep, but not near-black */
+  --glaise-chrome: #18181b;     /* sidebar/chrome — a subtle lift, never equal to canvas */
+  --glaise-surface-1: #202024;
+  --glaise-surface-2: #26262a;
+  --glaise-surface-3: #2b2b30;
+  --glaise-surface-4: #2e2e33;
 
   --glaise-hairline: #303036;
   --glaise-hairline-strong: #3e3e46;
@@ -151,12 +156,13 @@
   --glaise-success: #27a644;
   --glaise-danger: #eb5757;
 
-  /* Elevation on dark: the shadow tokens resolve to a hairline RING — value
-     alone can't hold a card edge on a dark canvas, and diffuse shadows don't
-     read there. One declaration (box-shadow: var(--glaise-shadow-1)) works in
-     both themes: none on light, ring on dark. */
-  --glaise-shadow-1: 0 0 0 1px #303036;
-  --glaise-shadow-2: 0 0 0 1px #3e3e46;
+  /* Elevation on dark: edge-free by default, like light — the widened ladder
+     delta holds the card edge by value alone. A project that prefers outlined
+     dark cards opts in at discovery and re-values shadow-1 to a hairline ring
+     (0 0 0 1px var(--glaise-hairline)) in its own CSS. Overlays keep a ring:
+     a floating menu over a card needs an edge that value can't give. */
+  --glaise-shadow-1: none;
+  --glaise-shadow-2: 0 0 0 1px #42424a;
 
   /* Interactive state fills — lighter overlays for dark surfaces */
   --glaise-fill-hover: rgba(255, 255, 255, 0.05);

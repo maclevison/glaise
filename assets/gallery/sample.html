@@ -83,10 +83,10 @@
   .card { background: var(--glaise-surface-1); border-radius: var(--glaise-radius-lg);
           box-shadow: var(--glaise-shadow-1); padding: var(--glaise-space-md); }
   .stat { position: relative; overflow: hidden; }
-  .microlabel { font-size: 11px; font-weight: 550; letter-spacing: 0.5px; text-transform: uppercase;
-                color: var(--glaise-ink-subtle); }
-  .stat .value { font-size: 26px; font-weight: 600; letter-spacing: -0.5px;
-                 font-variant-numeric: tabular-nums; margin: 6px 0 4px; }
+  .microlabel { font-size: var(--glaise-text-microlabel); font-weight: 600; letter-spacing: 0.06em;
+                text-transform: uppercase; color: var(--glaise-ink-subtle); }
+  .stat .value { font-size: var(--glaise-text-metric); font-weight: 600; letter-spacing: -0.5px;
+                 font-variant-numeric: tabular-nums; margin: 6px 0 4px; color: var(--glaise-ink); }
   .trend { font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
   .trend.good { color: var(--glaise-success); }
   .trend.bad { color: var(--glaise-danger); }
@@ -107,8 +107,8 @@
   .card-foot .pager span:hover { background: var(--glaise-fill-hover); color: var(--glaise-ink); }
   .card-foot a { color: var(--glaise-ink-muted); font-weight: 500; }
   .card-foot a:hover { color: var(--glaise-ink); }
-  .card-title { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600;
-                letter-spacing: -0.2px; }
+  .card-title { display: flex; align-items: center; gap: 8px; font-size: var(--glaise-text-body);
+                font-weight: 600; letter-spacing: -0.2px; color: var(--glaise-ink); }
   .card-title .icon { color: var(--glaise-ink-subtle); }
   .table-tools { margin-left: auto; display: flex; gap: 8px; align-items: center; }
   .search { display: flex; align-items: center; gap: 8px; background: var(--glaise-surface-1);
@@ -123,8 +123,8 @@
             border-radius: var(--glaise-radius-md); padding: 6px 10px; }
   table { width: 100%; border-collapse: collapse; margin-top: var(--glaise-space-sm);
           font-variant-numeric: tabular-nums; }
-  th { font-size: 11px; font-weight: 550; letter-spacing: 0.5px; text-transform: uppercase;
-       color: var(--glaise-ink-subtle); text-align: left; padding: 8px 10px;
+  th { font-size: var(--glaise-text-microlabel); font-weight: 600; letter-spacing: 0.06em;
+       text-transform: uppercase; color: var(--glaise-ink-subtle); text-align: left; padding: 8px 10px;
        border-bottom: 1px solid var(--glaise-hairline); }
   td { padding: 11px 10px; border-bottom: 1px solid var(--glaise-hairline); color: var(--glaise-ink-muted); }
   th:first-child, td:first-child { padding-left: 0; }
@@ -152,9 +152,9 @@
   .event-icon.ok { color: var(--glaise-success); }
   .event-icon.warn { color: var(--glaise-danger); }
   .event-icon.deploy { color: var(--glaise-primary); }
-  .event { line-height: 1.35; }
-  .event b { font-weight: 550; color: var(--glaise-ink); }
-  .when { margin-left: auto; color: var(--glaise-ink-tertiary); font-size: 12px; white-space: nowrap; }
+  .event { line-height: 1.35; color: var(--glaise-ink-muted); }
+  .event b { font-weight: 600; color: var(--glaise-ink); }
+  .when { margin-left: auto; color: var(--glaise-ink-subtle); font-size: 12px; white-space: nowrap; }
 
   .chart-card { display: flex; flex-direction: column; }
   .chart { width: 100%; height: 128px; margin-top: var(--glaise-space-xs); color: var(--glaise-primary); }

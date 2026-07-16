@@ -26,7 +26,7 @@ Free per product: layout, composition, hierarchy/focus, density within range, wh
 
 ## Flow
 
-1. **Discover the product** — for greenfield (if the repo isn't initialized yet, offer `git init` first), invoke the `glaise-discovery` skill: it interviews the developer and writes `docs/glaise/glaise-brief.md` capturing the user, task, domain, feel, and the one signature. The brief also records the theme (dark / light / both). For an existing project, read `docs/glaise/glaise-brief.md` if present, else infer from the code.
+1. **Discover the product** — for greenfield (if the repo isn't initialized yet, offer `git init` first), invoke the `glaise-discovery` skill: it interviews the developer and writes `docs/glaise/glaise-brief.md` capturing the user, task, domain, feel, and the one signature. The brief also records the theme (light / dark / both) and the dark-card-edge choice. For an existing project, read `docs/glaise/glaise-brief.md`; **if it's missing, still run `glaise-discovery`** — the taste questions (theme, dark card edges, pigment, the signature) are never inferable from code; only the Stack answers may be pre-filled from the repo. The interview is the gate: no brief, no build.
 2. **Load the family** — read `references/design.md` + `references/tokens.css` (and `theme.css` if Tailwind); read `references/motion.md` when the screen has any movement.
 3. **Skin (optional)** — check for `docs/glaise/brand.css`. If present, the build
    inherits it automatically (no action). If absent and the brief didn't already decide

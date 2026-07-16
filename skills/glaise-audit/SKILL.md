@@ -86,7 +86,7 @@ The measurable half of family conformance (the *taste* half belongs to `glaise-r
 
 - **Icons:** Lucide only (`lucide-react` / `lucide-vue-next`) — `grep` for any other icon import (heroicons, material-icons, font-awesome, tabler) → finding.
 - **Controls:** native or headless primitive (Base UI / Reka UI). `grep` package imports for a styled kit (`@mui`, `vuetify`, `@chakra-ui`, `antd`, `react-bootstrap`) → blocker; it ships its own skin.
-- **Depth:** surface ladder + the shadow tokens; `--glaise-shadow-1` resolves per theme (none on light — cards separate by value; hairline ring on dark), `--glaise-shadow-2` is overlays-only — no hardcoded `box-shadow`, no ad-hoc border colors, no real shadow on a resting card in light.
+- **Depth:** surface ladder + the shadow tokens; `--glaise-shadow-1` is `none` on both themes by default (cards separate by value; a dark hairline ring only if the brief opted in), `--glaise-shadow-2` is overlays-only — no hardcoded `box-shadow`, no ad-hoc border colors, no real shadow on a resting card in light.
 - **Chrome separation:** the app sidebar sits on `--glaise-chrome` (a tone distinct from `--glaise-canvas`), never the workspace fill — `grep` the sidebar/rail background; a sidebar set to `--glaise-canvas` (matching the workspace) is a finding unless the brief asks for it.
 - **No side-stripe:** no colored `border-left`/`border-right` > 1px and no inset accent bar on nav items / rows / callouts —
   `grep -rnE 'inset [0-9]+px 0 0|border-(left|right):\s*(2|3|4|5|6)px' src`.

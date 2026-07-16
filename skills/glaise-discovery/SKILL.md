@@ -12,9 +12,13 @@ The skin is fixed (Glaise). This skill captures the **soul** — what makes *thi
 - Greenfield: before building any UI, when there is no `glaise-brief.md` yet.
 - The `glaise` hub invokes this at step 1. It can also be run directly.
 
+**HARD GATE:** do not build, scaffold, or invoke `glaise-build` until the brief is written and confirmed. This applies to EVERY product regardless of perceived simplicity — *"this product is too simple to need an interview"* is the classic way the interview gets skipped, and simple products are where unexamined taste assumptions (theme, edges, signature) waste the most work. The brief can be short; it cannot be absent.
+
 ## How to interview
 
-Keep it **short and respectful of the developer's time**. Don't ask twenty questions. Work one area at a time, and for each: propose a sensible default or 2–4 options inferred from the product name and context, then let them confirm or correct. Stop as soon as you can write a confident brief — the `Feel` and `Signature` are the parts worth pushing on; the rest can often be inferred. Always confirm the draft before writing (see *Before writing*).
+Keep it **short and respectful of the developer's time**. Don't ask twenty questions. Work one area at a time — **one question per message**: propose a sensible default or 2–4 options inferred from the product name and context (multiple choice is easier to answer than open-ended), then wait for the answer before the next question. A wall of ten questions is how half of them go unanswered. Stop as soon as you can write a confident brief — the `Feel` and `Signature` are the parts worth pushing on; the rest can often be inferred. Always confirm the draft before writing (see *Before writing*).
+
+**Show, don't describe (just-in-time):** for questions of *visual taste* — the dark-card-edge choice, picking a pigment — offer to render a quick throwaway sample (a small HTML file with the tokens loaded, screenshotted or opened in the browser) instead of describing the options in words. Offer it only when the question is genuinely visual, never upfront; if the developer declines, continue in text.
 
 Cover these dimensions (they are the brief's sections):
 
@@ -47,6 +51,11 @@ Cover these dimensions (they are the brief's sections):
       fabricate the file.
     - **Theme** — Light (the family default) / Dark / Both (a toggle). If a pigment was
       chosen, propose its primary theme as the default answer.
+    - **Dark card edges** (only if the theme includes dark — pure taste, so ask):
+      **value-only (the family default)** — cards separate from the canvas by tone alone,
+      edge-free like light — or **hairline ring** — outlined cards, for people who like a
+      drawn edge. Ring re-values `--glaise-shadow-1` to `0 0 0 1px var(--glaise-hairline)`
+      in the project's dark block; the single `box-shadow` declaration model is unchanged.
     Primitives follow the framework (Base UI for React, Reka UI for Vue); icons are
     always Lucide.
 
@@ -108,8 +117,19 @@ Write exactly this structure (fill every section; keep it concise — it's an an
 - Primitives: <Base UI (React) | Reka UI (Vue)>
 - Icons: Lucide
 - Theme: <light | dark | both>
+- Dark card edges: <value-only (default) | hairline ring> (omit if light-only)
 - Skin: <default Glaise | pigment: <name> | custom brand.css via glaise-brand>
 ```
+
+## Brief self-review
+
+After writing the file, look at it with fresh eyes and fix inline (no re-confirmation needed):
+
+1. **Placeholder scan** — any `<...>` left unfilled, "TBD", or empty section? Fill or ask.
+2. **Generic-feel check** — if `Feel` could describe any product ("clean", "modern", "simple"), it failed; push once more for words that mean something.
+3. **Signature check** — if `Signature` could exist in another product unchanged, it isn't one yet.
+4. **Consistency** — do sections contradict (a "dense trading floor" feel with an "airy" density; a Reader archetype with five key surfaces)? Resolve.
+5. **Ambiguity** — could any line be read two ways by `glaise-build`? Pick one and make it explicit.
 
 ## Handoff
 
