@@ -12,6 +12,8 @@ The skin is fixed (Glaise). This skill captures the **soul** — what makes *thi
 - Greenfield: before building any UI, when there is no `glaise-brief.md` yet.
 - The `glaise` hub invokes this at step 1. It can also be run directly.
 
+**SCOPE GATE:** Glaise builds **product UI** — admin panels, dashboards, consoles, back-offices, internal tools. If the request is a marketing website, landing page, blog, or brochure, say plainly that Glaise is not the tool for it and stop — don't bend the interview to fit.
+
 **HARD GATE:** do not build, scaffold, or invoke `glaise-build` until the brief is written and confirmed. This applies to EVERY product regardless of perceived simplicity — *"this product is too simple to need an interview"* is the classic way the interview gets skipped, and simple products are where unexamined taste assumptions (theme, edges, signature) waste the most work. The brief can be short; it cannot be absent.
 
 ## How to interview

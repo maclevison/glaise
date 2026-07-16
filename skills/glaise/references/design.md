@@ -1,7 +1,7 @@
 ---
 version: alpha
 name: Glaise-design-analysis
-description: An off-white product-focused workspace (the canvas) with floating white panels, dark functional ink, and a monochrome primary — a washed near-black used for the primary CTA and focus, never decoratively. The system reads as software-craft documentation: dense, technical, and quietly luxurious. Display type is set in Inter at 500–700 with measured negative tracking. Cards float as white panels (surface-1) with generous radii and one elevation language (hairline or soft shadow). The default skin has no chromatic accent — color arrives only through a pigment or brand pack; success/danger are the only colors, earned by meaning. Dark is the second state — the same skin inverted onto a soft dark-gray ladder.
+description: An off-white product-focused workspace (the canvas) with floating white panels, dark functional ink, and a monochrome primary — a washed near-black used for the primary CTA and focus, never decoratively. The system reads as software-craft documentation: dense, technical, and quietly luxurious. Display type is set in Inter at 500–700 with measured negative tracking. Cards float as white panels (surface-1) with generous radii and one elevation language (hairline or soft shadow). The default skin has no chromatic accent — color arrives only through a pigment or brand pack; success/danger are the only colors, earned by meaning. Dark is the second state — the same skin inverted onto a soft dark-gray ladder. Scope: admin panels, dashboards, and internal tools — from the login screen inward; never marketing sites or landing pages.
 ---
 
 > Brandable values — color, surfaces, radius, spacing, and the type *family* — are canonical in `tokens.css` (default) and may be overridden per client by `brand.css`; this document never pins their literals (read `tokens.css` for current values). The invariant type *scale* (weights, line-heights, tracking) and structural measures are specified here as part of the fixed engine — a brand cannot change them. The accent role is `--glaise-primary`, whatever its effective value — a washed near-black (monochrome) in the default skin; a pigment or brand may re-value it, bringing chroma, without changing its role or scarcity.
@@ -12,9 +12,9 @@ Glaise's canvas is an off-white workspace — `--glaise-canvas` is the "whitespa
 
 The primary is **monochrome**: `--glaise-primary` is a washed near-black (a washed white in dark) — functional ink, not a color. It marks the primary CTA button, focus rings, and selected-state emphasis. A hover state (`--glaise-primary-hover`) and a focus variant (`--glaise-primary-focus`) extend the same ramp. The default skin has **no chromatic accent at all** — chroma arrives only through a pigment or brand pack re-valuing `--glaise-primary`. The semantic colors are exactly two: `--glaise-success` for status pills and the rare success indicator, and `--glaise-danger` for error states. A semantic color is **not** an accent: it is earned by meaning and never used decoratively. There is deliberately no `warning` and no `info` — an informational emphasis is already `--glaise-primary`.
 
-Display type runs **Inter** at weight 500–700 with negative letter-spacing scaling from -3.0px at the largest display size down to 0 at body. Body sizes also run Inter, and JetBrains Mono is reserved for code snippets in product screenshots.
+Display type runs **Inter** at weight 500–700 with negative letter-spacing scaling from -3.0px at the largest display size down to 0 at body. Body sizes also run Inter, and JetBrains Mono is reserved for code and identifiers in the product UI (service names, IDs, snippets).
 
-The page rhythm is **dense product screenshots** — Glaise leads with high-fidelity captures of the product UI (issue list, project view, dashboard) framed in `--glaise-surface-1` panels with `--glaise-radius-xl` corners. The chrome is intentionally minimal so the app screenshots can do the heavy lifting.
+The page rhythm is **dense working surfaces** — real tables, stat rows, timelines, and forms doing the product's job, framed as floating `--glaise-surface-1` panels with generous corners. The chrome stays quiet so the data can lead. Glaise's scope runs **from the login screen inward**: auth, dashboards, consoles, settings, back-offices — never marketing pages.
 
 **Key Characteristics:**
 - **Light-canvas system** — `--glaise-canvas` is an off-white workspace; white panels float on it.
@@ -23,7 +23,7 @@ The page rhythm is **dense product screenshots** — Glaise leads with high-fide
 - Four-step surface ladder (canvas → surface-1 → surface-2 → surface-3 → surface-4) carries hierarchy; light adds a soft shadow, dark leans on hairlines.
 - Display tracking pulls aggressively negative (-3.0px at the largest size); body holds at -0.05px.
 - Cards use `--glaise-radius-lg` corners — never pill.
-- **Product UI screenshots** dominate the page. The chrome is a quiet frame for the app.
+- **Data leads the page.** Tables, metrics, and panels are the protagonists; the chrome is a quiet frame.
 - No chromatic accent, no atmospheric gradients, no spotlight cards.
 
 ## Colors
@@ -39,14 +39,14 @@ The page rhythm is **dense product screenshots** — Glaise leads with high-fide
 ### Surface
 - **Canvas** (`--glaise-canvas`): Default page / workspace background — an off-white "whitespace" (a soft dark gray in dark, deep but never near-black).
 - **Chrome** (`--glaise-chrome`): The app sidebar / chrome surface — kept **distinct** from the canvas (never the same fill: a touch darker than the workspace in light, a subtle lift in dark). A same-color sidebar is only for briefs that explicitly ask for it.
-- **Surface 1** (`--glaise-surface-1`): One step above canvas — feature cards, pricing cards, product screenshot panels.
-- **Surface 2** (`--glaise-surface-2`): Two steps above — featured pricing card, hovered cards.
+- **Surface 1** (`--glaise-surface-1`): One step above canvas — every floating panel and card (sidebar, stat cards, table panels, the login card).
+- **Surface 2** (`--glaise-surface-2`): Two steps above — icon tiles, filter chips, hovered/featured cards.
 - **Surface 3** (`--glaise-surface-3`): Three steps above — line-tertiary backgrounds, sub-nav.
 - **Surface 4** (`--glaise-surface-4`): Four steps above — bg-level-3, deepest lifted surface.
 - **Hairline** (`--glaise-hairline`): 1px borders on cards and dividers.
 - **Hairline Strong** (`--glaise-hairline-strong`): Stronger 1px borders — input focus rings.
 - **Hairline Tertiary** (`--glaise-hairline-tertiary`): Tertiary borders for nested surfaces.
-- **Inverse Canvas** (`--glaise-inverse-canvas`): The opposite theme's canvas — surface of the inverse CTA on a small set of section openers.
+- **Inverse Canvas** (`--glaise-inverse-canvas`): The opposite theme's canvas — reserved for rare inverse moments (a theme-preview tile, a contrast-flipped panel).
 - **Inverse Surface 1** (`--glaise-inverse-surface-1`): One step above inverse canvas.
 - **Inverse Surface 2** (`--glaise-inverse-surface-2`): Two steps above inverse canvas.
 
@@ -82,7 +82,7 @@ The surface ladder describes *containers*; these describe *interactive states* (
 ### Font Family
 
 - **Inter** (`--glaise-font-sans`) — the system typeface; fallback `Inter, -apple-system, system-ui, Segoe UI, Roboto`. Carries everything from display-xl through captions and button labels.
-- **JetBrains Mono** (`--glaise-font-mono`) — monospace cut; fallback `ui-monospace, SF Mono, Menlo`. Used for code snippets in product screenshots and for status / ID tokens.
+- **JetBrains Mono** (`--glaise-font-mono`) — monospace cut; fallback `ui-monospace, SF Mono, Menlo`. Used for code, identifiers, and status/ID tokens in the product UI (a table's anchor column of service names, log lines, API keys).
 
 The surface treats display and body sizes as one continuous voice; the size change is silent.
 
@@ -90,20 +90,20 @@ The surface treats display and body sizes as one continuous voice; the size chan
 
 | Token | Weight | Line Height | Letter Spacing | Use |
 |---|---|---|---|---|
-| `--glaise-text-display-xl` | 600 | 1.05 | -3.0px | Largest hero headline |
+| `--glaise-text-display-xl` | 600 | 1.05 | -3.0px | Rare oversized display (an empty-state or auth hero) — most admin screens never reach it |
 | `--glaise-text-metric` | 600 | 1.10 | -0.5px | Stat-card metric number (ink, tabular-nums) |
 | `--glaise-text-display-lg` | 600 | 1.10 | -1.8px | Section opener headlines |
 | `--glaise-text-display-md` | 600 | 1.15 | -1.0px | Sub-section headlines |
-| `--glaise-text-headline` | 600 | 1.20 | -0.6px | Pricing tier titles, CTA banner heading |
-| `--glaise-text-card-title` | 500 | 1.25 | -0.4px | Feature card title |
+| `--glaise-text-headline` | 600 | 1.20 | -0.6px | Page titles |
+| `--glaise-text-card-title` | 500 | 1.25 | -0.4px | Large card/section titles |
 | `--glaise-text-subhead` | 400 | 1.40 | -0.2px | Lead body, intro paragraphs |
-| `--glaise-text-body-lg` | 400 | 1.50 | -0.1px | Hero subhead, lead paragraphs |
+| `--glaise-text-body-lg` | 400 | 1.50 | -0.1px | Lead paragraphs, dialog intros |
 | `--glaise-text-body` | 400 | 1.50 | -0.05px | Default body |
 | `--glaise-text-body-sm` | 400 | 1.50 | 0 | Card body, footer columns |
 | `--glaise-text-caption` | 400 | 1.40 | 0 | Captions, meta, status |
 | (button label) | 500 | 1.20 | 0 | All button labels |
 | `--glaise-text-eyebrow` | 500 | 1.30 | 0.06em | Section eyebrow (positive tracking) |
-| `--glaise-text-mono` | 400 | 1.50 | 0 | JetBrains Mono for code in product screenshots |
+| `--glaise-text-mono` | 400 | 1.50 | 0 | JetBrains Mono for code, IDs, and table anchor identifiers |
 | `--glaise-text-microlabel` | 600 | 1.30 | 0.06em | UPPERCASE micro-labels: stat-card labels, table column headers (ink-subtle) |
 
 ### Principles
@@ -113,7 +113,7 @@ The surface treats display and body sizes as one continuous voice; the size chan
 - **Aggressive negative tracking on display** (-3.0px at 80px ≈ 4% of size).
 - **Single voice from display to body.** Display-xl at 600 → body at 400 — same family (Inter), narrower weights.
 - **Micro-labels and eyebrows use positive tracking** (+0.06em) with UPPERCASE — contrast against the negative-tracked display marks them as taxonomy.
-- **Mono only in code contexts.** JetBrains Mono lives inside product screenshots — not on the chrome.
+- **Mono only where data is code-like.** JetBrains Mono marks identifiers (service names, IDs, keys, log lines) — never labels, buttons, or prose.
 
 ### Note on Fonts
 
@@ -125,16 +125,16 @@ The surface treats display and body sizes as one continuous voice; the size chan
 
 - **Base unit**: 4px.
 - **Tokens**: `--glaise-space-xxs` · `--glaise-space-xs` · `--glaise-space-sm` · `--glaise-space-md` · `--glaise-space-lg` · `--glaise-space-xl` · `--glaise-space-xxl` · `--glaise-space-section`.
-- Card interior padding: `--glaise-space-lg` on feature/pricing cards; `--glaise-space-xl` on testimonial cards; `--glaise-space-xxl` on CTA banners.
-- Pill button padding: `--glaise-space-xs` vertical · 14px horizontal — Glaise's compact button spec.
+- Card interior padding: `--glaise-space-md` on dense admin cards (stat cards, table panels); `--glaise-space-lg` on roomier panels; `--glaise-space-xl` on the login card.
+- Button padding: `--glaise-space-xs` vertical · 14px horizontal — Glaise's compact button spec.
 - Form input padding: `--glaise-space-xs` vertical · `--glaise-space-sm` horizontal.
 
 ### Grid & Container
 
-- Max content width sits around 1280px.
-- Card grids are 3-up at desktop, 2-up at tablet, 1-up at mobile.
-- Pricing tier grid is 3-up; comparison strip below shows checkmarks per tier.
-- Product screenshot panels span full content width — they're the protagonist.
+- App shells run full-width with one consistent gutter (`--glaise-space-sm` between floating panels).
+- Stat-card rows are 4-up at desktop, 2-up at tablet, 1-up at mobile.
+- Content splits follow the shell: `2fr / 1fr` for a table beside a side panel (Console), a single ~560–720px column for forms and auth (Focused).
+- The data panel (table, board, feed) spans the widest track — it's the protagonist.
 
 ### Whitespace Philosophy
 
@@ -146,7 +146,7 @@ The canvas IS the whitespace. Sections separate by lift onto floating surface-1 
 |---|---|---|
 | 0 (flat) | No shadow, no border | Default for body type, hero text, footer |
 | 1 (panel lift) | `--glaise-surface-1` background on canvas, `--glaise-shadow-1` (light) or 1px `--glaise-hairline` (dark) | Default cards, floating panels |
-| 2 (surface-2 lift) | `--glaise-surface-2` background, `--glaise-shadow-2` (light) or 1px `--glaise-hairline-strong` (dark) | Featured pricing card, hovered cards |
+| 2 (surface-2 lift) | `--glaise-surface-2` background, `--glaise-shadow-2` (light) or 1px `--glaise-hairline-strong` (dark) | Icon tiles, filter chips, hovered/featured cards |
 | 3 (surface-3 lift) | `--glaise-surface-3` background | Sub-nav, dropdown menus |
 | 4 (focus ring) | 2px `--glaise-primary-focus` outline at 50% opacity | Focused input, focused button |
 
@@ -154,9 +154,8 @@ Glaise's depth is carried by the surface ladder plus **one elevation language pe
 
 ### Decorative Depth
 
-- **Product UI screenshots** dominate as decorative depth.
-- **No atmospheric gradients, no spotlight cards.**
-- **Subtle white edge highlight** on the top edge of lifted panels — gives the dark surface a faint "pixel rendered" feel.
+- **No atmospheric gradients, no spotlight cards** — the data itself is the visual interest; sparklines and charts carry the decoration.
+- **Subtle white edge highlight** on the top edge of lifted panels — gives the dark surface a faint "pixel rendered" feel (dark-only).
 
 ## Shapes
 
@@ -166,18 +165,18 @@ Glaise's depth is carried by the surface ladder plus **one elevation language pe
 |---|---|
 | `--glaise-radius-xs` | Small chips, status badges |
 | `--glaise-radius-sm` | Inline tags |
-| `--glaise-radius-md` | All buttons, form inputs |
-| `--glaise-radius-lg` | Pricing cards, feature cards, testimonial cards |
-| `--glaise-radius-xl` | Product screenshot panels |
-| `--glaise-radius-xxl` | Oversized CTA banners (rare) |
-| `--glaise-radius-pill` | Pricing tab toggles, status pills |
+| `--glaise-radius-md` | All buttons, form inputs, nav items |
+| `--glaise-radius-lg` | Cards and content panels (stat cards, table panels) |
+| `--glaise-radius-xl` | Floating shell panels (the sidebar, the login card) |
+| `--glaise-radius-xxl` | Oversized surfaces (rare) |
+| `--glaise-radius-pill` | Status badges, segmented toggles |
 | `--glaise-radius-full` | Avatar circles |
 
-### Photography & Illustration Geometry
+### Imagery Geometry
 
-- Product UI screenshots dominate; they sit in `--glaise-radius-xl` tiles with `--glaise-space-lg` outer padding.
-- Customer logo tiles render at small sizes (~24px logo height) on `--glaise-canvas` with no border.
-- Avatar circles in testimonial cards use `--glaise-radius-full` at 32–40px sizes.
+- Admin surfaces carry little imagery — data visualizations (sparklines, area charts) are the visual layer, drawn in the primary + grays.
+- Avatar circles use `--glaise-radius-full` at 24–32px (nav footer, activity rows, assignee cells).
+- Empty-state illustrations, when present, stay monochrome and quiet — never atmospheric art.
 
 ## Components
 
@@ -194,56 +193,62 @@ Glaise's depth is carried by the surface ladder plus **one elevation language pe
 **`button-tertiary`** — Plain text button.
 - Background `--glaise-canvas`, text `--glaise-ink`, button-label type, rounded `--glaise-radius-md`, padding `--glaise-space-xs` 14px.
 
-**`button-inverse`** — White-on-dark inverse CTA.
-- Background `--glaise-inverse-canvas`, text `--glaise-inverse-ink`, button-label type, rounded `--glaise-radius-md`, padding `--glaise-space-xs` 14px.
+### Segmented Control
 
-### Pricing Tabs
+**`segmented-default`** + **`segmented-selected`** — a pill-toggle for switching views/filters (list ↔ board, time ranges).
+- Default: transparent background, `--glaise-ink-subtle` text, rounded `--glaise-radius-pill`, padding 6px 14px.
+- Selected: `--glaise-surface-2` background, `--glaise-ink` text at weight 500 — selected = surface lift, never a color fill.
 
-**`pricing-tab-default`** + **`pricing-tab-selected`** — Pill-toggle on `/pricing`.
-- Default: `--glaise-canvas` background, `--glaise-ink-subtle` text, rounded `--glaise-radius-pill`, padding 6px 14px.
-- Selected: `--glaise-surface-2` background, `--glaise-ink` text — selected = surface lift.
+### Cards & Panels
 
-### Cards & Containers
+Every card carries `box-shadow: var(--glaise-shadow-1)` and **no border** (see Elevation & Depth).
 
-**`pricing-card`** — Each tier on `/pricing`.
-- Background `--glaise-surface-1`, text `--glaise-ink`, body type, rounded `--glaise-radius-lg`, padding `--glaise-space-lg`. 1px `--glaise-hairline` border.
+**`panel-card`** — the generic floating content panel (a table panel, an activity panel, a chart panel).
+- Background `--glaise-surface-1`, rounded `--glaise-radius-lg`, padding `--glaise-space-md`.
+- Header: a `card-title` (body size, 600, ink, with a Lucide icon in ink-subtle) + tools on the right; footer (when present): a hairline-topped meta row in ink-subtle (counts, pagination, "view all").
 
-**`pricing-card-featured`** — Recommended tier — surface lift to surface-2.
-- Background `--glaise-surface-2`, otherwise identical structure.
+**`stat-card`** — the metric tile of a dashboard's top row.
+- Structure: microlabel (UPPERCASE, ink-subtle) → metric number (`--glaise-text-metric`, 600, ink, tabular-nums) → trend line (caption, semantic color for good/bad, ink-subtle for flat) → an accent sparkline anchored to the corner.
+- Same panel-card surface spec; padding `--glaise-space-md`.
 
-**`feature-card`** — Generic feature highlight tile.
-- Background `--glaise-surface-1`, text `--glaise-ink`, body type, rounded `--glaise-radius-lg`, padding `--glaise-space-lg`.
+**`login-card`** — the entry door: Glaise's scope starts here.
+- The Focused shell: one centered `--glaise-surface-1` card at ~360–420px, rounded `--glaise-radius-xl`, padding `--glaise-space-xl`, floating on the canvas.
+- Contents: the product wordmark, a short ink-subtle subline, stacked `text-input`s, one full-width `button-primary`, quiet tertiary links (forgot password / SSO). No imagery, no marketing copy — the door is calm.
 
-**`product-screenshot-card`** — The dominant card type — frames a high-fidelity Glaise app UI screenshot.
-- Background `--glaise-surface-1`, text `--glaise-ink`, body type, rounded `--glaise-radius-xl`, padding `--glaise-space-lg`.
+### Data Table
 
-**`testimonial-card`** — Customer quote with avatar + name + role.
-- Background `--glaise-surface-1`, text `--glaise-ink`, body-lg type, rounded `--glaise-radius-lg`, padding `--glaise-space-xl`.
+**`data-table`** — the workhorse surface, living inside a `panel-card`.
+- Column headers: `--glaise-text-microlabel` spec (UPPERCASE, 600, ink-subtle, 0.06em), hairline underneath.
+- Cells: body-sm at 400 in **ink-muted**; the row's **anchor column** (name/ID) in ink at 500 (mono via `--glaise-text-mono` when it's an identifier) — at most one anchor per row; numerics right-aligned with tabular-nums.
+- Rows separated by hairlines; hover = `--glaise-fill-hover`; row height constant — no font-size variation inside the table.
+- Footer: "Showing X of Y" + quiet pager in ink-subtle.
 
-**`customer-logo-tile`** — Small tile in the customer marquee.
-- Background `--glaise-canvas`, text `--glaise-ink-subtle`, caption type, rounded `--glaise-radius-xs`, padding `--glaise-space-md`.
+### Activity / Timeline
 
-**`cta-banner`** — Closing CTA panel near page bottom.
-- Background `--glaise-surface-1`, text `--glaise-ink`, headline type, rounded `--glaise-radius-lg`, padding `--glaise-space-xxl`.
+**`activity-list`** — recent events in a side panel.
+- Each row: a small `--glaise-surface-2` icon tile (Lucide, semantic or primary color by event kind), the event lead in ink at 600, its complement in ink-muted, a relative timestamp in ink-subtle pushed right.
+- Rows separated by hairlines; a "view all" footer link.
 
 ### Inputs & Forms
 
-**`text-input`** + **`text-input-focused`** — Form fields on `/contact/sales` and signup overlays.
-- Background `--glaise-surface-1`, text `--glaise-ink`, body type, rounded `--glaise-radius-md`, padding `--glaise-space-xs` `--glaise-space-sm`.
+**`text-input`** + **`text-input-focused`** — form fields (settings, auth, record editing).
+- Background `--glaise-surface-1`, text `--glaise-ink`, body type, rounded `--glaise-radius-md`, padding `--glaise-space-xs` `--glaise-space-sm`, 1px `--glaise-hairline` border (inputs keep borders — they're controls, not cards).
 - Focused state retains the same surface; the focus ring is a 2px `--glaise-primary-focus` outline at 50% opacity.
+- Error state: border and message in `--glaise-danger` (the message is body text — 4.5:1 floor).
 
-### Status & Build Page
+**`search-input`** — the filter box above a data table.
+- A `text-input` with a leading Lucide search icon in ink-subtle and an ink-subtle placeholder.
 
-**`changelog-row`** — Each row in `/build` (changelog page) listing version, date, and changes.
-- Background `--glaise-canvas`, text `--glaise-ink`, body type, rounded `--glaise-radius-xs`, padding `--glaise-space-lg` 0. 1px `--glaise-hairline` bottom rule.
+**`filter-chip`** — a dropdown trigger for column filters ("Status ⌄").
+- Background `--glaise-surface-2`, text `--glaise-ink-muted` at 500, rounded `--glaise-radius-md`, padding 6px 10px, trailing chevron.
 
-**`status-badge`** — Small status pill.
-- Background `--glaise-surface-2`, text `--glaise-ink-muted`, caption type, rounded `--glaise-radius-pill`, padding 2px `--glaise-space-xs`.
+### Status
+
+**`status-badge`** — the semantic state pill (Healthy / Degraded / Down, Active / Archived).
+- A leading dot + caption label, rounded `--glaise-radius-pill`, padding 2px 9px.
+- Semantic states: text in `--glaise-success` / `--glaise-danger` over a ~10% tint of the same color; neutral states: `--glaise-ink-muted` over `--glaise-surface-3`. Never a saturated fill.
 
 ### Navigation
-
-**`top-nav`** — Sticky marketing bar with the Glaise wordmark left, primary nav links centered, and a `button-secondary` ("Sign in") + `button-primary` ("Get started") pair right.
-- Background `--glaise-canvas`, text `--glaise-ink`, body-sm type, height 56px.
 
 **`app-sidebar`** — the product's left rail. Two treatments (see `shells.md`):
 - **Floating (default):** a detached `--glaise-surface-1` card with `--glaise-radius-xl` corners, one elevation language (shadow on light, hairline on dark), and a canvas gutter on all sides — the sidebar floats on the workspace like every other panel.
@@ -258,11 +263,6 @@ Holds `nav-item`s either way.
 **`app-topbar`** — the product's thin top band (Console / Workbench shells). Height ~56–60px, `--glaise-canvas` (optionally a translucent canvas with `backdrop-filter`), 1px `--glaise-hairline` bottom.
 - Controls are **quiet**: the account/context switcher is a low-key `surface-1` pill (hairline, chevron, hover fill) — not a heavy bordered box. Icon actions are **ghost buttons** (transparent, fill with `--glaise-fill-hover` on hover), grouped at the right edge — never individually boxed with borders + shadows. Left content aligns to the page gutter.
 
-### Footer
-
-**`footer`** — Dense link grid on `--glaise-canvas` with the Glaise wordmark left.
-- Background `--glaise-canvas`, text `--glaise-ink-subtle`, caption type, padding 64px `--glaise-space-xl`.
-
 ## Do's and Don'ts
 
 ### Do
@@ -272,7 +272,7 @@ Holds `nav-item`s either way.
 - Use the four-step surface ladder for hierarchy. Avoid skipping levels.
 - Pair display weight 600 with body weight 400 — Glaise resists 700+ display weights.
 - Apply negative letter-spacing aggressively on display.
-- Use product UI screenshots as the protagonist of every section.
+- Let the data lead — the table, the metric row, the working panel is the protagonist of every screen.
 - Compose CTAs as `--glaise-radius-md` corners.
 - Keep the sidebar on `--glaise-chrome`, distinct from the workspace `--glaise-canvas` (sidebar a touch darker, workspace lighter).
 - Let white/`surface-1` cards float on the workspace canvas — the soft edge (light card on the canvas) *is* the premium separation; don't repaint the whole workspace to force it.
@@ -287,7 +287,7 @@ Holds `nav-item`s either way.
 - Don't add atmospheric gradients or spotlight cards.
 - Don't pill-round CTAs.
 - Don't use true black (`--glaise-overlay` is reserved for scrims, not the canvas) or pure white as the canvas — the dark canvas is a soft gray, the light canvas an off-white.
-- Don't combine multiple bright accents in product screenshot mockups.
+- Don't combine multiple bright accents on a data surface — charts and tags stay within the primary + grays + the two semantics.
 - **Don't paint the sidebar the same fill as the workspace.** Use `--glaise-chrome` (a distinct tone — sidebar darker, workspace lighter in light); a same-color sidebar reads flat. Only override when the brief explicitly asks.
 - **Don't use a side-stripe / left-accent bar** (`border-left` or an inset box-shadow bar) to mark selected nav items, rows, or callouts — it reads as unfinished. Use a fill, weight, and the primary icon.
 - **Don't stack a 1px border and a diffuse drop shadow** on the same card/button ("ghost card"). Pick one elevation language: a hairline **or** a defined shadow token.
@@ -300,28 +300,28 @@ Holds `nav-item`s either way.
 | Name | Width | Key Changes |
 |---|---|---|
 | Desktop-XL | 1440px | Default desktop layout |
-| Desktop | 1280px | Card grid 3-up maintained |
-| Tablet | 1024px | Card grid 3-up → 2-up |
-| Mobile-Lg | 768px | Pricing comparison becomes accordion; nav hamburger |
-| Mobile | 480px | Single-column; display-xl scales 80px → ~36px |
+| Desktop | 1280px | Stat row 4-up maintained; side panel may narrow |
+| Tablet | 1024px | Stat row 4-up → 2-up; side panel drops below the table; sidebar may collapse to an icon rail |
+| Mobile-Lg | 768px | Sidebar becomes a drawer; tables scroll horizontally inside their panel or shed low-priority columns |
+| Mobile | 480px | Single-column; panels stack with the same gutter |
 
 ### Touch Targets
 
 - CTAs hold ≥40px tap height across viewports.
-- Pricing tab pills hold ≥36px tap height; touch viewports grow to ≥44px.
-- Form inputs hold ≥44px tap target on touch.
+- Segmented toggles hold ≥36px tap height; touch viewports grow to ≥44px.
+- Form inputs and table row actions hold ≥44px tap target on touch.
 
 ### Collapsing Strategy
 
-- **Top nav**: links collapse to hamburger below 768px.
-- **Card grids**: 3-up → 2-up at 1024px → 1-up below 768px.
-- **Pricing comparison**: per-tier accordion below 768px.
-- **Display type**: `--glaise-text-display-xl` scales toward `--glaise-text-display-md` on mobile.
+- **Sidebar**: full rail → icon rail at 1024px → drawer below 768px; the floating gutter stays constant.
+- **Stat grids**: 4-up → 2-up at 1024px → 1-up below 768px.
+- **Tables**: horizontal scroll inside their own panel (the page never scrolls sideways), or shed low-priority columns by design.
+- **Split layouts** (table + side panel): stack below 1024px, data panel first.
 
-### Image Behavior
+### Chart Behavior
 
-- Product UI screenshots maintain aspect ratio and never crop.
-- Customer logos in the marquee may collapse from 6-up to 3-up below 768px.
+- Charts and sparklines stretch with their panel (`preserveAspectRatio="none"`) with `vector-effect: non-scaling-stroke` so stroke weight and end dots stay true at any size.
+- Avatars and icon tiles keep fixed sizes; they never scale with the viewport.
 
 ## Dark Theme
 
@@ -342,14 +342,14 @@ Dark is a *state* of the fixed skin, chosen per project (light / dark / both) �
 4. Run `node scripts/validate-skills.mjs` after edits.
 5. Add new variants as separate component entries.
 6. Treat the primary as scarce: brand mark, primary CTA, focus, link emphasis.
-7. Lead every section with a product UI screenshot.
+7. Lead every screen with its working data — the table, the metric row, the panel.
 
 ## Known Gaps
 
 - The four-step surface ladder is Glaise's canonical surface spec (`bg-level-3`, `line-tint`, etc.) — treat its tokens as the base for any dashboard.
 - Form-field error and validation now have their color (`--glaise-danger`), but not yet a canonical composition — the field/error recipe is still pending.
 - Dark mode is an official second state of the skin — see "Dark Theme". Light is the default and the family's face.
-- A richer color-tag palette (red, orange, yellow, green, blue, purple) for priorities and labels lives in the in-product surfaces shown in mockups, not on the marketing chrome.
+- A richer color-tag palette (red, orange, yellow, green, blue, purple) for priorities and labels is not yet tokenized — tokenize on the first product that needs tags.
 - Inter and JetBrains Mono are the canonical, freely-distributed Glaise typefaces.
 </content>
 </invoke>

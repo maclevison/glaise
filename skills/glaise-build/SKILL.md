@@ -1,6 +1,6 @@
 ---
 name: glaise-build
-description: Use to build or extend product UI (dashboards, panels, admin tools, app screens) in the Glaise design family. Reads the glaise-brief.md for the product's soul and the skin (design.md, tokens.css, theme.css) plus the client's brand.css if present, then builds with real visual hierarchy, headless primitives (Base UI / Reka UI), and Lucide icons. The skin is decided; creativity goes into layout, hierarchy, and the product's signature.
+description: Use to build or extend product UI (admin panels, dashboards, consoles, internal tools, app screens) in the Glaise design family — never marketing sites or landing pages. Reads the glaise-brief.md for the product's soul and the skin (design.md, tokens.css, theme.css) plus the client's brand.css if present, then builds with real visual hierarchy, headless primitives (Base UI / Reka UI), and Lucide icons. The skin is decided; creativity goes into layout, hierarchy, and the product's signature.
 ---
 
 # Glaise Build

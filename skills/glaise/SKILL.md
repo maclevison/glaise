@@ -1,6 +1,6 @@
 ---
 name: glaise
-description: Use when building product UI, dashboards, panels, admin tools, or app screens, so the result belongs to the shared Glaise design family. Loads the fixed visual skin (off-white canvas with floating panels, Inter by default, a monochrome washed-ink primary by default, surface ladder, Lucide icons, headless primitives) from references/, and guides the discover-build-review flow. Creativity goes into the product's domain, layout, hierarchy, and signature — never the skin.
+description: Use when building product UI — administrative panels, dashboards, consoles, back-offices, internal tools, app screens — so the result belongs to the shared Glaise design family. NOT for marketing websites, landing pages, blogs, or brochures. Loads the fixed visual skin (off-white canvas with floating panels, Inter by default, a monochrome washed-ink primary by default, surface ladder, Lucide icons, headless primitives) from references/, and guides the discover-build-review flow. Creativity goes into the product's domain, layout, hierarchy, and signature — never the skin.
 ---
 
 # Glaise

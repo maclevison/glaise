@@ -4,9 +4,11 @@
 ![license](https://img.shields.io/badge/license-MIT-blue)
 ![release](https://img.shields.io/github/v/release/maclevison/glaise)
 
-**Glaise is a design system you turn on.** The interfaces you build instantly belong to one visual family — recognizable at a glance — while every product keeps its own layout and personality.
+**Glaise is a design system you turn on — for admin panels, dashboards, and internal tools.** The interfaces you build instantly belong to one visual family — recognizable at a glance — while every product keeps its own layout and personality.
 
 > **The skin is Glaise; the soul is the product's.**
+
+**Scope, stated plainly:** Glaise builds **product UI** — administrative panels, dashboards, consoles, back-offices, internal tools. It is **not** for marketing websites, landing pages, blogs, or brochures; those want a brand voice per project, which is the opposite of a fixed shared skin.
 
 - **One family, many products** — every UI is unmistakably the same system, yet never a clone.
 - **Product-grade craft, built in** — real hierarchy, motion, complete states, accessible primitives. No "AI-generated" look.

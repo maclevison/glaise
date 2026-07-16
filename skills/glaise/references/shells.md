@@ -16,7 +16,7 @@ All measurements bind to the skin. The sidebar has two treatments: **floating (t
 
 ## Focused — top bar only, contained
 
-**For:** single-purpose tools, wizards, forms, checkout, onboarding.
+**For:** login/auth (the family's entry door), single-purpose tools, wizards, forms, onboarding.
 **Frame:** minimal top bar (wordmark + exit/progress), no sidebar. One centered column at a narrow max-width (~560–720px). Everything points at the single task.
 **Watch:** resist adding nav "just in case" — the absence of chrome *is* the design.
 
