@@ -1,6 +1,6 @@
 # Glaise
 
-[![install](https://img.shields.io/badge/install-plugin_%7C_curl-8b5cf6)](#install)
+[![install](https://img.shields.io/badge/install-plugin_%7C_curl-26272b)](#install)
 ![license](https://img.shields.io/badge/license-MIT-blue)
 ![release](https://img.shields.io/github/v/release/maclevison/glaise)
 
@@ -139,7 +139,7 @@ three doors).
 
 | | Skin | Theme | Character | For |
 |---|---|---|---|---|
-| ![Glaise](assets/gallery/glaise.webp) | **Glaise** *(default)* | Dark | Quietly luxurious — the family's face | Everything |
+| ![Glaise](assets/gallery/glaise.webp) | **Glaise** *(default)* | Light | Quietly luxurious — monochrome washed ink, the family's face | Everything |
 | ![Celadon](assets/gallery/celadon.webp) | **Celadon** | Light | Editorial, calm like a reading room — celadon glaze | Docs, content |
 | ![Terracotta](assets/gallery/terracotta.webp) | **Terracotta** | Light | Warm like fired clay — burnt orange on cream, rounder corners | Notes, personal tools |
 | ![Verdigris](assets/gallery/verdigris.webp) | **Verdigris** | Dark | Dense like a trading floor — copper patina, minimal radii | Devtools, observability |
@@ -171,7 +171,7 @@ The `design.md → tokens.css → theme.css` chain makes Tailwind **inherit the 
 
 ### Themes (dark / light)
 
-Light is the default and the family's face. Dark is the **same skin inverted** (`:root[data-theme="dark"]`): same Inter, same monochrome primary (value flipped to a washed white for AA), inverted surface ladder — hairlines instead of shadows. Choose per project at discovery: **light / dark / both**. "Both" generates a toggle (Lucide sun/moon) with persistence and an anti-FOUC script.
+Light is the default and the family's face. Dark is the **same skin inverted** (`:root[data-theme="dark"]`): same Inter, same monochrome primary (value flipped to a washed white for AA), inverted surface ladder. Cards are **edge-free on both themes** by default — separation by value alone; a dark hairline ring is a per-project taste choice asked at discovery. Choose the theme per project: **light / dark / both**. "Both" generates a toggle (Lucide sun/moon) with persistence and an anti-FOUC script.
 
 ### Brand (per client)
 
@@ -232,17 +232,17 @@ node scripts/validate-skills.mjs
 node scripts/test-pigments.mjs
 ```
 
-It checks skill portability (kebab-case names, OpenCode-compatible), the `theme.css → tokens.css` token chain, the brief template, the build/review/direction references, and the light-theme block. `test-pigments.mjs` holds each of the 5 curated pigment packs to the same bar as the default skin: AA contrast **and** semantic separation.
+It checks skill portability (kebab-case names, OpenCode-compatible), the `theme.css → tokens.css` token chain, the brief template, the build/review/direction references, and the dark-theme block. `test-pigments.mjs` holds each of the 5 curated pigment packs to the same bar as the default skin: AA contrast **and** semantic separation.
 
 Audit the skin directly:
 
 ```bash
 node skills/glaise/references/contrast.mjs                  # pairs + separation, both themes
-node skills/glaise/references/contrast.mjs '#8a8f98' '#010102'   # ad-hoc pair (quote hex — # is special in the shell)
+node skills/glaise/references/contrast.mjs '#6c7079' '#ffffff'   # ad-hoc pair (quote hex — # is special in the shell)
 ```
 
 ```text
-  #8a8f98 on #010102  →  6.42:1  [AA]
+  #6c7079 on #ffffff  →  4.96:1  [AA]
   AA normal (4.5): PASS   AA large (3.0): PASS
 ```
 
