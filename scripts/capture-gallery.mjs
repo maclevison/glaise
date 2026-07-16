@@ -21,7 +21,7 @@ catch { console.error("playwright not installed — capture manually (see plan).
 
 const src = readFileSync("assets/gallery/sample.html", "utf8");
 const browser = await chromium.launch();
-const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 for (const { name, theme, pigment } of SKINS) {
   let html = src.replace(/<html lang="en">/, theme === "dark" ? '<html lang="en" data-theme="dark">' : '<html lang="en">');
   html = html.replace(/<link rel="stylesheet" href="\.\.\/\.\.\/skills\/glaise-brand[^>]*>\n?/,
