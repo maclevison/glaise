@@ -1,4 +1,4 @@
-# Glaise
+![Glaise — a design system you turn on](assets/glaise-banner.webp)
 
 [![install](https://img.shields.io/badge/install-plugin_%7C_curl-26272b)](#install)
 ![license](https://img.shields.io/badge/license-MIT-blue)
