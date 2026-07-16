@@ -32,9 +32,12 @@ export function parseBrandTokens(css) {
     }
     return out;
   };
+  // `:root` is the LIGHT (default) theme and cascades into dark unless the
+  // dark block overrides — so dark = base merged with the dark overrides.
+  const light = block(/:root\s*\{/);
   return {
-    dark: block(/:root\s*\{/),
-    light: block(/:root\[\s*data-theme\s*=\s*['"]?\s*light\s*['"]?\s*\]\s*\{/),
+    light,
+    dark: { ...light, ...block(/:root\[\s*data-theme\s*=\s*['"]?\s*dark\s*['"]?\s*\]\s*\{/) },
   };
 }
 
@@ -95,7 +98,7 @@ async function main() {
   for (const t of themes) {
     const context = await browser.newContext();
     await context.addInitScript((th) => {
-      try { th === "light" ? localStorage.setItem("glaise-theme", "light") : localStorage.removeItem("glaise-theme"); } catch {}
+      try { th === "dark" ? localStorage.setItem("glaise-theme", "dark") : localStorage.removeItem("glaise-theme"); } catch {}
     }, t);
     const page = await context.newPage();
 
@@ -103,7 +106,7 @@ async function main() {
       await page.setViewportSize({ width: w, height: h });
       try { await page.goto(url, { waitUntil: "networkidle", timeout: 15000 }); }
       catch { console.error(`could not load ${url} — is the dev server running?`); await browser.close(); process.exit(2); }
-      await page.evaluate((th) => { document.documentElement.dataset.theme = th === "light" ? "light" : ""; }, t);
+      await page.evaluate((th) => { document.documentElement.dataset.theme = th === "dark" ? "dark" : ""; }, t);
 
       const realW = await page.evaluate(() => window.innerWidth);
       await page.screenshot({ path: path.join(out, `audit-${t}-${device}.png`), fullPage: true });
@@ -133,7 +136,7 @@ async function main() {
     // desktop analysis pass — overlay (if a brand was given) and axe both run at 1280×900
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto(url, { waitUntil: "networkidle" }).catch(() => {});
-    await page.evaluate((th) => { document.documentElement.dataset.theme = th === "light" ? "light" : ""; }, t);
+    await page.evaluate((th) => { document.documentElement.dataset.theme = th === "dark" ? "dark" : ""; }, t);
 
     // overlay check (desktop), if a brand was given
     if (expected) {

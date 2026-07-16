@@ -123,7 +123,7 @@ The agent runs this under the **`glaise` hub** — ask it to *use the glaise ski
 
 ## Concept — skin vs soul
 
-**Non-negotiable (the skin — identical across every project):** palette and color · **Inter** type · lavender accent · the *surface ladder* (canvas → surface-1..4) and hairlines · radius and spacing scales · **Lucide** icons · **headless primitives** (Base UI / Reka UI) — never a styled UI kit.
+**Non-negotiable (the skin — identical across every project):** palette and color · **Inter** type · monochrome primary (washed ink — chroma only via pigment/brand) · the *surface ladder* (canvas → surface-1..4) and hairlines · floating panels · radius and spacing scales · **Lucide** icons · **headless primitives** (Base UI / Reka UI) — never a styled UI kit.
 
 **Free (the soul — decided per product):** layout, composition, hierarchy, and focus · density within range · which screens exist · content and voice · the **signature** — the one element that could only exist in *this* product.
 
@@ -171,7 +171,7 @@ The `design.md → tokens.css → theme.css` chain makes Tailwind **inherit the 
 
 ### Themes (dark / light)
 
-Dark is the default and the family's face. Light is the **same skin inverted** (`:root[data-theme="light"]`): same Inter, same lavender (tuned to pass AA), inverted surface ladder + shadows. Choose per project at discovery: **dark / light / both**. "Both" generates a toggle (Lucide sun/moon) with persistence and an anti-FOUC script.
+Light is the default and the family's face. Dark is the **same skin inverted** (`:root[data-theme="dark"]`): same Inter, same monochrome primary (value flipped to a washed white for AA), inverted surface ladder — hairlines instead of shadows. Choose per project at discovery: **light / dark / both**. "Both" generates a toggle (Lucide sun/moon) with persistence and an anti-FOUC script.
 
 ### Brand (per client)
 

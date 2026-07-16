@@ -1,42 +1,43 @@
 ---
 version: alpha
 name: Glaise-design-analysis
-description: A near-black product-focused canvas built around the deepest dark surface in the system (the canvas), light gray text (ink), and a signature Glaise lavender-blue (the primary accent) used as the single chromatic accent. The system reads as software-craft documentation: dense, technical, and quietly luxurious. Display type is set in Inter at 500–700 with measured negative tracking. Cards live as charcoal panels (surface-1) with hairline borders. The accent lavender appears on the brand mark, focus rings, and a few intentional CTAs — never decoratively. Page rhythm leans on product UI screenshots framed in dark panels rather than atmospheric color.
+description: An off-white product-focused workspace (the canvas) with floating white panels, dark functional ink, and a monochrome primary — a washed near-black used for the primary CTA and focus, never decoratively. The system reads as software-craft documentation: dense, technical, and quietly luxurious. Display type is set in Inter at 500–700 with measured negative tracking. Cards float as white panels (surface-1) with generous radii and one elevation language (hairline or soft shadow). The default skin has no chromatic accent — color arrives only through a pigment or brand pack; success/danger are the only colors, earned by meaning. Dark is the second state — the same skin inverted onto a soft dark-gray ladder.
 ---
 
-> Brandable values — color, surfaces, radius, spacing, and the type *family* — are canonical in `tokens.css` (default) and may be overridden per client by `brand.css`; this document never pins their literals (read `tokens.css` for current values). The invariant type *scale* (weights, line-heights, tracking) and structural measures are specified here as part of the fixed engine — a brand cannot change them. The accent role is `--glaise-primary`, whatever its effective value — lavender in the default skin; a pigment or brand may re-value it without changing its role or scarcity.
+> Brandable values — color, surfaces, radius, spacing, and the type *family* — are canonical in `tokens.css` (default) and may be overridden per client by `brand.css`; this document never pins their literals (read `tokens.css` for current values). The invariant type *scale* (weights, line-heights, tracking) and structural measures are specified here as part of the fixed engine — a brand cannot change them. The accent role is `--glaise-primary`, whatever its effective value — a washed near-black (monochrome) in the default skin; a pigment or brand may re-value it, bringing chroma, without changing its role or scarcity.
 
 ## Overview
 
-Glaise's canvas is the deepest dark surface in the system — `--glaise-canvas` is essentially pure black with a faint blue tint. On top sits a four-step surface ladder (`--glaise-surface-1` through `--glaise-surface-4`) for cards, panels, and lifted tiles, with hairline borders running from `--glaise-hairline` up through `--glaise-hairline-strong` and `--glaise-hairline-tertiary`. Light gray text (`--glaise-ink`) carries the body and headlines.
+Glaise's canvas is an off-white workspace — `--glaise-canvas` is the "whitespace" everything floats on, never pure white. On top sits a four-step surface ladder (`--glaise-surface-1` through `--glaise-surface-4`) for cards, panels, and lifted tiles, with hairline borders running from `--glaise-hairline` up through `--glaise-hairline-strong` and `--glaise-hairline-tertiary`. Dark text (`--glaise-ink`) carries the body and headlines. The family's default frame is the **floating Console** (see `shells.md`): the sidebar and the content panels are detached `surface-1` cards floating on the canvas with a visible gutter — not full-bleed columns.
 
-The single chromatic accent is **Glaise lavender-blue** `--glaise-primary` — used on the brand mark, focus rings, and the primary CTA button. A lighter hover state (`--glaise-primary-hover`) and a focus-tinted variant (`--glaise-primary-focus`) extend the same hue. Glaise avoids saturated greens, oranges, reds, etc. on the canvas — the semantic colors are exactly two: `--glaise-success` for status pills and the rare success indicator, and `--glaise-danger` for error states. A semantic color is **not** an accent: it is earned by meaning and never used decoratively. There is deliberately no `warning` and no `info` — an informational emphasis is already `--glaise-primary`.
+The primary is **monochrome**: `--glaise-primary` is a washed near-black (a washed white in dark) — functional ink, not a color. It marks the primary CTA button, focus rings, and selected-state emphasis. A hover state (`--glaise-primary-hover`) and a focus variant (`--glaise-primary-focus`) extend the same ramp. The default skin has **no chromatic accent at all** — chroma arrives only through a pigment or brand pack re-valuing `--glaise-primary`. The semantic colors are exactly two: `--glaise-success` for status pills and the rare success indicator, and `--glaise-danger` for error states. A semantic color is **not** an accent: it is earned by meaning and never used decoratively. There is deliberately no `warning` and no `info` — an informational emphasis is already `--glaise-primary`.
 
 Display type runs **Inter** at weight 500–700 with negative letter-spacing scaling from -3.0px at the largest display size down to 0 at body. Body sizes also run Inter, and JetBrains Mono is reserved for code snippets in product screenshots.
 
 The page rhythm is **dense product screenshots** — Glaise leads with high-fidelity captures of the product UI (issue list, project view, dashboard) framed in `--glaise-surface-1` panels with `--glaise-radius-xl` corners. The chrome is intentionally minimal so the app screenshots can do the heavy lifting.
 
 **Key Characteristics:**
-- **Dark-canvas system** — `--glaise-canvas` is the deepest dark in the system, a near-black surface.
-- **Lavender-blue brand accent** (`--glaise-primary`) — used scarcely on brand mark, focus, and the primary CTA.
-- Four-step surface ladder (canvas → surface-1 → surface-2 → surface-3 → surface-4) carries hierarchy without shadow.
+- **Light-canvas system** — `--glaise-canvas` is an off-white workspace; white panels float on it.
+- **Monochrome primary** (`--glaise-primary`) — washed near-black ink, used scarcely on the primary CTA, focus, and selected emphasis. Zero chroma by default.
+- **Floating panels** — sidebar and content live as detached `surface-1` cards with generous radii and a canvas gutter around them.
+- Four-step surface ladder (canvas → surface-1 → surface-2 → surface-3 → surface-4) carries hierarchy; light adds a soft shadow, dark leans on hairlines.
 - Display tracking pulls aggressively negative (-3.0px at the largest size); body holds at -0.05px.
-- Cards use `--glaise-radius-lg` corners with 1px hairline borders — never pill, rarely the screenshot radius.
-- **Product UI screenshots** dominate the page. The chrome is a dark frame for the app.
-- No second chromatic color. No atmospheric gradients. No spotlight cards.
+- Cards use `--glaise-radius-lg` corners — never pill.
+- **Product UI screenshots** dominate the page. The chrome is a quiet frame for the app.
+- No chromatic accent, no atmospheric gradients, no spotlight cards.
 
 ## Colors
 
 > Source: Glaise design system — base tokens for dashboards and panels.
 
 ### Brand & Accent
-- **Lavender-Blue** (`--glaise-primary`): The signature Glaise accent — primary CTA, brand mark, link emphasis.
-- **Lavender Hover** (`--glaise-primary-hover`): Lighter lavender — hovered state of the primary CTA.
-- **Lavender Focus** (`--glaise-primary-focus`): Focus-ring tint — focused inputs, focused buttons.
-- **Brand Secure** (`--glaise-brand-secure`): Muted lavender-gray — used in "Glaise Security" surfaces.
+- **Primary Ink** (`--glaise-primary`): The monochrome primary — washed near-black (washed white in dark). Primary CTA, focus, link emphasis. Functional ink, not a color; a pigment/brand re-values it to bring chroma.
+- **Primary Hover** (`--glaise-primary-hover`): The hovered step of the same ramp.
+- **Primary Focus** (`--glaise-primary-focus`): Focus-ring value — focused inputs, focused buttons.
+- **Brand Secure** (`--glaise-brand-secure`): Muted slate-gray — used in "Glaise Security" surfaces.
 
 ### Surface
-- **Canvas** (`--glaise-canvas`): Default page / workspace background — near-pure black with a faint blue tint (an off-white workspace in light).
+- **Canvas** (`--glaise-canvas`): Default page / workspace background — an off-white "whitespace" (a soft dark gray in dark, deep but never near-black).
 - **Chrome** (`--glaise-chrome`): The app sidebar / chrome surface — kept **distinct** from the canvas (never the same fill: a touch darker than the workspace in light, a subtle lift in dark). A same-color sidebar is only for briefs that explicitly ask for it.
 - **Surface 1** (`--glaise-surface-1`): One step above canvas — feature cards, pricing cards, product screenshot panels.
 - **Surface 2** (`--glaise-surface-2`): Two steps above — featured pricing card, hovered cards.
@@ -45,12 +46,12 @@ The page rhythm is **dense product screenshots** — Glaise leads with high-fide
 - **Hairline** (`--glaise-hairline`): 1px borders on cards and dividers.
 - **Hairline Strong** (`--glaise-hairline-strong`): Stronger 1px borders — input focus rings.
 - **Hairline Tertiary** (`--glaise-hairline-tertiary`): Tertiary borders for nested surfaces.
-- **Inverse Canvas** (`--glaise-inverse-canvas`): Pure white — surface of the inverse pill CTA on a small set of section openers.
+- **Inverse Canvas** (`--glaise-inverse-canvas`): The opposite theme's canvas — surface of the inverse CTA on a small set of section openers.
 - **Inverse Surface 1** (`--glaise-inverse-surface-1`): One step above inverse canvas.
 - **Inverse Surface 2** (`--glaise-inverse-surface-2`): Two steps above inverse canvas.
 
 ### Text
-- **Ink** (`--glaise-ink`): All headlines and emphasized body type — light gray.
+- **Ink** (`--glaise-ink`): All headlines and emphasized body type — near-black on light, light gray on dark.
 - **Ink Muted** (`--glaise-ink-muted`): Secondary type — meta info on hero panels.
 - **Ink Subtle** (`--glaise-ink-subtle`): Tertiary type — deselected pricing tabs, footer columns.
 - **Ink Tertiary** (`--glaise-ink-tertiary`): Quaternary — disabled, footnotes.
@@ -70,7 +71,7 @@ Exactly two, and they are not accents — a semantic color is earned by meaning,
 The surface ladder describes *containers*; these describe *interactive states* (hover / selected / pressed) on nav items, list rows, and menu options. They are neutral overlays — not surface steps — so they read on any surface and in both themes.
 
 - **Fill Hover** (`--glaise-fill-hover`): Hovered nav item, row, or ghost icon button.
-- **Fill Selected** (`--glaise-fill-selected`): The active/selected nav item — a perceptible neutral fill, stronger than hover. Selection is a fill, **never** a left-accent bar; the lavender accent is carried by the item's icon.
+- **Fill Selected** (`--glaise-fill-selected`): The active/selected nav item — a perceptible neutral fill, stronger than hover. Selection is a fill, **never** a left-accent bar; any accent emphasis is carried by the item's icon (`--glaise-primary` — weight alone in the default mono skin, chroma under a pigment).
 - **Fill Pressed** (`--glaise-fill-pressed`): Momentary pressed state.
 
 ## Typography
@@ -130,19 +131,19 @@ The surface treats display and body sizes as one continuous voice; the size chan
 
 ### Whitespace Philosophy
 
-The dark canvas IS the whitespace. Sections separate by lift onto surface-1 panels, not by gaps in white. Within a panel, generous `--glaise-space-lg` gaps between content blocks; `--glaise-space-section` between sections.
+The canvas IS the whitespace. Sections separate by lift onto floating surface-1 panels, not by rules or repainted bands. Panels keep a visible canvas gutter around them (`--glaise-space-sm`–`--glaise-space-md`); within a panel, generous `--glaise-space-lg` gaps between content blocks; `--glaise-space-section` between sections.
 
 ## Elevation & Depth
 
 | Level | Treatment | Use |
 |---|---|---|
 | 0 (flat) | No shadow, no border | Default for body type, hero text, footer |
-| 1 (charcoal lift) | `--glaise-surface-1` background on canvas, 1px `--glaise-hairline` | Default cards, product panels |
-| 2 (surface-2 lift) | `--glaise-surface-2` background, 1px `--glaise-hairline-strong` | Featured pricing card, hovered cards |
+| 1 (panel lift) | `--glaise-surface-1` background on canvas, `--glaise-shadow-1` (light) or 1px `--glaise-hairline` (dark) | Default cards, floating panels |
+| 2 (surface-2 lift) | `--glaise-surface-2` background, `--glaise-shadow-2` (light) or 1px `--glaise-hairline-strong` (dark) | Featured pricing card, hovered cards |
 | 3 (surface-3 lift) | `--glaise-surface-3` background | Sub-nav, dropdown menus |
 | 4 (focus ring) | 2px `--glaise-primary-focus` outline at 50% opacity | Focused input, focused button |
 
-Glaise's depth is carried by surface ladder + hairline borders. The system resists drop shadows on dark almost entirely.
+Glaise's depth is carried by the surface ladder plus **one elevation language per card — `box-shadow: var(--glaise-shadow-1)`, with no border stacked on it**: on light (the default) it resolves to **none** — a card separates from the canvas by value alone, white on off-white, edge-free; on dark it resolves to a hairline ring (value alone can't hold an edge there). `--glaise-shadow-2` is for **overlays only** (menus, popovers, modals) — the one real shadow on light. Bare hairline borders remain for inputs, dividers, and seams — not for cards.
 
 ### Decorative Depth
 
@@ -175,10 +176,10 @@ Glaise's depth is carried by surface ladder + hairline borders. The system resis
 
 ### Buttons
 
-**`button-primary`** — Lavender CTA. The default primary CTA across all pages.
+**`button-primary`** — Monochrome ink CTA (washed near-black on light, washed white on dark). The default primary CTA across all pages.
 - Background `--glaise-primary`, text `--glaise-on-primary`, button-label type, padding `--glaise-space-xs` 14px, rounded `--glaise-radius-md`.
 - Pressed state shifts the background to `--glaise-primary-focus`.
-- Hover state shifts the background to `--glaise-primary-hover` (lighter lavender).
+- Hover state shifts the background to `--glaise-primary-hover` (the next step of the same ramp).
 
 **`button-secondary`** — Charcoal button. Used for secondary CTAs ("Sign in", "Read changelog").
 - Background `--glaise-surface-1`, text `--glaise-ink`, button-label type, padding `--glaise-space-xs` 14px, rounded `--glaise-radius-md`. 1px `--glaise-hairline` border.
@@ -234,10 +235,13 @@ Glaise's depth is carried by surface ladder + hairline borders. The system resis
 
 ### Navigation
 
-**`top-nav`** — Sticky dark bar with the Glaise wordmark left, primary nav links centered, and a `button-secondary` ("Sign in") + `button-primary` ("Get started") pair right.
+**`top-nav`** — Sticky marketing bar with the Glaise wordmark left, primary nav links centered, and a `button-secondary` ("Sign in") + `button-primary` ("Get started") pair right.
 - Background `--glaise-canvas`, text `--glaise-ink`, body-sm type, height 56px.
 
-**`app-sidebar`** — the product's left rail. Background `--glaise-chrome` (distinct from the workspace `--glaise-canvas` — never the same fill), 1px `--glaise-hairline` on its inner edge. Holds `nav-item`s.
+**`app-sidebar`** — the product's left rail. Two treatments (see `shells.md`):
+- **Floating (default):** a detached `--glaise-surface-1` card with `--glaise-radius-xl` corners, one elevation language (shadow on light, hairline on dark), and a canvas gutter on all sides — the sidebar floats on the workspace like every other panel.
+- **Docked:** full-bleed column on `--glaise-chrome` (distinct from the workspace `--glaise-canvas` — never the same fill), 1px `--glaise-hairline` on its inner edge.
+Holds `nav-item`s either way.
 
 **`nav-item`** (app sidebar) — a row in the product sidebar. Default / hover / selected are one component, not three improvised looks.
 - **Default:** transparent background, `--glaise-ink-subtle` icon, `--glaise-ink-muted` label, `--glaise-radius-md`, ~34–38px height (≥44px touch), consistent horizontal inset so the fill has air from the sidebar edge.
@@ -256,8 +260,8 @@ Glaise's depth is carried by surface ladder + hairline borders. The system resis
 
 ### Do
 
-- Reserve `--glaise-canvas` as the system's anchor surface — the faint blue tint is intentional.
-- Use `--glaise-primary` lavender ONLY for: brand mark, primary CTA, focus ring, link emphasis.
+- Reserve `--glaise-canvas` as the system's anchor surface — everything floats on it.
+- Use `--glaise-primary` ONLY for: brand mark, primary CTA, focus ring, link emphasis. It is functional ink — in the default skin it brings weight, not color.
 - Use the four-step surface ladder for hierarchy. Avoid skipping levels.
 - Pair display weight 600 with body weight 400 — Glaise resists 700+ display weights.
 - Apply negative letter-spacing aggressively on display.
@@ -266,19 +270,19 @@ Glaise's depth is carried by surface ladder + hairline borders. The system resis
 - Keep the sidebar on `--glaise-chrome`, distinct from the workspace `--glaise-canvas` (sidebar a touch darker, workspace lighter).
 - Let white/`surface-1` cards float on the workspace canvas — the soft edge (light card on the canvas) *is* the premium separation; don't repaint the whole workspace to force it.
 - Give each card one elevation language — a hairline **or** a shadow token (in light, `--glaise-shadow-1` already carries a ring, so use the shadow alone).
-- Express selection/active state as a `--glaise-fill-selected` fill + weight + lavender icon.
+- Express selection/active state as a `--glaise-fill-selected` fill + weight + primary icon.
 
 ### Don't
 
-- Don't use lavender as a section background or card fill.
-- Don't introduce a second chromatic accent (orange, pink, green). `--glaise-success` / `--glaise-danger` are semantic, not accents — they're earned by meaning, never decorative.
+- Don't use the primary as a section background or card fill.
+- Don't introduce a chromatic accent (orange, pink, green) — the default skin is monochrome; chroma is a pigment/brand decision, never improvised per screen. `--glaise-success` / `--glaise-danger` are semantic, not accents — they're earned by meaning, never decorative.
 - Don't invent a red for an error state, and don't ship a form without one — `--glaise-danger` exists precisely so neither happens.
 - Don't add atmospheric gradients or spotlight cards.
 - Don't pill-round CTAs.
-- Don't use true black (`--glaise-overlay` is reserved for scrims, not the canvas) as the canvas.
+- Don't use true black (`--glaise-overlay` is reserved for scrims, not the canvas) or pure white as the canvas — the dark canvas is a soft gray, the light canvas an off-white.
 - Don't combine multiple bright accents in product screenshot mockups.
 - **Don't paint the sidebar the same fill as the workspace.** Use `--glaise-chrome` (a distinct tone — sidebar darker, workspace lighter in light); a same-color sidebar reads flat. Only override when the brief explicitly asks.
-- **Don't use a side-stripe / left-accent bar** (`border-left` or an inset box-shadow bar) to mark selected nav items, rows, or callouts — it reads as unfinished. Use a fill, weight, and the lavender icon.
+- **Don't use a side-stripe / left-accent bar** (`border-left` or an inset box-shadow bar) to mark selected nav items, rows, or callouts — it reads as unfinished. Use a fill, weight, and the primary icon.
 - **Don't stack a 1px border and a diffuse drop shadow** on the same card/button ("ghost card"). Pick one elevation language: a hairline **or** a defined shadow token.
 - **Don't let muted text drop below contrast.** `--glaise-ink-subtle`/`-tertiary` on a tinted near-white must still clear WCAG AA (verify with `contrast.mjs`); nudge toward `--glaise-ink` if close.
 
@@ -312,16 +316,16 @@ Glaise's depth is carried by surface ladder + hairline borders. The system resis
 - Product UI screenshots maintain aspect ratio and never crop.
 - Customer logos in the marquee may collapse from 6-up to 3-up below 768px.
 
-## Light Theme
+## Dark Theme
 
-Glaise ships dark by default and a light counterpart as the *same skin inverted* — not a different identity. Same Inter, same lavender as the single accent, same surface-ladder + hairline model. Only surfaces, ink, hairlines, the accent value (for legibility), and the depth strategy change.
+Glaise ships light by default and a dark counterpart as the *same skin inverted* — not a different identity. Same Inter, same monochrome primary, same surface-ladder + floating-panel model. Only surfaces, ink, hairlines, the primary's value (for legibility), and the depth strategy change.
 
-- **Activation:** `<html data-theme="light">`. No attribute = dark. Tokens are redefined under `:root[data-theme="light"]` in `tokens.css`; `theme.css` (Tailwind) inherits via the vars, no rebuild.
-- **Surfaces invert:** `--glaise-canvas` becomes off-white (not pure white); cards lift toward white; `--glaise-ink` is dark in four levels; hairlines are light.
-- **Accent stays lavender, value nudged:** the default `--glaise-primary` fails AA on light surfaces, so the light theme redefines `--glaise-primary` darker (hue preserved, ≥4.5:1 as text and as fill). The accent's identity is the hue; the value carries the function — the same way the system desaturates semantic colors per theme.
-- **Depth inverts:** dark carries elevation through the surface ladder + hairlines, with almost no shadow. On light the ladder (white-on-off-white) is too subtle, so elevation adds **shadow** (`--glaise-shadow-1` / `--glaise-shadow-2`), which resolve to `none` in dark. The white edge-highlight on lifted panels is a dark-only trick; on light it is replaced by the shadow. The `--glaise-inverse-*` pill CTA is dark-only.
+- **Activation:** `<html data-theme="dark">`. No attribute = light. Tokens are redefined under `:root[data-theme="dark"]` in `tokens.css`; `theme.css` (Tailwind) inherits via the vars, no rebuild.
+- **Surfaces invert:** `--glaise-canvas` becomes a soft dark gray (deep, never near-black); cards lift toward lighter grays; `--glaise-ink` is light in four levels; hairlines darken.
+- **Primary stays monochrome, value flipped:** a washed near-black is invisible on a dark canvas, so the dark theme re-values `--glaise-primary` as a washed white and `--glaise-on-primary` as a near-black label. The identity is the monochrome role; the value carries the function — the same way the system re-values the semantic colors per theme.
+- **Depth inverts inside the same token:** on light a card is edge-free (`--glaise-shadow-1` resolves to `none` — value alone separates it) and only overlays cast a real shadow (`--glaise-shadow-2`); on dark both resolve to hairline rings (value alone can't hold an edge, diffuse shadows don't read). Cards keep the single `box-shadow` declaration in both themes. The white edge-highlight on lifted panels is a dark-only trick.
 
-Light is a *state* of the fixed skin, chosen per project (dark / light / both) — never a per-product re-paint.
+Dark is a *state* of the fixed skin, chosen per project (light / dark / both) — never a per-product re-paint.
 
 ## Iteration Guide
 
@@ -330,14 +334,14 @@ Light is a *state* of the fixed skin, chosen per project (dark / light / both) �
 3. Default body to `--glaise-text-body` at weight 400.
 4. Run `node scripts/validate-skills.mjs` after edits.
 5. Add new variants as separate component entries.
-6. Treat lavender as scarce: brand mark, primary CTA, focus, link emphasis.
+6. Treat the primary as scarce: brand mark, primary CTA, focus, link emphasis.
 7. Lead every section with a product UI screenshot.
 
 ## Known Gaps
 
 - The four-step surface ladder is Glaise's canonical surface spec (`bg-level-3`, `line-tint`, etc.) — treat its tokens as the base for any dashboard.
 - Form-field error and validation now have their color (`--glaise-danger`), but not yet a canonical composition — the field/error recipe is still pending.
-- Light mode is an official second state of the skin — see "Light Theme". Dark remains the default and the family's face.
+- Dark mode is an official second state of the skin — see "Dark Theme". Light is the default and the family's face.
 - A richer color-tag palette (red, orange, yellow, green, blue, purple) for priorities and labels lives in the in-product surfaces shown in mockups, not on the marketing chrome.
 - Inter and JetBrains Mono are the canonical, freely-distributed Glaise typefaces.
 </content>

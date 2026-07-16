@@ -15,7 +15,7 @@ Build product UI on the **fixed Glaise skin**, from the **soul in the brief**. T
 
 ## The skin is decided — don't reinvent it
 
-Non-negotiable, taken from the family: the effective tokens — the palette/colors, the type family (**Inter** by default), and the accent — `--glaise-primary`, lavender by default (a pigment or client brand.css may re-value it) — used sparingly, the surface ladder, the radius and spacing scales, and **Lucide** icons. Bind everything to tokens — never hardcode a hex or a px that a token already covers. Reinventing any of these is the most common way to break the family.
+Non-negotiable, taken from the family: the effective tokens — the palette/colors, the type family (**Inter** by default), and the primary — `--glaise-primary`, monochrome washed ink by default (a pigment or client brand.css may re-value it, bringing chroma) — used sparingly, the surface ladder, the radius and spacing scales, and **Lucide** icons. Bind everything to tokens — never hardcode a hex or a px that a token already covers. Reinventing any of these is the most common way to break the family.
 
 ## Spend creativity here — the soul
 
@@ -80,15 +80,15 @@ These are recognition aids, not a scorecard — the one principle behind all of 
 
 The skin ships dark + light as two fixed states; the brief picks which the product exposes. Never re-paint — only switch.
 
-- **Dark or Light (fixed):** set (or omit) `data-theme="light"` on `<html>`. No toggle.
-- **Both:** build a toggle (Lucide `sun` / `moon`) that flips `document.documentElement.dataset.theme` and persists to `localStorage` under the fixed key **`glaise-theme`**. First load with nothing saved → **dark**. `prefers-color-scheme` is opt-in per project, not the default.
+- **Light or Dark (fixed):** set (or omit) `data-theme="dark"` on `<html>`. No toggle.
+- **Both:** build a toggle (Lucide `sun` / `moon`) that flips `document.documentElement.dataset.theme` and persists to `localStorage` under the fixed key **`glaise-theme`**. First load with nothing saved → **light**. `prefers-color-scheme` is opt-in per project, not the default.
 - **No FOUC:** when "both", put this inline script in `<head>` **before any CSS/JS**, reading the same `glaise-theme` key:
 
   ```html
-  <script>try{if(localStorage.getItem('glaise-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
+  <script>try{if(localStorage.getItem('glaise-theme')==='dark')document.documentElement.dataset.theme='dark'}catch(e){}</script>
   ```
 
-- **Elevation:** use `var(--glaise-shadow-1)` / `--glaise-shadow-2` for lifted cards/popovers — they resolve to a real shadow on light and to `none` on dark, so the same component reads correctly in both. Don't hardcode shadows.
+- **Elevation:** cards carry `box-shadow: var(--glaise-shadow-1)` and nothing else — it resolves to **none** on light (the card separates by value alone) and to a hairline ring on dark, so one declaration reads correctly in both. `var(--glaise-shadow-2)` is for **overlays only** (menus, popovers, modals). **Never stack a border on a card** (ghost-card) and never put a real shadow on a resting card in light. Don't hardcode shadows.
 
 ## Brand layer (per client)
 

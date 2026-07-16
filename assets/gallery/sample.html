@@ -13,11 +13,16 @@
     font-family: var(--glaise-font-sans);
     background: var(--glaise-canvas);
     color: var(--glaise-ink);
-    display: flex; height: 100vh; overflow: hidden;
+    display: flex; gap: var(--glaise-space-sm); height: 100vh; overflow: hidden;
+    padding: var(--glaise-space-sm);
   }
+  /* Floating sidebar — the family default: a detached surface-1 card with a
+     canvas gutter on all sides (shells.md, Console floating mode).
+     One elevation language: the shadow token alone — no border stacked on it. */
   .sidebar {
-    width: 240px; background: var(--glaise-chrome);
-    border-right: 1px solid var(--glaise-hairline);
+    width: 240px; background: var(--glaise-surface-1);
+    border-radius: var(--glaise-radius-xl);
+    box-shadow: var(--glaise-shadow-1);
     padding: var(--glaise-space-md); flex-shrink: 0;
   }
   .wordmark { font-weight: 600; font-size: var(--glaise-text-body); margin-bottom: var(--glaise-space-lg); }
@@ -29,13 +34,13 @@
   }
   .nav-item.selected { background: var(--glaise-fill-selected); color: var(--glaise-ink); font-weight: 500; }
   .nav-item.selected .dot { background: var(--glaise-primary); }
-  .dot { width: 14px; height: 14px; border-radius: var(--glaise-radius-xs); background: var(--glaise-ink-subtle); flex-shrink: 0; }
-  main { flex: 1; padding: var(--glaise-space-xl); overflow: auto; }
+  .dot { width: 12px; height: 12px; border-radius: var(--glaise-radius-xs); background: var(--glaise-hairline-tertiary); flex-shrink: 0; }
+  main { flex: 1; padding: var(--glaise-space-lg) var(--glaise-space-xl); overflow: auto; }
   h1 { font-size: var(--glaise-text-headline); font-weight: 600; letter-spacing: -0.6px; margin-bottom: 4px; }
   .sub { color: var(--glaise-ink-subtle); font-size: var(--glaise-text-body-sm); margin-bottom: var(--glaise-space-lg); }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--glaise-space-md); margin-bottom: var(--glaise-space-lg); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--glaise-space-lg); margin-bottom: var(--glaise-space-xl); }
   .card {
-    background: var(--glaise-surface-1); border: 1px solid var(--glaise-hairline);
+    background: var(--glaise-surface-1);
     border-radius: var(--glaise-radius-lg); padding: var(--glaise-space-lg);
     box-shadow: var(--glaise-shadow-1);
   }
@@ -55,7 +60,7 @@
   }
   .input {
     background: var(--glaise-surface-1); color: var(--glaise-ink);
-    border: 1px solid var(--glaise-hairline-strong); border-radius: var(--glaise-radius-md);
+    border: 1px solid var(--glaise-hairline); border-radius: var(--glaise-radius-md);
     padding: var(--glaise-space-xs) var(--glaise-space-sm);
     font: 400 var(--glaise-text-body-sm) var(--glaise-font-sans); width: 260px;
   }

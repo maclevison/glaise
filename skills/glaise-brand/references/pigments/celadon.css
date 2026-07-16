@@ -5,7 +5,24 @@
    Load LAST: @import "tokens.css"; [theme.css if Tailwind;] @import "brand.css"; */
 :root {
   /* Accent — celadon glaze green, grayer and cooler than leaf green */
+  --glaise-primary: #43705a;
+  --glaise-primary-hover: #3a6350;
+  --glaise-primary-focus: #43705a;
+
+  /* Porcelain-white neutrals with a green cast */
+  --glaise-canvas: #f2f5f2;
+  --glaise-chrome: #e7ece8;
+  --glaise-surface-1: #ffffff;
+  --glaise-surface-2: #f6f9f6;
+  --glaise-hairline: #e1e8e3;
+  --glaise-hairline-strong: #cfd9d2;
+}
+
+:root[data-theme="dark"] {
+  /* Brightened for the dark canvas. on-primary must return to white here —
+     the default dark skin's near-black label only works on its washed-white fill. */
   --glaise-primary: #4a7a63;
+  --glaise-on-primary: #ffffff;
   --glaise-primary-hover: #5c8f76;
   --glaise-primary-focus: #4a7a63;
 
@@ -16,16 +33,4 @@
   --glaise-surface-2: #161c16;
   --glaise-hairline: #232a23;
   --glaise-hairline-strong: #333d33;
-}
-
-:root[data-theme="light"] {
-  --glaise-primary: #43705a;
-  --glaise-primary-hover: #3a6350;
-  --glaise-primary-focus: #43705a;
-  --glaise-canvas: #f2f5f2;
-  --glaise-chrome: #e7ece8;
-  --glaise-surface-1: #ffffff;
-  --glaise-surface-2: #f6f9f6;
-  --glaise-hairline: #e1e8e3;
-  --glaise-hairline-strong: #cfd9d2;
 }

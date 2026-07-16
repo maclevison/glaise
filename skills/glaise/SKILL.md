@@ -1,6 +1,6 @@
 ---
 name: glaise
-description: Use when building product UI, dashboards, panels, admin tools, or app screens, so the result belongs to the shared Glaise design family. Loads the fixed visual skin (dark canvas, Inter by default, a lavender accent by default, surface ladder, Lucide icons, headless primitives) from references/, and guides the discover-build-review flow. Creativity goes into the product's domain, layout, hierarchy, and signature — never the skin.
+description: Use when building product UI, dashboards, panels, admin tools, or app screens, so the result belongs to the shared Glaise design family. Loads the fixed visual skin (off-white canvas with floating panels, Inter by default, a monochrome washed-ink primary by default, surface ladder, Lucide icons, headless primitives) from references/, and guides the discover-build-review flow. Creativity goes into the product's domain, layout, hierarchy, and signature — never the skin.
 ---
 
 # Glaise
@@ -18,7 +18,7 @@ Read these files, relative to this skill, before designing anything:
 - `references/shells.md` — the app-shell archetypes (Console / Focused / Workbench / Reader / Canvas). Load when deciding or building the navigation structure. This is structure, not skin — it never overrides the soul.
 - `references/contrast.mjs` — the WCAG contrast checker over the skin's tokens (both themes), used by `glaise-audit`. Run `node references/contrast.mjs` to audit the skin pairs, or pass `<fg> <bg>` for an ad-hoc product pair.
 
-Non-negotiable skin (never reinvent): the effective tokens — the palette/colors, the type family (**Inter** by default), and the accent (`--glaise-primary`, lavender by default) used sparingly — the surface ladder, the radius and spacing scales, **Lucide** icons, the **motion defaults** (strong custom curves, sub-300ms, the decision-before-how discipline in `motion.md`), and the use of **headless primitives** for controls (Base UI for React, Reka UI for Vue) — never a styled UI kit (Material, Vuetify, Chakra, Ant).
+Non-negotiable skin (never reinvent): the effective tokens — the palette/colors, the type family (**Inter** by default), and the primary (`--glaise-primary`, monochrome washed ink by default — a pigment/brand may bring chroma) used sparingly — the surface ladder, the radius and spacing scales, **Lucide** icons, the **motion defaults** (strong custom curves, sub-300ms, the decision-before-how discipline in `motion.md`), and the use of **headless primitives** for controls (Base UI for React, Reka UI for Vue) — never a styled UI kit (Material, Vuetify, Chakra, Ant).
 
 ## The soul is the product's (this is where creativity goes)
 

@@ -26,7 +26,7 @@ Cover these dimensions (they are the brief's sections):
 6. **Signature** — the one element (visual, structural, or interaction) that could only exist for THIS product. If you can't name one, keep probing.
 7. **Density** — tight / balanced / airy, within the family range.
 8. **Key surfaces** — the main screens/areas that exist.
-9. **Shell & navigation** — the app frame around those surfaces. Offer a **shell archetype** as the starting point (full catalog in the hub's `references/shells.md`): **Console** (sidebar + top bar — dashboards/admin), **Focused** (top bar only, contained — wizards/forms), **Workbench** (split list + detail — inbox/CRM/editors), **Reader** (centered, minimal chrome — docs/content), or **Canvas** (full-bleed + floating panels — visual editors). Suggest one from the product type, then confirm the details (sidebar sections/collapsible, what the top bar holds, page shape) — or go custom. The archetype is the frame only; the soul still comes from the rest of the brief.
+9. **Shell & navigation** — the app frame around those surfaces. Offer a **shell archetype** as the starting point (full catalog in the hub's `references/shells.md`): **Console** (sidebar + top bar — dashboards/admin; **floating panels by default** — sidebar and content as detached cards with a canvas gutter; docked full-bleed only on request), **Focused** (top bar only, contained — wizards/forms), **Workbench** (split list + detail — inbox/CRM/editors), **Reader** (centered, minimal chrome — docs/content), or **Canvas** (full-bleed + floating panels — visual editors). Suggest one from the product type, then confirm the details (sidebar sections/collapsible, what the top bar holds, page shape) — or go custom. The archetype is the frame only; the soul still comes from the rest of the brief.
 10. **Stack** — framework (React or Vue), Tailwind (yes/no), then **Skin** and **Theme**:
     - **Skin** — three doors, asked before Theme:
       1. **Default** (recommended) — the Glaise skin, the family's face. No `brand.css`.
@@ -45,7 +45,7 @@ Cover these dimensions (they are the brief's sections):
       **Broken install:** if the chosen pigment file is missing (a broken or partial
       install), report the install problem and point at `glaise-update` — never
       fabricate the file.
-    - **Theme** — Dark (the family default) / Light / Both (a toggle). If a pigment was
+    - **Theme** — Light (the family default) / Dark / Both (a toggle). If a pigment was
       chosen, propose its primary theme as the default answer.
     Primitives follow the framework (Base UI for React, Reka UI for Vue); icons are
     always Lucide.
@@ -97,6 +97,7 @@ Write exactly this structure (fill every section; keep it concise — it's an an
 
 ## Shell & navigation
 - Archetype: <Console | Focused | Workbench | Reader | Canvas | custom>
+- Mode: <floating (default — detached panels on the canvas) | docked (full-bleed)>
 - Sidebar: <none | collapsible left nav with sections: …>
 - Top bar: <none | what it holds: wordmark, search, primary actions, profile, theme toggle>
 - Page shape: <full-width app shell | centered/contained | split (list + detail)>
@@ -106,7 +107,7 @@ Write exactly this structure (fill every section; keep it concise — it's an an
 - Tailwind: <yes | no>
 - Primitives: <Base UI (React) | Reka UI (Vue)>
 - Icons: Lucide
-- Theme: <dark | light | both>
+- Theme: <light | dark | both>
 - Skin: <default Glaise | pigment: <name> | custom brand.css via glaise-brand>
 ```
 

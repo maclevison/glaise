@@ -1,53 +1,57 @@
 /* Glaise design tokens — canonical technical source.
    Edit values HERE. design.md is the human/semantic doc kept in sync.
-   Consumed directly (non-Tailwind) or via theme.css (Tailwind v4). */
+   Consumed directly (non-Tailwind) or via theme.css (Tailwind v4).
+   Light is the default face (:root); dark is the second state, applied via
+   <html data-theme="dark">. */
 :root {
-  /* Brand & accent */
-  --glaise-primary: #5e6ad2;
+  /* Brand & accent — monochrome by default: a washed near-black that reads as
+     functional ink, not a decorative color. A pigment or brand pack re-values
+     it to bring chroma; the default skin has none. */
+  --glaise-primary: #26272b;
   --glaise-on-primary: #ffffff;
-  --glaise-primary-hover: #828fff;
-  --glaise-primary-focus: #5e69d1;
-  --glaise-brand-secure: #7a7fad;
+  --glaise-primary-hover: #3a3b41;
+  --glaise-primary-focus: #26272b;
+  --glaise-brand-secure: #6e737e;
 
   /* Text */
-  --glaise-ink: #f7f8f8;
-  --glaise-ink-muted: #d0d6e0;
-  --glaise-ink-subtle: #8a8f98;
-  --glaise-ink-tertiary: #62666d;
+  --glaise-ink: #1c1d21;
+  --glaise-ink-muted: #44474f;
+  --glaise-ink-subtle: #6c7079;
+  --glaise-ink-tertiary: #9499a2;
 
   /* Surfaces */
-  --glaise-canvas: #010102;
-  --glaise-chrome: #0a0b0d;      /* app sidebar/chrome — distinct from canvas, never the same */
-  --glaise-surface-1: #0f1011;
-  --glaise-surface-2: #141516;
-  --glaise-surface-3: #18191a;
-  --glaise-surface-4: #191a1b;
+  --glaise-canvas: #f4f5f7;     /* off-white workspace "whitespace", not pure white */
+  --glaise-chrome: #ebedf1;     /* sidebar/chrome — a touch darker than canvas, never equal */
+  --glaise-surface-1: #ffffff;  /* cards lift to white */
+  --glaise-surface-2: #f7f8fa;
+  --glaise-surface-3: #eef0f3;
+  --glaise-surface-4: #e8eaee;
 
   /* Hairlines */
-  --glaise-hairline: #23252a;
-  --glaise-hairline-strong: #34343a;
-  --glaise-hairline-tertiary: #3e3e44;
+  --glaise-hairline: #e6e8ec;
+  --glaise-hairline-strong: #d5d8de;
+  --glaise-hairline-tertiary: #c2c6ce;
 
-  /* Inverse */
-  --glaise-inverse-canvas: #ffffff;
-  --glaise-inverse-surface-1: #f5f6f6;
-  --glaise-inverse-surface-2: #f6f7f7;
-  --glaise-inverse-ink: #000000;
+  /* Inverse — the other side of the skin, for inverse CTAs/section openers */
+  --glaise-inverse-canvas: #161618;
+  --glaise-inverse-surface-1: #1e1e20;
+  --glaise-inverse-surface-2: #232326;
+  --glaise-inverse-ink: #ffffff;
 
   /* Semantic — earned by meaning, never decorative (they are not accents).
      success is only ever a dot/pill, so it holds the 3:1 floor; danger carries
      body text (field errors, a data view's error state), so it holds 4.5:1 on
      both themes against canvas and the card surfaces. */
-  --glaise-success: #27a644;
-  --glaise-danger: #eb5757;
+  --glaise-success: #1d7c33;
+  --glaise-danger: #c62828;
   --glaise-overlay: #000000;
 
-  /* Radius */
+  /* Radius — generous by default: floating panels and cards sit at lg/xl */
   --glaise-radius-xs: 4px;
   --glaise-radius-sm: 6px;
   --glaise-radius-md: 8px;
-  --glaise-radius-lg: 12px;
-  --glaise-radius-xl: 16px;
+  --glaise-radius-lg: 16px;
+  --glaise-radius-xl: 20px;
   --glaise-radius-xxl: 24px;
   --glaise-radius-pill: 9999px;
   --glaise-radius-full: 9999px;
@@ -91,66 +95,73 @@
   --glaise-duration-slow: 280ms;    /* heavier UI, still under 300 */
   --glaise-duration-drawer: 400ms;  /* drawers/modals — the physical exception */
 
-  /* Theme control + elevation (dark leans on borders, not shadows) */
-  color-scheme: dark;
+  /* Theme control + elevation. Cards carry box-shadow: var(--glaise-shadow-1)
+     and NOTHING else (no border stacked on top). On light it resolves to NONE —
+     a card separates from the canvas by value alone (white on off-white);
+     on dark it resolves to a hairline ring. shadow-2 is for OVERLAYS only
+     (menus, popovers, modals) — the one real shadow on light. */
+  color-scheme: light;
   --glaise-shadow-1: none;
-  --glaise-shadow-2: none;
+  --glaise-shadow-2: 0 0 0 1px rgba(18, 20, 24, 0.05), 0 8px 24px -6px rgba(18, 20, 24, 0.10);
 
   /* Interactive state fills — hover / selected / pressed for nav items, rows,
      menu options. Neutral overlays (not surface steps) so they read on any
      surface and in both themes. The selected state is a perceptible fill, never
-     a side-stripe; the lavender accent lives in the item's icon, not a bar. */
-  --glaise-fill-hover: rgba(255, 255, 255, 0.05);
-  --glaise-fill-selected: rgba(255, 255, 255, 0.09);
-  --glaise-fill-pressed: rgba(255, 255, 255, 0.13);
-}
-
-/* ── Light theme ──────────────────────────────────────────────────────────
-   The inverted, in-family counterpart: same Inter, same lavender accent (value
-   nudged darker for AA on light surfaces), same surface-ladder + hairline model,
-   plus shadows for elevation (the ladder alone is too subtle on light).
-   Applied via <html data-theme="light">; dark is the default (no attribute). */
-:root[data-theme="light"] {
-  --glaise-ink: #1c1d21;
-  --glaise-ink-muted: #44474f;
-  --glaise-ink-subtle: #6c7079;
-  --glaise-ink-tertiary: #9499a2;
-
-  --glaise-canvas: #f4f5f7;     /* off-white workspace "whitespace", not pure white */
-  --glaise-chrome: #ebedf1;     /* sidebar/chrome — a touch darker than canvas, never equal */
-  --glaise-surface-1: #ffffff;  /* cards lift to white */
-  --glaise-surface-2: #f7f8fa;
-  --glaise-surface-3: #eef0f3;
-  --glaise-surface-4: #e8eaee;
-
-  --glaise-hairline: #e6e8ec;
-  --glaise-hairline-strong: #d5d8de;
-  --glaise-hairline-tertiary: #c2c6ce;
-
-  /* Lavender darkened for AA on light (>=4.5:1 as text on surface-1 and as
-     fill under white text). Hue preserved; value carries the function. */
-  --glaise-primary: #4850c0;
-  --glaise-primary-hover: #5a62d6;
-  --glaise-primary-focus: #4850c0;
-
-  /* Success darkened for AA on light (>=4.5:1 against surface-1, surface-2, AND
-     canvas — the dark value #27a644 only clears ~3:1 there). Hue preserved;
-     value carries the function. */
-  --glaise-success: #1d7c33;
-
-  /* Danger darkened for AA on light (>=4.5:1 as body text against canvas,
-     surface-1, AND surface-2 — it carries error messages, not just a dot).
-     Hue preserved at 0°; value carries the function. */
-  --glaise-danger: #c62828;
-
-  /* Elevation by shadow on light */
-  --glaise-shadow-1: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
-  --glaise-shadow-2: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 4px 8px -2px rgba(0, 0, 0, 0.08), 0 8px 16px -4px rgba(0, 0, 0, 0.06);
-
-  /* Interactive state fills — darker overlays for light surfaces */
+     a side-stripe; any accent lives in the item's icon, not a bar. */
   --glaise-fill-hover: rgba(17, 20, 28, 0.045);
   --glaise-fill-selected: rgba(17, 20, 28, 0.075);
   --glaise-fill-pressed: rgba(17, 20, 28, 0.10);
+}
 
-  color-scheme: light;
+/* ── Dark theme ───────────────────────────────────────────────────────────
+   The inverted, in-family counterpart: same Inter, same monochrome primary
+   (washed white here — a near-black fill would vanish), same surface-ladder +
+   hairline model, elevation by borders instead of shadow.
+   Applied via <html data-theme="dark">; light is the default (no attribute). */
+:root[data-theme="dark"] {
+  --glaise-primary: #e6e7e9;
+  --glaise-on-primary: #111113;
+  --glaise-primary-hover: #ffffff;
+  --glaise-primary-focus: #e6e7e9;
+  --glaise-brand-secure: #8a8f9a;
+
+  --glaise-ink: #f7f8f8;
+  --glaise-ink-muted: #d0d6e0;
+  --glaise-ink-subtle: #8a8f98;
+  --glaise-ink-tertiary: #62666d;
+
+  --glaise-canvas: #161618;     /* soft dark gray — deep, but not near-black */
+  --glaise-chrome: #1b1b1e;     /* sidebar/chrome — a subtle lift, never equal to canvas */
+  --glaise-surface-1: #1e1e20;
+  --glaise-surface-2: #232326;
+  --glaise-surface-3: #28282c;
+  --glaise-surface-4: #2a2a2e;
+
+  --glaise-hairline: #303036;
+  --glaise-hairline-strong: #3e3e46;
+  --glaise-hairline-tertiary: #48484f;
+
+  --glaise-inverse-canvas: #ffffff;
+  --glaise-inverse-surface-1: #f5f6f6;
+  --glaise-inverse-surface-2: #f6f7f7;
+  --glaise-inverse-ink: #000000;
+
+  /* Semantic brightened for AA on dark (the light values sink into the canvas).
+     Hue preserved; value carries the function. */
+  --glaise-success: #27a644;
+  --glaise-danger: #eb5757;
+
+  /* Elevation on dark: the shadow tokens resolve to a hairline RING — value
+     alone can't hold a card edge on a dark canvas, and diffuse shadows don't
+     read there. One declaration (box-shadow: var(--glaise-shadow-1)) works in
+     both themes: none on light, ring on dark. */
+  --glaise-shadow-1: 0 0 0 1px #303036;
+  --glaise-shadow-2: 0 0 0 1px #3e3e46;
+
+  /* Interactive state fills — lighter overlays for dark surfaces */
+  --glaise-fill-hover: rgba(255, 255, 255, 0.05);
+  --glaise-fill-selected: rgba(255, 255, 255, 0.09);
+  --glaise-fill-pressed: rgba(255, 255, 255, 0.13);
+
+  color-scheme: dark;
 }

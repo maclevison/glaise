@@ -4,7 +4,23 @@
    through to tokens.css (the default skin).
    Load LAST: @import "tokens.css"; [theme.css if Tailwind;] @import "brand.css"; */
 :root {
+  --glaise-primary: #2257c8;
+  --glaise-primary-hover: #3568d8;
+  --glaise-primary-focus: #2257c8;
+
+  --glaise-canvas: #f3f5f9;
+  --glaise-chrome: #e9edf4;
+  --glaise-surface-1: #ffffff;
+  --glaise-surface-2: #f7f9fc;
+  --glaise-hairline: #e4e8ef;
+  --glaise-hairline-strong: #d3d9e3;
+}
+
+:root[data-theme="dark"] {
+  /* on-primary back to white — the default dark skin's near-black label only
+     works on its washed-white fill, not on a chromatic accent. */
   --glaise-primary: #2f6df0;
+  --glaise-on-primary: #ffffff;
   --glaise-primary-hover: #5688f5;
   --glaise-primary-focus: #2f6df0;
 
@@ -14,16 +30,4 @@
   --glaise-surface-2: #151920;
   --glaise-hairline: #232833;
   --glaise-hairline-strong: #333a47;
-}
-
-:root[data-theme="light"] {
-  --glaise-primary: #2257c8;
-  --glaise-primary-hover: #3568d8;
-  --glaise-primary-focus: #2257c8;
-  --glaise-canvas: #f3f5f9;
-  --glaise-chrome: #e9edf4;
-  --glaise-surface-1: #ffffff;
-  --glaise-surface-2: #f7f9fc;
-  --glaise-hairline: #e4e8ef;
-  --glaise-hairline-strong: #d3d9e3;
 }

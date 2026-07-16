@@ -76,7 +76,7 @@ The skin lives in tokens; drift is measurable. From the project's style/source r
 - **Every interactive element** has default / hover / active / focus-visible / disabled. **Verify by triggering**, not by reading code.
 - **Every data view** has loading / empty / error — not just the happy path. Trigger the empty state (search for nothing, filter to zero) and screenshot it.
 - **Motion:** durations < 300ms; custom ease-out (`cubic-bezier(0.23, 1, 0.32, 1)`), never ease-in/bounce/elastic; animates only `transform`/`opacity`; `prefers-reduced-motion` has an alternative.
-- **Theme (if brief says "both"):** toggle persists to `glaise-theme`; the inline no-FOUC script is present in `<head>` before CSS; reload in light shows no dark flash. (If the brief is dark-only or light-only, confirm the fixed `data-theme` and that there's no dead toggle.)
+- **Theme (if brief says "both"):** toggle persists to `glaise-theme`; the inline no-FOUC script is present in `<head>` before CSS; reload in dark shows no light flash. (If the brief is light-only or dark-only, confirm the fixed `data-theme` and that there's no dead toggle.)
 
 **0**=happy path only · **2**=most interactive states, data states missing · **3**=states present, motion rough · **4**=all states triggered-and-verified, motion purposeful, reduced-motion honored.
 
@@ -86,11 +86,11 @@ The measurable half of family conformance (the *taste* half belongs to `glaise-r
 
 - **Icons:** Lucide only (`lucide-react` / `lucide-vue-next`) — `grep` for any other icon import (heroicons, material-icons, font-awesome, tabler) → finding.
 - **Controls:** native or headless primitive (Base UI / Reka UI). `grep` package imports for a styled kit (`@mui`, `vuetify`, `@chakra-ui`, `antd`, `react-bootstrap`) → blocker; it ships its own skin.
-- **Depth:** surface ladder + hairlines; shadows resolve via `--glaise-shadow-*` (real on light, `none` on dark) — no hardcoded `box-shadow` on dark, no ad-hoc border colors.
+- **Depth:** surface ladder + the shadow tokens; `--glaise-shadow-1` resolves per theme (none on light — cards separate by value; hairline ring on dark), `--glaise-shadow-2` is overlays-only — no hardcoded `box-shadow`, no ad-hoc border colors, no real shadow on a resting card in light.
 - **Chrome separation:** the app sidebar sits on `--glaise-chrome` (a tone distinct from `--glaise-canvas`), never the workspace fill — `grep` the sidebar/rail background; a sidebar set to `--glaise-canvas` (matching the workspace) is a finding unless the brief asks for it.
 - **No side-stripe:** no colored `border-left`/`border-right` > 1px and no inset accent bar on nav items / rows / callouts —
   `grep -rnE 'inset [0-9]+px 0 0|border-(left|right):\s*(2|3|4|5|6)px' src`.
-- **One elevation language (no ghost-card):** no element carries **both** a 1px border and a `--glaise-shadow-*` at once (in light the shadow token already rings) — flag `border` + `box-shadow` pairs on cards/panels.
+- **One elevation language (no ghost-card):** no element carries **both** a 1px border and a `--glaise-shadow-*` at once (the shadow token already rings in both themes) — flag `border` + `box-shadow` pairs on cards/panels.
 - **Interactive fills:** hover/selected use `--glaise-fill-hover` / `--glaise-fill-selected` (perceptible on any surface), not a surface step that vanishes on a same-value background —
   `grep -rnE '(hover|active|selected)[^{]*\{[^}]*background' src` and confirm the fill reads.
 

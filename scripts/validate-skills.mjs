@@ -113,16 +113,17 @@ if (existsSync(directionPath)) {
   if (absent.length) errors.push(`glaise-direction: must reference skin/brief, missing: ${absent.join(", ")}`);
 }
 
-// 7. The canonical tokens must ship a light theme block redefining the core surfaces
+// 7. The canonical tokens must ship a dark theme block redefining the core surfaces
+//    (light is the default face in :root; dark is the second state)
 if (existsSync(tokensPath)) {
-  const tokensLight = readFileSync(tokensPath, "utf8");
-  const lightBlock = tokensLight.match(/:root\[data-theme="light"\]\s*\{([\s\S]*?)\}/);
-  if (!lightBlock) {
-    errors.push('tokens.css: missing :root[data-theme="light"] block');
+  const tokensCss = readFileSync(tokensPath, "utf8");
+  const darkBlock = tokensCss.match(/:root\[data-theme="dark"\]\s*\{([\s\S]*?)\}/);
+  if (!darkBlock) {
+    errors.push('tokens.css: missing :root[data-theme="dark"] block');
   } else {
     const need = ["--glaise-canvas", "--glaise-ink", "--glaise-surface-1", "--glaise-hairline", "--glaise-primary"];
-    const miss = need.filter((v) => !new RegExp(v + "\\s*:").test(lightBlock[1]));
-    if (miss.length) errors.push(`tokens.css light theme missing: ${miss.join(", ")}`);
+    const miss = need.filter((v) => !new RegExp(v + "\\s*:").test(darkBlock[1]));
+    if (miss.length) errors.push(`tokens.css dark theme missing: ${miss.join(", ")}`);
   }
 }
 

@@ -20,8 +20,8 @@ const ok = (name, cond) => { console.log(`${cond ? "✓" : "✗"} ${name}`); if 
 // the one each test intends — otherwise document-title/html-has-lang would force exit 1.
 // The overlay check uses its own probe element, so --glaise-primary need not be visible.
 const page = (overflow) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>fixture</title><style>
-  :root { --glaise-primary: #2f6df0; --glaise-canvas: #07090d; color-scheme: dark; }
-  :root[data-theme="light"] { --glaise-canvas: #f4f5f7; }
+  :root { --glaise-primary: #2f6df0; --glaise-canvas: #f4f5f7; color-scheme: light; }
+  :root[data-theme="dark"] { --glaise-canvas: #07090d; color-scheme: dark; }
   body { margin:0; background:#07090d; color:#ffffff; font-size:18px; }
   button { min-width:44px; min-height:44px; }
   ${overflow ? ".wide{width:3000px;height:10px;background:#333}" : ""}

@@ -48,7 +48,7 @@ overrides many. Both use the same mechanism.
 Keep it short. Work one axis at a time; propose a sensible default (the Glaise value) and
 let them confirm or replace. Stop as soon as you can write a confident `brand.css`.
 
-1. **Primary theme** — does the brand live in dark or light? (Glaise default: dark.) The
+1. **Primary theme** — does the brand live in dark or light? (Glaise default: light.) The
    opposite theme is **derived** (hue preserved, surface/ink relationship inverted) and the
    client may review it.
 2. **Accent / primary** — the brand color. Derive `hover`/`focus` (value nudged); confirm.
