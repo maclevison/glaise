@@ -8,6 +8,12 @@
   --glaise-primary-hover: #c26340;
   --glaise-primary-focus: #b0512f;
 
+  /* Danger — the ONLY pigment that must override it. The default red sits 15.8°
+     from this pigment's burnt-orange accent, so an error would read as a CTA
+     (and collapses onto it under protanopia). Shifted to crimson, >=30° clear of
+     the accent, AA held on the warm surfaces below. */
+  --glaise-danger: #e05073;
+
   /* Rounder character (both themes) */
   --glaise-radius-md: 10px;
   --glaise-radius-lg: 16px;
@@ -26,6 +32,7 @@
   --glaise-primary: #b0512f;
   --glaise-primary-hover: #9a4527;
   --glaise-primary-focus: #b0512f;
+  --glaise-danger: #a4133c;   /* crimson, hue-matched to the dark value; clear of the accent */
   --glaise-canvas: #f8f4ec;
   --glaise-chrome: #efe8db;
   --glaise-surface-1: #ffffff;

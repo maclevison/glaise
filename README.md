@@ -24,6 +24,9 @@ Same design system — pick how you deliver it.
 
 ```
 /plugin marketplace add maclevison/glaise
+```
+
+```
 /plugin install glaise@glaise
 ```
 
@@ -162,7 +165,7 @@ The skin lives in `skills/glaise/references/`:
 - **`theme.css`** — the **Tailwind v4** preset (`@theme`) that *references* `tokens.css` (never redeclaring values).
 - **`motion.md`** — the family's motion layer (curves, durations, decision-before-how).
 - **`shells.md`** — app-shell archetypes (Console / Focused / Workbench / Reader / Canvas).
-- **`contrast.mjs`** — the WCAG contrast checker over the tokens (used by `glaise-audit`).
+- **`contrast.mjs`** — the WCAG contrast checker over the tokens, plus the semantic-separation rule contrast math is blind to: two colors can both clear AA on the same surface and still be the same color to the user, so `--glaise-danger` must stay ≥30° in hue from `--glaise-primary` — otherwise an error reads as a CTA. Used by `glaise-audit`.
 
 The `design.md → tokens.css → theme.css` chain makes Tailwind **inherit the skin at runtime**: change one value in `tokens.css` and it propagates everywhere, no rebuild.
 
@@ -229,12 +232,12 @@ node scripts/validate-skills.mjs
 node scripts/test-pigments.mjs
 ```
 
-It checks skill portability (kebab-case names, OpenCode-compatible), the `theme.css → tokens.css` token chain, the brief template, the build/review/direction references, and the light-theme block. `test-pigments.mjs` verifies each of the 5 curated pigment packs against the same AA contrast bar as the default skin.
+It checks skill portability (kebab-case names, OpenCode-compatible), the `theme.css → tokens.css` token chain, the brief template, the build/review/direction references, and the light-theme block. `test-pigments.mjs` holds each of the 5 curated pigment packs to the same bar as the default skin: AA contrast **and** semantic separation.
 
-Audit the skin's contrast directly:
+Audit the skin directly:
 
 ```bash
-node skills/glaise/references/contrast.mjs                  # check the skin pairs on both themes
+node skills/glaise/references/contrast.mjs                  # pairs + separation, both themes
 node skills/glaise/references/contrast.mjs '#8a8f98' '#010102'   # ad-hoc pair (quote hex — # is special in the shell)
 ```
 

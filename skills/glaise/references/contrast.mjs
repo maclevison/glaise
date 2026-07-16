@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Glaise contrast checker — WCAG ratios over the fixed skin's tokens.
+ * Glaise contrast checker — WCAG ratios over the fixed skin's tokens, plus the
+ * semantic-separation rule that contrast math alone is blind to.
  *
  * The skin is shared, so its text/surface pairs can be verified once and hold
  * for every Glaise product. Two modes:
@@ -9,8 +10,9 @@
  *   node contrast.mjs <fg> <bg>       → ad-hoc pair (hex like #6c7079, or a token
  *                                       name like ink-subtle); add --theme light
  *
- * Exit code is 1 if any *required* curated pair fails AA (so it is CI-able);
- * ad-hoc mode never fails the process, it just reports.
+ * Exit code is 1 if any *required* curated pair fails AA, or if two semantics
+ * are too close in hue to tell apart (so it is CI-able); ad-hoc mode never fails
+ * the process, it just reports.
  *
  * No dependencies. Reads tokens.css next to this file. color-mix()/non-hex
  * token values are skipped (resolve them by hand and pass hex to ad-hoc mode).
@@ -141,7 +143,53 @@ const PAIRS = [
   ['primary', 'canvas', 3.0, 'accent/link on canvas (≥18px or non-text)'],
   ['primary', 'surface-1', 3.0, 'accent on card (≥18px or non-text)'],
   ['success', 'surface-1', 3.0, 'status dot/text (non-body)'],
+  ['danger', 'surface-1', 4.5, 'field error message (real body text — stricter than success)'],
+  ['danger', 'canvas', 4.5, "error state on the workspace (body text)"],
 ]
+
+// ── Semantic separation (what AA cannot see) ────────────────────────────────
+// Two colors can BOTH clear 4.5:1 against the same surface and still be the same
+// color to the user. So contrast alone can't tell whether --glaise-danger is
+// distinguishable from --glaise-primary: if they sit a few degrees apart, an
+// error reads as a CTA, and under protanopia the two collapse onto each other.
+// A pigment/brand whose accent lands near the danger hue MUST re-value danger
+// (terracotta's burnt orange is the shipped case).
+//
+// Hue is only meaningful on a chromatic color — a near-gray reports hue 0° and
+// would false-fail against a red, so anything below MIN_CHROMA is skipped: it is
+// already told apart by chroma, not hue.
+const MIN_HUE_SEPARATION = 30
+const MIN_CHROMA = 0.15
+const SEPARATION = [['danger', 'primary', 'an error must not read as a CTA']]
+
+function auditSeparation(theme) {
+  let failed = 0
+  for (const [aTok, bTok, note] of SEPARATION) {
+    const a = resolveEff(aTok, theme)
+    const b = resolveEff(bTok, theme)
+    if (!a || !b) continue
+    const ha = hexToHsl(a)
+    const hb = hexToHsl(b)
+    if (ha.s < MIN_CHROMA || hb.s < MIN_CHROMA) {
+      console.log(`  · ${pad(aTok + ' vs ' + bTok, 26)} ${pad('—', 9)} ${pad('skip', 6)} near-gray, told apart by chroma`)
+      continue
+    }
+    const d = Math.abs(ha.h * 360 - hb.h * 360)
+    const gap = Math.min(d, 360 - d)
+    const okPair = gap >= MIN_HUE_SEPARATION
+    if (!okPair) failed++
+    console.log(
+      `  ${okPair ? '·' : '✗'} ${pad(aTok + ' vs ' + bTok, 26)} ${pad(gap.toFixed(1) + '°', 9)} ${pad(okPair ? 'OK' : 'FAIL', 6)} ${note}`,
+    )
+    if (!okPair) {
+      console.log(
+        `      ↳ --glaise-${aTok} (${a}) is only ${gap.toFixed(1)}° from --glaise-${bTok} (${b}, hue ${(hb.h * 360).toFixed(1)}°).`,
+      )
+      console.log(`        Re-value --glaise-${aTok} at least ${MIN_HUE_SEPARATION}° away, keeping AA above.`)
+    }
+  }
+  return failed
+}
 
 const bar = (r) => (r >= 7 ? 'AAA' : r >= 4.5 ? 'AA' : r >= 3 ? 'AA-lg' : 'FAIL')
 const pad = (s, n) => String(s).padEnd(n)
@@ -171,7 +219,7 @@ function auditTheme(theme) {
       if (sugg) console.log(`      ↳ suggest --glaise-${fgTok}: ${sugg} (keeps hue, clears ${min}:1)`)
     }
   }
-  return failed
+  return failed + auditSeparation(theme)
 }
 
 // ── run ──────────────────────────────────────────────────────────────────────
@@ -230,12 +278,12 @@ if (positional.length >= 2) {
   process.exit(0)
 }
 
-console.log('\n  Glaise skin — WCAG contrast audit')
+console.log('\n  Glaise skin — WCAG contrast + semantic separation audit')
 const failures = auditTheme('dark') + auditTheme('light')
 console.log('')
 if (failures > 0) {
-  console.log(`  ${failures} required pair(s) below AA. Fix the token, not the symptom.\n`)
+  console.log(`  ${failures} required check(s) failed. Fix the token, not the symptom.\n`)
   process.exit(1)
 }
-console.log('  All required pairs clear AA on both themes.\n')
+console.log('  All required pairs clear AA, and the semantics stay apart, on both themes.\n')
 process.exit(0)

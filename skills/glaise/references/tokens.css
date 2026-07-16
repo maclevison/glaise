@@ -34,8 +34,12 @@
   --glaise-inverse-surface-2: #f6f7f7;
   --glaise-inverse-ink: #000000;
 
-  /* Semantic */
+  /* Semantic — earned by meaning, never decorative (they are not accents).
+     success is only ever a dot/pill, so it holds the 3:1 floor; danger carries
+     body text (field errors, a data view's error state), so it holds 4.5:1 on
+     both themes against canvas and the card surfaces. */
   --glaise-success: #27a644;
+  --glaise-danger: #eb5757;
   --glaise-overlay: #000000;
 
   /* Radius */
@@ -133,6 +137,11 @@
      canvas — the dark value #27a644 only clears ~3:1 there). Hue preserved;
      value carries the function. */
   --glaise-success: #1d7c33;
+
+  /* Danger darkened for AA on light (>=4.5:1 as body text against canvas,
+     surface-1, AND surface-2 — it carries error messages, not just a dot).
+     Hue preserved at 0°; value carries the function. */
+  --glaise-danger: #c62828;
 
   /* Elevation by shadow on light */
   --glaise-shadow-1: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);

@@ -10,7 +10,7 @@ description: A near-black product-focused canvas built around the deepest dark s
 
 Glaise's canvas is the deepest dark surface in the system — `--glaise-canvas` is essentially pure black with a faint blue tint. On top sits a four-step surface ladder (`--glaise-surface-1` through `--glaise-surface-4`) for cards, panels, and lifted tiles, with hairline borders running from `--glaise-hairline` up through `--glaise-hairline-strong` and `--glaise-hairline-tertiary`. Light gray text (`--glaise-ink`) carries the body and headlines.
 
-The single chromatic accent is **Glaise lavender-blue** `--glaise-primary` — used on the brand mark, focus rings, and the primary CTA button. A lighter hover state (`--glaise-primary-hover`) and a focus-tinted variant (`--glaise-primary-focus`) extend the same hue. Glaise avoids saturated greens, oranges, reds, etc. on the canvas — the only semantic color is `--glaise-success` for status pills and the rare success indicator.
+The single chromatic accent is **Glaise lavender-blue** `--glaise-primary` — used on the brand mark, focus rings, and the primary CTA button. A lighter hover state (`--glaise-primary-hover`) and a focus-tinted variant (`--glaise-primary-focus`) extend the same hue. Glaise avoids saturated greens, oranges, reds, etc. on the canvas — the semantic colors are exactly two: `--glaise-success` for status pills and the rare success indicator, and `--glaise-danger` for error states. A semantic color is **not** an accent: it is earned by meaning and never used decoratively. There is deliberately no `warning` and no `info` — an informational emphasis is already `--glaise-primary`.
 
 Display type runs **Inter** at weight 500–700 with negative letter-spacing scaling from -3.0px at the largest display size down to 0 at body. Body sizes also run Inter, and JetBrains Mono is reserved for code snippets in product screenshots.
 
@@ -56,8 +56,14 @@ The page rhythm is **dense product screenshots** — Glaise leads with high-fide
 - **Ink Tertiary** (`--glaise-ink-tertiary`): Quaternary — disabled, footnotes.
 
 ### Semantic
-- **Success Green** (`--glaise-success`): Status pills, success indicators. The only semantic color on the canvas.
+
+Exactly two, and they are not accents — a semantic color is earned by meaning, never used to decorate. Their contrast floors differ because their **roles** differ.
+
+- **Success Green** (`--glaise-success`): Status pills, success indicators. Only ever a dot or a pill, never a sentence — held to the 3:1 floor.
+- **Danger Red** (`--glaise-danger`): Error states — field validation messages, the error state of a data view, destructive confirmation. It carries **body text**, so it is held to the **4.5:1** floor on both themes, against the canvas and the card surfaces. Use it for the message, the field's border, and the error icon; do not fill a button with it (a destructive action is a `button-secondary` with danger text — the system stays quiet).
 - **Overlay** (`--glaise-overlay`): Pure black overlay scrim for modals.
+
+> A pigment or brand may re-value `--glaise-danger`, and **must** when its accent lands within ~30° of the danger hue — otherwise an error reads as a CTA (and the two collapse onto each other under protanopia). Terracotta is the shipped example.
 
 ### Interactive State Fills
 
@@ -265,7 +271,8 @@ Glaise's depth is carried by surface ladder + hairline borders. The system resis
 ### Don't
 
 - Don't use lavender as a section background or card fill.
-- Don't introduce a second chromatic accent (orange, pink, green).
+- Don't introduce a second chromatic accent (orange, pink, green). `--glaise-success` / `--glaise-danger` are semantic, not accents — they're earned by meaning, never decorative.
+- Don't invent a red for an error state, and don't ship a form without one — `--glaise-danger` exists precisely so neither happens.
 - Don't add atmospheric gradients or spotlight cards.
 - Don't pill-round CTAs.
 - Don't use true black (`--glaise-overlay` is reserved for scrims, not the canvas) as the canvas.
@@ -329,7 +336,7 @@ Light is a *state* of the fixed skin, chosen per project (dark / light / both) �
 ## Known Gaps
 
 - The four-step surface ladder is Glaise's canonical surface spec (`bg-level-3`, `line-tint`, etc.) — treat its tokens as the base for any dashboard.
-- Form-field error and validation styling is not yet documented.
+- Form-field error and validation now have their color (`--glaise-danger`), but not yet a canonical composition — the field/error recipe is still pending.
 - Light mode is an official second state of the skin — see "Light Theme". Dark remains the default and the family's face.
 - A richer color-tag palette (red, orange, yellow, green, blue, purple) for priorities and labels lives in the in-product surfaces shown in mockups, not on the marketing chrome.
 - Inter and JetBrains Mono are the canonical, freely-distributed Glaise typefaces.

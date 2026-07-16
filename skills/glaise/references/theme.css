@@ -26,6 +26,7 @@
   --color-hairline-strong: var(--glaise-hairline-strong);
   --color-hairline-tertiary: var(--glaise-hairline-tertiary);
   --color-success: var(--glaise-success);
+  --color-danger: var(--glaise-danger);
 
   /* Radius */
   --radius-xs: var(--glaise-radius-xs);
