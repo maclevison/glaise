@@ -57,6 +57,7 @@ The skin lives in tokens; drift is measurable. From the project's style/source r
 - **Undefined Glaise vars** (silently dropped, e.g. the `var(--glaise-text-button)` that never existed):
   `grep -rhoE 'var\(--glaise-[a-z0-9-]+' src | sort -u` then confirm each exists in `tokens.css`/`theme.css`.
 - **Off-scale type/space:** font-sizes outside the scale (display-xl…caption, eyebrow, mono) and gaps/padding not on the 4px/space tokens. Bespoke wordmark sizing is an allowed exception; body/label/meta text is not.
+- **Breathing floor:** no adjacent visible siblings at computed gap 0 (gap + margins + padding sum < 4px between them), and no container whose content sits flush against its edge (padding 0 with visible content). Measure the rendered layout, not the CSS intent — a collapsed margin or a `gap` overridden to 0 is the drift this catches. A violation is **P1**.
 
 **0**=hardcoded everywhere · **2**=tokens exist, used inconsistently · **3**=tokens used, a few literals · **4**=fully bound, no undefined vars, on-scale.
 

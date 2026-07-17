@@ -125,6 +125,7 @@ The surface treats display and body sizes as one continuous voice; the size chan
 
 - **Base unit**: 4px.
 - **Tokens**: `--glaise-space-xxs` · `--glaise-space-xs` · `--glaise-space-sm` · `--glaise-space-md` · `--glaise-space-lg` · `--glaise-space-xl` · `--glaise-space-xxl` · `--glaise-space-section`.
+- **Breathing floor (law).** Nothing ships with zero breathing space: no two adjacent elements touch, and no content sits flush against its container. Every sibling pair gets ≥ `--glaise-space-xxs`; related items inside a group ≥ `--glaise-space-xs`; distinct groups ≥ `--glaise-space-sm`; every container pads its content with a space token. Zero-gap adjacency is never a design choice — density is chosen *within* the floor, never below it.
 - Card interior padding: `--glaise-space-md` on dense admin cards (stat cards, table panels); `--glaise-space-lg` on roomier panels; `--glaise-space-xl` on the login card.
 - Button padding: `--glaise-space-xs` vertical · 14px horizontal — Glaise's compact button spec.
 - Form input padding: `--glaise-space-xs` vertical · `--glaise-space-sm` horizontal.

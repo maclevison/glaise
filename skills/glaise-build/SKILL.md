@@ -37,7 +37,7 @@ This is the highest-leverage craft, and now the main place creativity lives.
 - **One focal point per view.** Name the one thing the user came to do; make it win through size, contrast, position, or surrounding space. Demote everything else deliberately. A parking lot where everything competes equally reads as generated.
 - **Weight + color do more than size.** A single 14px size holds three tiers via weight + the ink ramp (`ink` → `ink-muted` → `ink-subtle`). Build hierarchy from size, weight, and color together — never size alone. Squint: if you can't tell headline from body from label, it's too flat.
 - **Density is a decision, in px.** Pick it from the brief's feel (tight/balanced/airy) and hold the same numbers everywhere.
-- **Rhythm — breathe unevenly.** Group tightly-related things, then put real air between groups. Monotone layouts (same card, gap, density everywhere) are the sound of no one deciding.
+- **Rhythm — breathe unevenly.** Group tightly-related things, then put real air between groups. Monotone layouts (same card, gap, density everywhere) are the sound of no one deciding. Uneven never means absent: the skin's **breathing floor** (`design.md`, Spacing System) holds everywhere — no sibling pair at zero gap, no content flush against its container; tight is `--glaise-space-xxs`, not zero.
 - **Proportions speak.** A 280px sidebar vs full content says "nav serves content"; 360px says "peers". Choose widths that state a relationship.
 - **Restraint (~60/30/10).** Mostly neutral surface, some secondary tone, the accent ≤ ~10%. Color communicates (status/action), it doesn't decorate.
 
@@ -159,6 +159,7 @@ State (briefly): **Intent** (from the brief) · **Focal element** (and how it wi
 - Hardcoded hex/px where a token exists.
 - Flat hierarchy; monotone layout; missing states.
 - Component blobs: accessories that don't recede, interactives with no separation, a value glued to its label.
+- Zero-gap adjacency: any sibling pair at gap 0, or content flush against its container (the breathing floor in `design.md`).
 - Mixed depth strategies (the family uses surface ladder + hairlines).
 - Ignoring the brief's signature — the most important failure.
 
