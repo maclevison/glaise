@@ -63,6 +63,7 @@ The skin lives in tokens; drift is measurable. From the project's style/source r
 
 ### 3 · Responsive & touch
 
+- **The sweep:** measure at 360 · 480 · 768 · 900 (split-screen) · 1024 · 1280 · 1440 — every check in this section runs at each step, and the floor is continuous: drag between steps when the tool allows. Page-level overflow at any step is **P0**; clipped/overlapped text or a mid-token identifier wrap is **P1**.
 - **Touch targets:** interactive elements ≥ 44×44px on touch (skin floor: CTAs ≥ 40px, pills ≥ 36px, touch grows to ≥ 44px). Extend small controls with a pseudo-element rather than growing the visual.
 - **No horizontal overflow** at any width: confirm `documentElement.scrollWidth === innerWidth` (note: some headless browsers clamp viewport width to ~500px min — measure, don't trust a cropped screenshot).
 - **Breakpoints** present and sane (skin grid: 3-up → 2-up at ~1024 → 1-up at ~640); headings don't overflow their container at any width.
@@ -102,7 +103,7 @@ The measurable half of family conformance (the *taste* half belongs to `glaise-r
 Tag every finding:
 
 - **P0 Blocking** — broken or inaccessible: AA failure on body text, undefined var dropping a style, a styled UI kit, horizontal overflow, an inoperable-by-keyboard control.
-- **P1 Major** — WCAG AA gap on non-body, missing data state, touch target < 40px, foreign icon set.
+- **P1 Major** — WCAG AA gap on non-body, missing data state, touch target < 40px, foreign icon set, text clipped/overlapped or an identifier wrapping mid-token at any sweep width.
 - **P2 Minor** — off-scale value, a missing hover/active, motion easing wrong.
 - **P3 Polish** — sub-pixel optical nits, redundant rules.
 

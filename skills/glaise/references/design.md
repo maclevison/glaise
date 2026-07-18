@@ -296,6 +296,8 @@ Holds `nav-item`s either way.
 
 ## Responsive Behavior
 
+**Responsive floor (law).** Every screen holds from **360px** up to ultrawide, **continuously** — between breakpoints counts, and the split-screen band (~700–1100px) is first-class admin reality, not an edge case. At every width: the page never scrolls sideways (wide content — tables, charts, code — scrolls inside its own panel); text is never clipped or overlapped (truncation is designed: ellipsis + the full value reachable via `title`/tooltip, never an accidental cut — and decoration such as a sparkline yields before it touches text); identifiers, numbers, and timestamps never break mid-token (`us-east-1` never wraps into `us-` / `east-1` — the column truncates, sheds, or scrolls instead of crushing); primary actions stay reachable (collapse into an overflow menu, never hide function); the information architecture stays the same at every width; the breathing floor and the touch floors hold. Below desktop the bar is **usable, never broken** — a polished mobile experience is a brief decision, not an implied default. Breakpoints are content-driven: the ladder below is the canonical default, but the real rule is *break where your content breaks* — and the sweep proves it.
+
 ### Breakpoints
 
 | Name | Width | Key Changes |
@@ -305,6 +307,7 @@ Holds `nav-item`s either way.
 | Tablet | 1024px | Stat row 4-up → 2-up; side panel drops below the table; sidebar may collapse to an icon rail |
 | Mobile-Lg | 768px | Sidebar becomes a drawer; tables scroll horizontally inside their panel or shed low-priority columns |
 | Mobile | 480px | Single-column; panels stack with the same gutter |
+| Floor | 360px | The guarantee's lower bound — everything above holds down to here |
 
 ### Touch Targets
 
@@ -318,6 +321,7 @@ Holds `nav-item`s either way.
 - **Stat grids**: 4-up → 2-up at 1024px → 1-up below 768px.
 - **Tables**: horizontal scroll inside their own panel (the page never scrolls sideways), or shed low-priority columns by design.
 - **Split layouts** (table + side panel): stack below 1024px, data panel first.
+- **Dense panels prefer container queries**: a panel that adapts to its *own* width (`@container`) survives split-screen and resizable splits that viewport breakpoints can't see. Recommended for tables and stat grids; the shell may stay on viewport breakpoints.
 
 ### Chart Behavior
 

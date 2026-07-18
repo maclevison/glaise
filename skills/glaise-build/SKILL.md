@@ -70,6 +70,19 @@ Scan each component you build against these tells — the concrete shapes that r
 
 These are recognition aids, not a scorecard — the one principle behind all of them is rank. Fix the rank, not the symptom.
 
+## Responsive mechanics — the anti-breakage kit
+
+The responsive floor (`design.md`, Responsive Behavior) is guaranteed by construction, not luck. The recurring breakages and their one-line cures:
+
+- **Text-holding flex/grid children get `min-width: 0`** (grid tracks: `minmax(0, 1fr)`) — without it the child refuses to shrink and blows the layout sideways. The single most common break.
+- **Wide content scrolls inside its own container** — tables, charts, code blocks live in an `overflow-x: auto` wrapper; the page never scrolls sideways.
+- **Identifiers never break mid-token** — service names, regions, IDs, numbers, timestamps carry `white-space: nowrap` plus designed truncation (ellipsis + the full value in `title`/tooltip). A crushed column truncates, sheds, or scrolls — it never wraps `us-east-1` into `us-` / `east-1`.
+- **Decoration yields first** — an absolutely-positioned ornament (sparkline, watermark) hides or shrinks before it touches text: reserve its space in the layout, or gate it by width/container query.
+- **No fixed width that can exceed the floor** — anything wider than ~320px uses `max-width` / `min()` / `clamp()`, never a bare px width.
+- **Toolbars wrap or overflow** — action rows get `flex-wrap` or collapse into an overflow menu; a function is never hidden because the screen narrowed.
+- **Split layouts stack** — a side panel whose content starts crushing drops below the data panel (data first), per the skin's collapsing strategy.
+- **Dense panels: prefer `@container`** — recommended, not required; a panel that responds to its own width survives split-screen and resizable splits.
+
 ## Use what exists (controls, styling, icons)
 
 - **Controls: native → headless primitive → hand-roll (last resort).** Use `<button>`/`<a>`/`<input>` where they fit. For anything stateful (select, combobox, dialog, popover, tooltip, tabs, date picker) compose a headless primitive — **Base UI for React, Reka UI for Vue** — then style it to the skin. Never ship a styled UI kit (Material, Vuetify, Chakra, Ant): it brings its own skin and hijacks the family. Hand-roll only if no primitive fits, and then owe the full a11y contract (keyboard, focus trap/return, ARIA, click-outside, scroll-lock).
@@ -150,7 +163,8 @@ State (briefly): **Intent** (from the brief) · **Focal element** (and how it wi
 - **Signature** — is the brief's signature actually present and doing work? If a generic version of this screen would look the same, the soul is missing.
 - **Copy** — UI strings and seed data clean (no em dashes, buzzwords, "click here" links, or inconsistent names)?
 - **Contrast** — text on tints/fills clears AA? Run `references/contrast.mjs` for the skin pairs, and `node references/contrast.mjs '<fg>' '<bg>'` for any product-specific pair (status seals, gray on a hover tint).
-- **Render it and walk it** — if a render/screenshot tool is available, verify at desktop and mobile widths and **trigger the non-happy states** (empty, error) rather than assuming them, then **zoom into each component and scan it against the micro-craft tells**, fixing what you find before showing. A clean compile is not evidence; the rendered screen is. Without a render tool, read the markup at detail level against the same tells.
+- **Resize sweep** — drag 1440 → 360 and watch every width (or step 360 · 480 · 768 · 900 · 1024 · 1280 · 1440): no sideways page scroll, no clipped or overlapping text, no mid-token wrap, actions reachable. The floor is continuous — between breakpoints counts.
+- **Render it and walk it** — if a render/screenshot tool is available, verify across the sweep widths and **trigger the non-happy states** (empty, error) rather than assuming them, then **zoom into each component and scan it against the micro-craft tells**, fixing what you find before showing. A clean compile is not evidence; the rendered screen is. Without a render tool, read the markup at detail level against the same tells.
 
 ## Avoid
 
@@ -160,6 +174,7 @@ State (briefly): **Intent** (from the brief) · **Focal element** (and how it wi
 - Flat hierarchy; monotone layout; missing states.
 - Component blobs: accessories that don't recede, interactives with no separation, a value glued to its label.
 - Zero-gap adjacency: any sibling pair at gap 0, or content flush against its container (the breathing floor in `design.md`).
+- Breaking under resize: sideways page scroll, clipped or overlapping text, an identifier wrapping mid-token, a function hidden by narrowness (the responsive floor in `design.md`).
 - Mixed depth strategies (the family uses surface ladder + hairlines).
 - Ignoring the brief's signature — the most important failure.
 
