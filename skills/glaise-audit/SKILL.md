@@ -64,6 +64,7 @@ The skin lives in tokens; drift is measurable. From the project's style/source r
 ### 3 · Responsive & touch
 
 - **The sweep:** measure at 360 · 480 · 768 · 900 (split-screen) · 1024 · 1280 · 1440 — every check in this section runs at each step, and the floor is continuous: drag between steps when the tool allows. Page-level overflow at any step is **P0**; clipped/overlapped text or a mid-token identifier wrap is **P1**.
+- **Scroll reachability:** at each sweep step (run once at a short viewport, ~720px tall), every pane's content is reachable — no element with `scrollHeight > clientHeight` whose overflow is hidden without a scrollable ancestor; chrome stays fixed while the workspace scrolls; below the drawer breakpoint the nav trigger is present and visible. Trapped content or a missing drawer trigger is **P0** (function lost).
 - **Touch targets:** interactive elements ≥ 44×44px on touch (skin floor: CTAs ≥ 40px, pills ≥ 36px, touch grows to ≥ 44px). Extend small controls with a pseudo-element rather than growing the visual.
 - **No horizontal overflow** at any width: confirm `documentElement.scrollWidth === innerWidth` (note: some headless browsers clamp viewport width to ~500px min — measure, don't trust a cropped screenshot).
 - **Breakpoints** present and sane (skin grid: 3-up → 2-up at ~1024 → 1-up at ~640); headings don't overflow their container at any width.

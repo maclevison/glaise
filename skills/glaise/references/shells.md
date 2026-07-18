@@ -37,3 +37,9 @@ All measurements bind to the skin. The sidebar has two treatments: **floating (t
 **For:** visual editors, maps, boards, diagram/design tools.
 **Frame:** the work surface fills the viewport; floating panels (toolbar, inspector, layers) sit over it with a surface lift + shadow. Optional thin top bar. The canvas is the product.
 **Watch:** panels float without crowding the work; depth (shadow tokens) separates them from the canvas, not heavy borders.
+
+## Scroll & collapse (all archetypes)
+
+- **Scroll lives in the workspace, never the chrome.** Sidebar and top bar stay fixed; the content region scrolls vertically. Vertical scroll is normal admin behavior — never a defect to suppress.
+- **Content is never trapped.** A viewport-height shell (`100vh`/`100dvh`) pairs `min-height: 0` down the flex/grid chain with `overflow-y: auto` on the pane that scrolls; `overflow: hidden` on a container that can outgrow its height loses function. A fixed-frame capture/demo constraint never ships into interactive UI.
+- **The drawer always has a visible trigger.** Below the drawer breakpoint, a menu button lives in the top bar — navigation is never unreachable.

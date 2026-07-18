@@ -298,6 +298,8 @@ Holds `nav-item`s either way.
 
 **Responsive floor (law).** Every screen holds from **360px** up to ultrawide, **continuously** — between breakpoints counts, and the split-screen band (~700–1100px) is first-class admin reality, not an edge case. At every width: the page never scrolls sideways (wide content — tables, charts, code — scrolls inside its own panel); text is never clipped or overlapped (truncation is designed: ellipsis + the full value reachable via `title`/tooltip, never an accidental cut — and decoration such as a sparkline yields before it touches text); identifiers, numbers, and timestamps never break mid-token (`us-east-1` never wraps into `us-` / `east-1` — the column truncates, sheds, or scrolls instead of crushing); primary actions stay reachable (collapse into an overflow menu, never hide function); the information architecture stays the same at every width; the breathing floor and the touch floors hold. Below desktop the bar is **usable, never broken** — a polished mobile experience is a brief decision, not an implied default. Breakpoints are content-driven: the ladder below is the canonical default, but the real rule is *break where your content breaks* — and the sweep proves it.
 
+**Scroll architecture (law).** Scroll lives in the workspace, never the chrome: sidebar and top bar stay fixed while the content region scrolls vertically — vertical scroll is normal admin behavior, never a defect to suppress. Content is never trapped: a viewport-height shell (prefer `100dvh`/`100svh` — `100vh` lies on mobile browsers and hides content behind their UI) pairs `min-height: 0` down the flex/grid chain with `overflow-y: auto` on the pane that scrolls; `overflow: hidden` on a container that can outgrow its height is lost function, not a style. A capture/demo constraint (a fixed-size frame) never ships into interactive UI.
+
 ### Breakpoints
 
 | Name | Width | Key Changes |
@@ -317,7 +319,7 @@ Holds `nav-item`s either way.
 
 ### Collapsing Strategy
 
-- **Sidebar**: full rail → icon rail at 1024px → drawer below 768px; the floating gutter stays constant.
+- **Sidebar**: full rail → icon rail at 1024px → drawer below 768px; the floating gutter stays constant. The drawer's trigger (a menu button in the top bar) is **always visible** — navigation is never unreachable.
 - **Stat grids**: 4-up → 2-up at 1024px → 1-up below 768px.
 - **Tables**: horizontal scroll inside their own panel (the page never scrolls sideways), or shed low-priority columns by design.
 - **Split layouts** (table + side panel): stack below 1024px, data panel first.

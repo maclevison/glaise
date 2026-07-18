@@ -79,9 +79,12 @@ The responsive floor (`design.md`, Responsive Behavior) is guaranteed by constru
 - **Identifiers never break mid-token** — service names, regions, IDs, numbers, timestamps carry `white-space: nowrap` plus designed truncation (ellipsis + the full value in `title`/tooltip). A crushed column truncates, sheds, or scrolls — it never wraps `us-east-1` into `us-` / `east-1`.
 - **Decoration yields first** — an absolutely-positioned ornament (sparkline, watermark) hides or shrinks before it touches text: reserve its space in the layout, or gate it by width/container query.
 - **No fixed width that can exceed the floor** — anything wider than ~320px uses `max-width` / `min()` / `clamp()`, never a bare px width.
+- **Auto-fit grids guard their minimum** — `repeat(auto-fit, minmax(min(100%, 280px), 1fr))`: the `min(100%, …)` keeps the track from forcing overflow when the container is narrower than the item minimum. A bare `minmax(280px, 1fr)` breaks below 280px.
 - **Toolbars wrap or overflow** — action rows get `flex-wrap` or collapse into an overflow menu; a function is never hidden because the screen narrowed.
 - **Split layouts stack** — a side panel whose content starts crushing drops below the data panel (data first), per the skin's collapsing strategy.
 - **Dense panels: prefer `@container`** — recommended, not required; a panel that responds to its own width survives split-screen and resizable splits.
+- **Scroll lives in the workspace** — chrome (sidebar/top bar) fixed, the content pane scrolls (`min-height: 0` down the flex/grid chain, `overflow-y: auto` on the pane; viewport-height shells use `100dvh`, not `100vh` — mobile browser UI makes `vh` lie). Never `overflow: hidden` on a container that can outgrow its height — that's lost function; a fixed-frame capture constraint never ships into interactive UI.
+- **The drawer always has a visible trigger** — below the drawer breakpoint, a menu button in the top bar; navigation is never unreachable.
 
 ## Use what exists (controls, styling, icons)
 
@@ -175,6 +178,7 @@ State (briefly): **Intent** (from the brief) · **Focal element** (and how it wi
 - Component blobs: accessories that don't recede, interactives with no separation, a value glued to its label.
 - Zero-gap adjacency: any sibling pair at gap 0, or content flush against its container (the breathing floor in `design.md`).
 - Breaking under resize: sideways page scroll, clipped or overlapping text, an identifier wrapping mid-token, a function hidden by narrowness (the responsive floor in `design.md`).
+- Trapped content: a pane that can outgrow its height with no way to scroll it, or a drawer with no visible trigger (the scroll architecture in `design.md`).
 - Mixed depth strategies (the family uses surface ladder + hairlines).
 - Ignoring the brief's signature — the most important failure.
 
