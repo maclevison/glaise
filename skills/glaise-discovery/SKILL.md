@@ -139,4 +139,4 @@ After writing `glaise-brief.md`, return to the flow: the `glaise` hub continues 
 
 ## Portability
 
-Plain Markdown, works in Claude Code and OpenCode. No agent-specific tools, slash commands, or hardcoded paths.
+Plain Markdown, works in any Agent Skills harness (Claude Code, Codex, Cursor, OpenCode). No agent-specific tools, slash commands, or hardcoded paths.

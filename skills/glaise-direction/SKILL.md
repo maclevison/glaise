@@ -50,4 +50,4 @@ Chanel's rule: before you leave, take one thing off. Let the signature be the on
 
 ## Portability
 
-Plain Markdown, works in Claude Code and OpenCode. No agent-specific tools, slash commands, or hardcoded paths; "if a render tool is available" stays conditional.
+Plain Markdown, works in any Agent Skills harness (Claude Code, Codex, Cursor, OpenCode). No agent-specific tools, slash commands, or hardcoded paths; "if a render tool is available" stays conditional.

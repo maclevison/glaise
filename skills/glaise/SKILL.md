@@ -46,8 +46,8 @@ Invoke `glaise-direction` in step 1–2 only when the product needs stronger vis
 
 > **Convention:** every document the Glaise skills generate (the brief, notes, reports) lives in the project's `docs/glaise/` — never scattered in the root.
 
-> The satellite skills (`glaise-discovery`, `glaise-brand`, `glaise-build`, `glaise-review`, `glaise-audit`, `glaise-direction`) are invoked by name as the flow reaches each step.
+> The satellite skills (`glaise-discovery`, `glaise-brand`, `glaise-build`, `glaise-review`, `glaise-audit`, `glaise-direction`) are invoked by name as the flow reaches each step. On demand, `glaise-design-sync` publishes the effective skin to a Claude Design project (claude.ai/design).
 
 ## Portability
 
-This skill is plain Markdown + referenced files, and works in both Claude Code and OpenCode. It uses no agent-specific tools, slash commands, or hardcoded paths beyond its own `references/`.
+This skill is plain Markdown + referenced files, and works in any Agent Skills harness (Claude Code, Codex, Cursor, OpenCode). It uses no agent-specific tools, slash commands, or hardcoded paths beyond its own `references/`.

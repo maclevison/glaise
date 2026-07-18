@@ -89,9 +89,10 @@ Follow `references/brand.css.example` exactly:
 
 After writing `brand.css`, return to the flow: the `glaise` hub continues. Tell the user to
 run `glaise-audit` so contrast is verified (and auto-corrected) over the effective tokens
-before shipping.
+before shipping. If the client designs in claude.ai/design, offer `glaise-design-sync` to
+publish the branded skin as their Claude Design project.
 
 ## Portability
 
-Plain Markdown, works in Claude Code and OpenCode. No agent-specific tools, slash commands,
-or hardcoded paths beyond the skill's own `references/`.
+Plain Markdown, works in any Agent Skills harness (Claude Code, Codex, Cursor, OpenCode).
+No agent-specific tools, slash commands, or hardcoded paths beyond the skill's own `references/`.

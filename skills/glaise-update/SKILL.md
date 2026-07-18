@@ -1,11 +1,11 @@
 ---
 name: glaise-update
-description: Use to update the installed Glaise design-system skills on this machine to the latest release. Detects the install (Claude Code / OpenCode, global / project / symlink), compares the installed version against the latest GitHub release, shows the exact command, confirms, and runs the installer. Defaults to the latest stable release; accepts `main` or a `vX.Y.Z` to pin.
+description: Use to update the installed Glaise design-system skills on this machine to the latest release. Detects the install (Claude Code / OpenCode / Codex / Cursor, global / project / symlink), compares the installed version against the latest GitHub release, shows the exact command, confirms, and runs the installer. Defaults to the latest stable release; accepts `main` or a `vX.Y.Z` to pin.
 ---
 
 # Glaise Update
 
-Updates the person's installed `glaise*` skills. The engine is the repo's `install.sh` (copy-overwrite); this skill wraps it with **detection + a version check + a confirmation** so updating is one step from inside Claude Code or OpenCode.
+Updates the person's installed `glaise*` skills. The engine is the repo's `install.sh` (copy-overwrite); this skill wraps it with **detection + a version check + a confirmation** so updating is one step from inside any Agent Skills harness (Claude Code, Codex, Cursor, OpenCode).
 
 Repo: **`maclevison/glaise`** (public). Default: the latest published **release** (stable).
 
@@ -23,15 +23,16 @@ Run them in order; stop and report if a step can't complete.
 Find the installed hub skill dir (first that exists; prefer a project dir when inside one):
 - Claude Code — global `~/.claude/skills/glaise`, project `./.claude/skills/glaise`
 - OpenCode — global `~/.config/opencode/skills/glaise`, project `./.opencode/skills/glaise`
+- Agent Skills shared (Codex, Cursor) — global `~/.agents/skills/glaise`, project `./.agents/skills/glaise`
 
-Record the matching **target** (`claude` / `opencode`), **scope** (global / project + its dir), and whether the dir is a **symlink** (`test -L <dir>`).
+Record the matching **target** (`claude` / `opencode` / `agents`), **scope** (global / project + its dir), and whether the dir is a **symlink** (`test -L <dir>`).
 
 ### 2. Check the version
 Fastest path — let the installer do it (it prints installed vs latest and exits):
 ```
 curl -fsSL https://raw.githubusercontent.com/maclevison/glaise/main/install.sh | bash -s -- --check
 ```
-Add `--target opencode` / `--project <dir>` to match the detected target. Or check by hand:
+Add `--target opencode` / `--target agents` / `--project <dir>` to match the detected target. Or check by hand:
 - **installed:** `cat <dir>/VERSION` (absent on installs predating this skill → treat as unknown/old).
 - **latest release:** `git ls-remote --tags --refs https://github.com/maclevison/glaise.git 'v*' | awk -F/ '{print $NF}' | sort -V | tail -1` (fallback: `curl -fsSL https://api.github.com/repos/maclevison/glaise/releases/latest`).
 
@@ -45,7 +46,7 @@ Build the exact command for the detected target and the chosen ref (default = la
 ```
 curl -fsSL https://raw.githubusercontent.com/maclevison/glaise/main/install.sh | bash -s -- --ref <ref>
 ```
-Append `--target opencode` for OpenCode, and `--project <dir>` for a project install (the dir that contains `.claude`/`.opencode`).
+Append `--target opencode` for OpenCode, `--target agents` for a shared Agent Skills install (Codex, Cursor), and `--project <dir>` for a project install (the dir that contains `.claude`/`.opencode`/`.agents`).
 **This fetches and runs a script over the network** — always print the full command and wait for an explicit yes before running it.
 
 ### 5. Run it, then confirm

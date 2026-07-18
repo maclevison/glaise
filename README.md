@@ -14,7 +14,7 @@
 - **Product-grade craft, built in** — real hierarchy, motion, complete states, accessible primitives. No "AI-generated" look.
 - **Fixed skin, free soul** — color, type, depth, and icons are locked; layout, domain, and each product's *signature* are yours.
 
-Glaise ships as a set of plain `SKILL.md` skills — **portable across Claude Code, OpenCode, and claude.ai** — and, for Claude Code, as an optional **plugin** that adds native updates and a soft review nudge on top of the same skills.
+Glaise ships as a set of plain `SKILL.md` skills — **portable across Claude Code, OpenCode, Codex, Cursor, and claude.ai** — and, for Claude Code, as an optional **plugin** that adds native updates and a soft review nudge on top of the same skills.
 
 ---
 
@@ -34,15 +34,21 @@ Same design system — pick how you deliver it.
 
 You get the same skills **plus** native `/plugin` updates and a **soft review nudge**: when you change UI in a Glaise project and finish a turn, the plugin reminds the agent to run `glaise-review` before wrapping up — once per session, never a hard gate.
 
-### As portable skills — Claude Code · OpenCode · claude.ai
+### As portable skills — Claude Code · OpenCode · Codex · Cursor · claude.ai
 
-One command, no clone needed (installs to `~/.claude/skills/`, which both Claude Code and OpenCode read):
+One command, no clone needed (installs to `~/.claude/skills/`, which Claude Code, OpenCode — and Cursor, via its `.claude/skills` compatibility — all read):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/maclevison/glaise/main/install.sh | bash
 ```
 
-Then ask your agent to **use the `glaise` skill**. The two delivery methods coexist — the plugin is a thin wrapper over these same skills, not a dependency.
+**Codex · Cursor** — same command, shared Agent Skills folder (`~/.agents/skills/`, which both read; Codex does *not* read `~/.claude/skills`):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/maclevison/glaise/main/install.sh | bash -s -- --target agents
+```
+
+Then ask your agent to **use the `glaise` skill** — or invoke it directly: `$glaise` in Codex, `/glaise` in Cursor. The delivery methods coexist — the plugin is a thin wrapper over these same skills, not a dependency. The review nudge ships only with the Claude Code plugin; for Codex/Cursor, optionally add a line to the project's `AGENTS.md`: *"after changing UI, run the glaise-review skill before finishing."*
 
 <details>
 <summary><b>More install options</b> — per-project, OpenCode's native folder, from a clone, manual, updates</summary>
@@ -61,7 +67,7 @@ curl -fsSL https://raw.githubusercontent.com/maclevison/glaise/main/install.sh |
 | `opencode` | `~/.config/opencode/skills/` | `./.opencode/skills/` |
 | `agents` | `~/.agents/skills/` | `./.agents/skills/` |
 
-OpenCode reads **all** of these, so `claude` already works there — `opencode` only matters when you want an OpenCode-only project to stay free of a `.claude/` folder.
+OpenCode reads **all** of these; Cursor reads `claude` and `agents` (plus its own `.cursor/skills`, not `opencode`); Codex reads only `agents`. So `claude` (the default) already covers Claude Code, OpenCode, and Cursor — pick `agents` when Codex is in the mix, and `opencode` only when an OpenCode-only project should stay free of a `.claude/` folder.
 
 **From a clone** (for contributors, or to track updates with a symlink):
 
@@ -106,6 +112,7 @@ The agent runs this under the **`glaise` hub** — ask it to *use the glaise ski
 | **`glaise-review`** | Taste pass | Judge craft, family, and soul before merge |
 | **`glaise-audit`** | Evidence pass | Verify the measurable quality before merge |
 | **`glaise-update`** | Stay current | Update the installed skills to the latest release |
+| **`glaise-design-sync`** | Publish to Claude Design | Push the effective skin to claude.ai/design as preview cards |
 
 <details>
 <summary><b>What each skill does</b></summary>
@@ -118,6 +125,7 @@ The agent runs this under the **`glaise` hub** — ask it to *use the glaise ski
 - **`glaise-review` — the taste pass.** A strict review against three bars: **craft** (would a design lead sign it?), **family** (unmistakably Glaise?), **soul** (does it carry the brief's signature?). Judges by default; rebuilds only when asked.
 - **`glaise-audit` — the evidence pass.** The measurable sibling of review: WCAG contrast on both themes, token fidelity (no hardcoded hex/px, no undefined vars), responsive/touch targets, complete states, family-mechanical conformance. Run both before merge.
 - **`glaise-update` — stay current.** Updates the installed skills to the latest release (detects the install, compares versions, runs the installer).
+- **`glaise-design-sync` — the bridge to Claude Design.** Generates `docs/glaise/design-bundle/` — self-contained `@dsCard` preview HTMLs of the *effective* skin (default tokens + the client's `brand.css`) — and uploads it to a claude.ai/design design-system project (one per brand). Designs made there then start from the Glaise family.
 
 </details>
 
@@ -214,8 +222,10 @@ skills/
 ├── glaise-direction/
 ├── glaise-review/
 ├── glaise-audit/
-└── glaise-update/
-install.sh               installer (skills → Claude Code / OpenCode / claude.ai)
+├── glaise-update/
+└── glaise-design-sync/
+    └── references/build-design-bundle.mjs   @dsCard preview generator (Claude Design)
+install.sh               installer (skills → Claude Code / OpenCode / Codex / Cursor / claude.ai)
 scripts/                 zero-dep tests + the skills validator
 ```
 

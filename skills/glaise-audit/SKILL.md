@@ -142,4 +142,4 @@ Lead with whichever the moment needs; clear both before merge.
 
 ## Portability
 
-Plain Markdown. `contrast.mjs` needs Node; `browser-audit.mjs` additionally needs Playwright + chromium in the target project (optional) — if either is unavailable, fall back to the checklist (compute ratios by hand, gather render evidence manually) and say so. No agent-specific tools, slash commands, or hardcoded paths beyond the skill's own `references/`.
+Plain Markdown, works in any Agent Skills harness (Claude Code, Codex, Cursor, OpenCode). `contrast.mjs` needs Node; `browser-audit.mjs` additionally needs Playwright + chromium in the target project (optional) — if either is unavailable, fall back to the checklist (compute ratios by hand, gather render evidence manually) and say so. No agent-specific tools, slash commands, or hardcoded paths beyond the skill's own `references/`.
