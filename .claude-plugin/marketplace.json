@@ -8,8 +8,8 @@
       "description": "Glaise design-system skills + a soft review nudge on finish.",
       "author": { "name": "Mac Silva", "email": "maclevison@gmail.com" },
       "category": "design",
-      "homepage": "https://github.com/maclevison/glaise",
-      "version": "2.2.0"
+      "homepage": "https://glaise.io",
+      "version": "2.2.1"
     }
   ]
 }
