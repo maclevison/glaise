@@ -17,7 +17,7 @@ The generator is deterministic; run it again after any brand change and re-uploa
 node <skills-dir>/glaise-design-sync/references/build-design-bundle.mjs --project <project-root>
 ```
 
-Writes `docs/glaise/design-bundle/` in the project: `foundations/` (Colors, Typography, SpacingRadii, Surfaces) + `components/` (Button, Input, Card, Badge, Table). Each card's first line is `<!-- @dsCard group="…" viewport="WxH" -->` — Claude Design builds its card index from that marker. Both themes render side by side inside each card.
+Writes `docs/glaise/design-bundle/` in the project: `guidelines/` (Rules — the family laws that don't travel inside tokens: selection-by-fill not side-stripe, no improvised chromatic accent, one elevation language, status via the two semantics, sidebar-on-chrome), `foundations/` (Colors, Typography, SpacingRadii, Surfaces) + `components/` (Button, Input, Card, Badge, Table). Each card's first line is `<!-- @dsCard group="…" viewport="WxH" -->` — Claude Design builds its card index from that marker. Both themes render side by side inside each card.
 
 If the project has `docs/glaise/brand.css`, the generator merges it over the default tokens automatically — the bundle is the *client's* skin.
 
@@ -31,7 +31,7 @@ Open 2–3 cards in a browser (or render tool, if available) and sanity-check: b
 1. `list_projects` → pick the brand's project, or `create_project` named after the brand (one project per brand: "Glaise" for the default skin, "Glaise — <client>" for a branded one).
 2. Confirm the target is `type: PROJECT_TYPE_DESIGN_SYSTEM` via `get_project`.
 3. `finalize_plan` with the bundle paths (writes; deletes only for cards being retired), `localDir` = the bundle dir.
-4. `write_files` with `localPath` per card.
+4. `write_files` with `localPath` per card — **include `_ds_manifest.json`**. The generator ships it so the Design System pane indexes every card immediately; without it, an incremental upload into an already-open project leaves the pane's index stale and the new card won't list until the app reprocesses. On an incremental sync (adding/removing cards), always re-upload `_ds_manifest.json` too.
 
 **Other harnesses (Codex, Cursor, OpenCode)** — no upload tool; commit the bundle and import it in claude.ai/design (GitHub repo import or file upload). The bundle is plain HTML — nothing harness-specific.
 

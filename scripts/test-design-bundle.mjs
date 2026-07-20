@@ -7,6 +7,7 @@ import { tmpdir } from "node:os";
 
 const GEN = "skills/glaise-design-sync/references/build-design-bundle.mjs";
 const EXPECTED = [
+  "guidelines/Rules.html",
   "foundations/Colors.html",
   "foundations/Typography.html",
   "foundations/SpacingRadii.html",
@@ -39,7 +40,7 @@ for (const rel of EXPECTED) {
   ok(`${rel} exists`, html.length > 0);
   if (!html) continue;
   const first = html.split("\n", 1)[0];
-  ok(`${rel} line 1 is a @dsCard marker`, /^<!-- @dsCard group="(Foundations|Components)" viewport="\d+x\d+" -->$/.test(first));
+  ok(`${rel} line 1 is a @dsCard marker`, /^<!-- @dsCard group="(Guidelines|Foundations|Components)" viewport="\d+x\d+" -->$/.test(first));
   ok(`${rel} defines both theme faces`, html.includes(".theme-light{") && html.includes(".theme-dark{"));
 
   // Every referenced --glaise-* var must be defined in the card's own theme blocks.
@@ -47,8 +48,10 @@ for (const rel of EXPECTED) {
   const missing = [...html.matchAll(/var\((--glaise-[a-z0-9-]+)[),]/g)].map((m) => m[1]).filter((v) => !defined.has(v));
   ok(`${rel} has no undefined var() refs`, missing.length === 0);
 
-  // Components: raw hex may exist ONLY inside the theme var blocks (+ the #fff page bg).
-  if (rel.startsWith("components/")) {
+  // Components & foundations: raw hex may exist ONLY inside the theme var blocks
+  // (+ the #fff page bg). guidelines/ is exempt — its "Don't" examples show wrong
+  // colors as raw hex on purpose.
+  if (rel.startsWith("components/") || rel.startsWith("foundations/")) {
     const stripped = html
       .replace(/\.theme-light\{[\s\S]*?\n  \}/, "")
       .replace(/\.theme-dark\{[\s\S]*?\n  \}/, "")
@@ -56,7 +59,21 @@ for (const rel of EXPECTED) {
     ok(`${rel} styles only via tokens (no stray hex)`, !/#[0-9a-fA-F]{3,8}\b/.test(stripped));
   }
 }
-ok("no unexpected files", readdirSync(join(out, "foundations")).length === 4 && readdirSync(join(out, "components")).length === 5);
+ok("no unexpected files", readdirSync(join(out, "guidelines")).length === 1 && readdirSync(join(out, "foundations")).length === 4 && readdirSync(join(out, "components")).length === 5);
+
+// Manifest: must exist, index every card, and match each card's own @dsCard marker.
+let manifest = null;
+try { manifest = JSON.parse(readFileSync(join(out, "_ds_manifest.json"), "utf8")); } catch { }
+ok("_ds_manifest.json is valid JSON", manifest !== null);
+if (manifest) {
+  ok("manifest indexes every card", manifest.cards.length === EXPECTED.length &&
+    EXPECTED.every((rel) => manifest.cards.some((c) => c.path === rel)));
+  ok("manifest group/viewport match each card's marker", manifest.cards.every((c) => {
+    const first = readFileSync(join(out, c.path), "utf8").split("\n", 1)[0];
+    return first === `<!-- @dsCard group="${c.group}" viewport="${c.viewport}" -->`;
+  }));
+  ok("Guidelines lists first (pane order)", manifest.cards[0].group === "Guidelines");
+}
 
 // --- run 2: brand.css flows through ---------------------------------------
 const bproj = join(root, "branded");

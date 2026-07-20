@@ -5,8 +5,9 @@
 //   node build-design-bundle.mjs [--project <dir>] [--out <dir>]
 // Defaults: --project = cwd, --out = <project>/docs/glaise/design-bundle
 //
-// Output: self-contained HTML cards (first line `<!-- @dsCard group="…" viewport="WxH" -->`).
-// Claude Design compiles its card index from that marker — no manifest is written here.
+// Output: self-contained HTML cards (first line `<!-- @dsCard group="…" viewport="WxH" -->`)
+// plus a _ds_manifest.json indexing them, so an incremental sync lists the new cards
+// immediately instead of waiting for Claude Design's self-check to reprocess the project.
 // Components style exclusively via var(--glaise-*); raw values exist only in the
 // per-theme variable blocks, so a client brand.css flows through automatically.
 
@@ -366,8 +367,75 @@ const tableCard = card({
     </table>`,
 });
 
+// --- guidelines -----------------------------------------------------------
+// The laws that do NOT travel inside tokens — they travel here so a design tool
+// reading the DS project applies the family rules, not only its values. Each row
+// pairs the rule with a live DO vs DON'T so the pane shows the difference, not
+// just asserts it. Sourced from design.md "Do's and Don'ts".
+const guidelinesCard = card({
+  group: "Guidelines",
+  viewport: "1000x900",
+  title: "Glaise — Family rules",
+  single: true,
+  extraCss: `
+  .rule{padding:14px 0;border-bottom:1px solid var(--glaise-hairline)}
+  .rule h4{margin:0 0 4px;font-size:var(--glaise-text-body);font-weight:600}
+  .rule p{margin:0 0 10px;font-size:var(--glaise-text-body-sm);color:var(--glaise-ink-muted)}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .ex{border:1px solid var(--glaise-hairline);border-radius:var(--glaise-radius-md);padding:10px;background:var(--glaise-surface-1)}
+  .tag{font-size:var(--glaise-text-microlabel);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+  .tag.do{color:var(--glaise-success)} .tag.dont{color:var(--glaise-danger)}
+  .nav{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--glaise-radius-md);font-size:var(--glaise-text-body-sm);font-weight:600}
+  .nav .ic{width:14px;height:14px;border-radius:3px;background:var(--glaise-ink-tertiary)}
+  .nav.good{background:var(--glaise-fill-selected)} .nav.good .ic{background:var(--glaise-primary)}
+  .nav.bad{border-left:3px solid #c76a2a;background:transparent}
+  .card-ok{background:var(--glaise-surface-1);border-radius:var(--glaise-radius-md);box-shadow:var(--glaise-shadow-1);padding:12px;font-size:var(--glaise-text-body-sm)}
+  .card-bad{background:var(--glaise-surface-1);border:1px solid var(--glaise-hairline-strong);box-shadow:0 6px 16px -6px rgba(0,0,0,.25);border-radius:var(--glaise-radius-md);padding:12px;font-size:var(--glaise-text-body-sm)}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:var(--glaise-text-caption);font-weight:600;padding:3px 9px;border-radius:var(--glaise-radius-pill);background:var(--glaise-surface-2);border:1px solid var(--glaise-hairline)}
+  .dot{width:7px;height:7px;border-radius:var(--glaise-radius-full);background:var(--glaise-success)}
+  .swatch{width:16px;height:16px;border-radius:4px;display:inline-block;vertical-align:middle}`,
+  body: () => `
+    <div class="rule">
+      <h4>Selection: fill, not a side-stripe</h4>
+      <p>Active nav item / row / callout = perceptible neutral fill (--glaise-fill-selected) + weight + a primary-colored icon. Never a left border or inset accent bar.</p>
+      <div class="pair">
+        <div class="ex"><div class="tag do">Do</div><div class="nav good"><span class="ic"></span>Visão geral</div></div>
+        <div class="ex"><div class="tag dont">Don't</div><div class="nav bad"><span class="ic"></span>Visão geral</div></div>
+      </div>
+    </div>
+    <div class="rule">
+      <h4>No improvised chromatic accent</h4>
+      <p>The default skin is monochrome — the primary is washed ink. Chroma (orange, teal, pink) is a brand/pigment decision in brand.css, never invented per screen. success/danger are semantic, earned by meaning, not accents.</p>
+      <div class="pair">
+        <div class="ex"><div class="tag do">Do</div><span class="swatch" style="background:var(--glaise-primary)"></span> primary = ink &nbsp; <span class="swatch" style="background:var(--glaise-success)"></span> success &nbsp; <span class="swatch" style="background:var(--glaise-danger)"></span> danger</div>
+        <div class="ex"><div class="tag dont">Don't</div><span class="swatch" style="background:#c76a2a"></span> a per-screen orange as brand accent (logo, active icon, pills)</div>
+      </div>
+    </div>
+    <div class="rule">
+      <h4>One elevation language per card</h4>
+      <p>A resting card carries the shadow token alone — on light it separates by value (light card on off-white canvas). Never stack a 1px border and a diffuse drop shadow (the "ghost card").</p>
+      <div class="pair">
+        <div class="ex"><div class="tag do">Do</div><div class="card-ok">Floats by value — shadow token only.</div></div>
+        <div class="ex"><div class="tag dont">Don't</div><div class="card-bad">Border + drop shadow stacked.</div></div>
+      </div>
+    </div>
+    <div class="rule">
+      <h4>Status as dot or pill, from the two semantics</h4>
+      <p>Status reads through --glaise-success / --glaise-danger as a dot or pill — never a decorative color, never a third accent hue on a data surface.</p>
+      <div class="pair">
+        <div class="ex"><div class="tag do">Do</div><span class="pill"><span class="dot"></span>Concluída</span></div>
+        <div class="ex"><div class="tag dont">Don't</div><span class="pill" style="background:#e7d3f5;border-color:#c9a2e8"><span class="dot" style="background:#8b3fd0"></span>Concluída</span></div>
+      </div>
+    </div>
+    <div class="rule">
+      <h4>Sidebar on chrome, workspace on canvas</h4>
+      <p>The sidebar sits on --glaise-chrome, a tone distinct from the workspace --glaise-canvas (sidebar darker, workspace lighter in light). Never paint them the same fill. CTAs use --glaise-radius-md corners, never pill-rounded.</p>
+    </div>`,
+});
+
 // --- write ----------------------------------------------------------------
 const FILES = {
+  "guidelines/Rules.html": guidelinesCard,
   "foundations/Colors.html": colorsCard,
   "foundations/Typography.html": typographyCard,
   "foundations/SpacingRadii.html": spacingCard,
@@ -385,5 +453,27 @@ for (const [rel, html] of Object.entries(FILES)) {
   writeFileSync(p, html);
   console.log(`✓ ${rel}`);
 }
-console.log(`\n✓ ${Object.keys(FILES).length} cards → ${outDir}`);
+
+// Emit _ds_manifest.json ourselves. Claude Design's self-check normally compiles
+// this from each card's @dsCard marker, but only when it reprocesses the project —
+// so an incremental sync into an already-open project leaves the index stale and the
+// new card never lists. Shipping the manifest with the bundle makes every upload
+// self-sufficient. Cards (path/group/viewport) are read back from each card's own
+// marker so the marker stays the single source of truth; array order = pane order.
+const cards = Object.keys(FILES).map((rel) => {
+  const m = FILES[rel].match(/^<!-- @dsCard group="([^"]+)" viewport="([^"]+)" -->/);
+  if (!m) throw new Error(`${rel}: first line is not a valid @dsCard marker`);
+  return { path: rel, group: m[1], viewport: m[2] };
+});
+const manifest = {
+  namespace: "Glaise",
+  components: [], startingPoints: [], cards,
+  templates: [], hasThumbnailHtml: false,
+  globalCssPaths: [], tokens: [], themes: [], fonts: [], brandFonts: [],
+  source: "glaise-design-sync",
+};
+writeFileSync(join(outDir, "_ds_manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
+console.log("✓ _ds_manifest.json");
+
+console.log(`\n✓ ${cards.length} cards + manifest → ${outDir}`);
 console.log(hasBrand ? `  skin: tokens.css + brand.css (${brandPath})` : "  skin: tokens.css (default — no brand.css found)");
